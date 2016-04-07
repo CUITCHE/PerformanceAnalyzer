@@ -24,25 +24,24 @@ typedef NS_OPTIONS(NSUInteger, CHPerformanceAnalyzerShowType) {
  * Create a window on the top(1<<5) view. Its frame is {(5, 64), (310, 100)}.
  *
  * Method: - (void)startAnalysis, start the enginer. Generally, the window will show
- * after 1 seconds when you invoke this method,。So Be Carefully.
+ * after 1 seconds when you invoke this method. So Be Carefully.
  *
- * Method: - (void)stopAnalysis, stop the enginer. The method will clear all of statistics
- * data.
+ * Method: - (void)stopAnalysis, stop the enginer. The method will clean all of
+ * statistics data.
  *
  * Feature 0: You can shake the device to start or stop the enginer.
  *
- * Feature 1: You can tap the window twice throught two fingers to save current statistics data.
+ * Feature 1: You can tap the window twice throught two fingers to save current
+ * statistics data.
  *
  * You can set CHPerformanceAnalyzerShowTypeSetting before you invoke + (instancetype)sharedPerformanceAnalyzer
  * first time to change what enginer should show statistics terms.
  *
  * There are some analysis modules:
  *
- * 1.Default. Just invoke start and stop method.
+ * 1.Default. Just invoke start and stop method.(You may need not to do it)
  *
- * 2.Register modules. All of modules will be record by registered modules.
- *
- * In addition, you can custom some methods by AOP to indicate the END of page 
+ * 2.Register modules. you can custom some methods by AOP to indicate the END of page
  * loading. However you should not to custom BEGIN of page loading, it is used by
  * analyzer defualtly.
  *
@@ -51,6 +50,8 @@ typedef NS_OPTIONS(NSUInteger, CHPerformanceAnalyzerShowType) {
 
 @property (nonatomic, weak) id<CHPerformanceAnalyzerDelegate> delegate;
 @property (nonatomic, readonly) CHPerformanceAnalyzerShowType type;
+/// modules in skipModules will be ignore.
+@property (nonatomic, strong, readonly) NSMutableArray<NSString *> *skipModules;
 
 + (instancetype)sharedPerformanceAnalyzer;
 - (instancetype)init NS_UNAVAILABLE;
@@ -70,19 +71,6 @@ typedef NS_OPTIONS(NSUInteger, CHPerformanceAnalyzerShowType) {
 - (void)stopAnalysis;
 
 /**
- * @author hejunqiu, 16-04-05 18:04:47
- *
- * If your app's module just contains string and not web view, you can invoke this
- * method to improve performance analyzer's performance.
- *
- * @param modules An array contains modules name that must be unique. We should 
- * check its uniqueness. If modules is not unique, will throw exception.
- *
- * @note Once you invoke this method successfully, analyzer only search from it.
- */
-//- (void)registerModules:(NSArray<NSString *> *)modules;
-
-/**
  * @author hejunqiu, 16-04-05 18:04:35
  *
  * You can make a rule that indicates a view controller completed loading. This
@@ -98,7 +86,26 @@ typedef NS_OPTIONS(NSUInteger, CHPerformanceAnalyzerShowType) {
                     originalSelector:(SEL)oriSelector
                               newSEL:(SEL)newSelector;
 
+/**
+ * @author hejunqiu, 16-04-07 11:04:31
+ *
+ * A method which inverses the '- (void)addObserver:forKeyPath:options:context:'.
+ * Observered gives its keyPath to analyzer so that analyzer will receive the change
+ * when observered's keyPath changed.
+ *
+ * @param observered A NSObject.
+ * @param keyPath    keyPath of property.
+ */
 - (void)addObservered:(NSObject *)observered forKeyPath:(NSString *)keyPath;
+
+/**
+ * @author hejunqiu, 16-04-07 11:04:21
+ *
+ * A method which inverses the '- (void)removeObserver:forKeyPath:context:'.
+ *
+ * @param observered A NSObject.
+ * @param keyPath    keyPath of property.
+ */
 - (void)removeObservered:(NSObject *)observered forKeyPath:(NSString *)keyPath;
 
 @end
@@ -125,12 +132,11 @@ FOUNDATION_EXTERN CHPerformanceAnalyzerShowType CHPerformanceAnalyzerShowTypeSet
  * @author hejunqiu, 16-03-30 15:03:33
  *
  * Defaultly You must set it at any where such as at your AppDelegate.m.
- * @code 
+ * @code
  * NSString *CHPerformanceAnalyzerApplicationDelegateClassName = @"AppDelegate";
  * @endcode
- * If your project's app delegate class is not it, You
- * can set it before you invoke + (instancetype)sharedPerformanceAnalyzer for first
- * time.
+ * If your project's app delegate class is not it, You should set it before you
+ * invoke + (instancetype)sharedPerformanceAnalyzer for first time.
  */
 FOUNDATION_EXTERN NSString *CHPerformanceAnalyzerApplicationDelegateClassName;
 
@@ -141,6 +147,17 @@ FOUNDATION_EXTERN NSString *CHPerformanceAnalyzerApplicationDelegateClassName;
  * analyzer start.
  */
 FOUNDATION_EXTERN void(^CHPerformanceAnalyzerAOPInitializer)();
+
+/**
+ * @author hejunqiu, 16-04-07 11:04:56
+ *
+ * Open the static library. The method is empty so that it will not do anything.
+ * If you want not to import 'CHPerformanceAnalyzer.h', just declare this method
+ * and invoke it in main function of main.mm file.
+ *
+ * @return void
+ */
+extern volatile void startPerformanceAnalyzer();
 
 @protocol CHPerformanceAnalyzerDelegate <NSObject>
 
@@ -155,25 +172,4 @@ FOUNDATION_EXTERN void(^CHPerformanceAnalyzerAOPInitializer)();
  */
 - (void)performanceAnalysis:(CHPerformanceAnalyzer *)analysiser completeWithFilePath:(NSString *)filePath;
 
-@end
-
-#if defined(__cplusplus)
-extern "C" {
-#endif
-    extern unsigned long long usageOfCurrentAPPMemory();
-    extern CGFloat usageOfCurrentAPPCPU();
-#if defined(__cplusplus)
-}
-#endif
-
-#pragma mark - tool
-@interface NSMutableArray<ObjectType> (Stack)
-
-- (void)push:(ObjectType)obj;
-- (ObjectType)pop;
-- (void)popFromIndex:(NSUInteger)index;
-- (void)clear;
-
-- (NSUInteger)find:(ObjectType)obj;
-- (ObjectType)findWithBlock:(BOOL(^)(ObjectType obj))block;
 @end

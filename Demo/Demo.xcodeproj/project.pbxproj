@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FB68F19C1CB632B50045B34F /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB68F19B1CB632B50045B34F /* WebViewController.m */; };
+		FB68F1AA1CB662400045B34F /* libPerformanceAnalyzer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FB68F1A91CB662400045B34F /* libPerformanceAnalyzer.a */; };
+		FB68F1B11CB662AE0045B34F /* CHPerformancerExterns.mm in Sources */ = {isa = PBXBuildFile; fileRef = FB68F1AF1CB662AE0045B34F /* CHPerformancerExterns.mm */; };
+		FB68F1B21CB662AE0045B34F /* libPerformanceAnalyzer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FB68F1B01CB662AE0045B34F /* libPerformanceAnalyzer.a */; };
 		FB7A96101CB4FA58008C698D /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = FB7A960F1CB4FA58008C698D /* main.mm */; };
 		FB7A96131CB4FA58008C698D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7A96121CB4FA58008C698D /* AppDelegate.m */; };
 		FB7A96161CB4FA58008C698D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7A96151CB4FA58008C698D /* ViewController.m */; };
@@ -14,8 +18,6 @@
 		FB7A961E1CB4FA58008C698D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB7A961C1CB4FA58008C698D /* LaunchScreen.storyboard */; };
 		FB7A96291CB4FA59008C698D /* DemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7A96281CB4FA59008C698D /* DemoTests.m */; };
 		FB7A96341CB4FA59008C698D /* DemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7A96331CB4FA59008C698D /* DemoUITests.m */; };
-		FB7A96A81CB50521008C698D /* CHPerformancerExterns.mm in Sources */ = {isa = PBXBuildFile; fileRef = FB7A96A51CB50521008C698D /* CHPerformancerExterns.mm */; };
-		FB7A96B81CB50B59008C698D /* libPerformanceAnalyzer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FB7A96A61CB50521008C698D /* libPerformanceAnalyzer.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +38,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FB68F19A1CB632B50045B34F /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
+		FB68F19B1CB632B50045B34F /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
+		FB68F1A91CB662400045B34F /* libPerformanceAnalyzer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPerformanceAnalyzer.a; path = ../PerformanceAnalyzer/libPerformanceAnalyzer.a; sourceTree = "<group>"; };
+		FB68F1AD1CB662AE0045B34F /* CHPerformanceAnalyzer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHPerformanceAnalyzer.h; sourceTree = "<group>"; };
+		FB68F1AE1CB662AE0045B34F /* CHPerformancerExterns.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHPerformancerExterns.h; sourceTree = "<group>"; };
+		FB68F1AF1CB662AE0045B34F /* CHPerformancerExterns.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CHPerformancerExterns.mm; sourceTree = "<group>"; };
+		FB68F1B01CB662AE0045B34F /* libPerformanceAnalyzer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libPerformanceAnalyzer.a; sourceTree = "<group>"; };
 		FB7A960B1CB4FA58008C698D /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB7A960F1CB4FA58008C698D /* main.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
 		FB7A96111CB4FA58008C698D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -51,10 +60,6 @@
 		FB7A962F1CB4FA59008C698D /* DemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB7A96331CB4FA59008C698D /* DemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemoUITests.m; sourceTree = "<group>"; };
 		FB7A96351CB4FA59008C698D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FB7A96A21CB50521008C698D /* CHPerformanceAnalyzer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHPerformanceAnalyzer.h; sourceTree = "<group>"; };
-		FB7A96A41CB50521008C698D /* CHPerformancerExterns.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHPerformancerExterns.h; sourceTree = "<group>"; };
-		FB7A96A51CB50521008C698D /* CHPerformancerExterns.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CHPerformancerExterns.mm; sourceTree = "<group>"; };
-		FB7A96A61CB50521008C698D /* libPerformanceAnalyzer.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libPerformanceAnalyzer.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,7 +67,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FB7A96B81CB50B59008C698D /* libPerformanceAnalyzer.a in Frameworks */,
+				FB68F1B21CB662AE0045B34F /* libPerformanceAnalyzer.a in Frameworks */,
+				FB68F1AA1CB662400045B34F /* libPerformanceAnalyzer.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,9 +89,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FB68F1AB1CB662AE0045B34F /* PerformanceAnalyzer */ = {
+			isa = PBXGroup;
+			children = (
+				FB68F1AC1CB662AE0045B34F /* include */,
+				FB68F1B01CB662AE0045B34F /* libPerformanceAnalyzer.a */,
+			);
+			path = PerformanceAnalyzer;
+			sourceTree = "<group>";
+		};
+		FB68F1AC1CB662AE0045B34F /* include */ = {
+			isa = PBXGroup;
+			children = (
+				FB68F1AD1CB662AE0045B34F /* CHPerformanceAnalyzer.h */,
+				FB68F1AE1CB662AE0045B34F /* CHPerformancerExterns.h */,
+				FB68F1AF1CB662AE0045B34F /* CHPerformancerExterns.mm */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
 		FB7A96021CB4FA58008C698D = {
 			isa = PBXGroup;
 			children = (
+				FB68F1A91CB662400045B34F /* libPerformanceAnalyzer.a */,
 				FB7A960D1CB4FA58008C698D /* Demo */,
 				FB7A96271CB4FA59008C698D /* DemoTests */,
 				FB7A96321CB4FA59008C698D /* DemoUITests */,
@@ -106,11 +132,13 @@
 		FB7A960D1CB4FA58008C698D /* Demo */ = {
 			isa = PBXGroup;
 			children = (
-				FB7A96A11CB50521008C698D /* framework */,
+				FB68F1AB1CB662AE0045B34F /* PerformanceAnalyzer */,
 				FB7A96111CB4FA58008C698D /* AppDelegate.h */,
 				FB7A96121CB4FA58008C698D /* AppDelegate.m */,
 				FB7A96141CB4FA58008C698D /* ViewController.h */,
 				FB7A96151CB4FA58008C698D /* ViewController.m */,
+				FB68F19A1CB632B50045B34F /* WebViewController.h */,
+				FB68F19B1CB632B50045B34F /* WebViewController.m */,
 				FB7A961A1CB4FA58008C698D /* Assets.xcassets */,
 				FB7A961C1CB4FA58008C698D /* LaunchScreen.storyboard */,
 				FB7A961F1CB4FA58008C698D /* Info.plist */,
@@ -143,17 +171,6 @@
 				FB7A96351CB4FA59008C698D /* Info.plist */,
 			);
 			path = DemoUITests;
-			sourceTree = "<group>";
-		};
-		FB7A96A11CB50521008C698D /* framework */ = {
-			isa = PBXGroup;
-			children = (
-				FB7A96A21CB50521008C698D /* CHPerformanceAnalyzer.h */,
-				FB7A96A41CB50521008C698D /* CHPerformancerExterns.h */,
-				FB7A96A51CB50521008C698D /* CHPerformancerExterns.mm */,
-				FB7A96A61CB50521008C698D /* libPerformanceAnalyzer.a */,
-			);
-			path = framework;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -288,10 +305,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB68F19C1CB632B50045B34F /* WebViewController.m in Sources */,
 				FB7A96161CB4FA58008C698D /* ViewController.m in Sources */,
 				FB7A96131CB4FA58008C698D /* AppDelegate.m in Sources */,
 				FB7A96101CB4FA58008C698D /* main.mm in Sources */,
-				FB7A96A81CB50521008C698D /* CHPerformancerExterns.mm in Sources */,
+				FB68F1B11CB662AE0045B34F /* CHPerformancerExterns.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -429,6 +447,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Demo/framework",
+					"$(PROJECT_DIR)/PerformanceAnalyzer",
+					"$(PROJECT_DIR)/Demo/PerformanceAnalyzer",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cn.hejunqiu.che.Demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -445,6 +465,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Demo/framework",
+					"$(PROJECT_DIR)/PerformanceAnalyzer",
+					"$(PROJECT_DIR)/Demo/PerformanceAnalyzer",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cn.hejunqiu.che.Demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
