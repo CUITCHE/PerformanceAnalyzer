@@ -108,6 +108,7 @@ iOS平台下可对APP的CPU、FPS、Memory、LoadingTime进行内部统计的一
 - Module的名字来自navigationItem的title属性，请设置它的属性，如果没有analyzer就会从它的titleView中查找，如果没有就会为null。
 - 每个View Controller的加载时间是从调用`- (void)loadView`前开始，直到调用完`- (void)viewDidAppear:`
 - 更多信息，请查看我的[CHPerformanceAnalyzer.h](./PerformanceAnalyzer/PerformanceAnalyzer/include/CHPerformanceAnalyzer.h)，这里面的注释很详尽。
+- 关于libPerformanceAnalyzer.a，它包含了模拟器和真机的Debug和Release版本的链接库信息，所以比较大。
 
 # 联系方式
 - Email：[xiaohe918@vip.qq.com](mailto:xiaohe918@vip.qq.com) 欢迎来信告诉我bug！也欢迎交流！
