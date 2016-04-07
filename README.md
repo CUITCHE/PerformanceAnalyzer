@@ -40,11 +40,11 @@ iOS平台下可对APP的CPU、FPS、Memory、LoadingTime进行内部统计的一
 
 ## 如何获得统计数据
 - 当你用两根手指连续点击统计界面2次就会将当前的统计数据保存到沙盒。
-- CHPerformanceAnalyzer有一个delegate，它遵从CHPerformanceAnalyzerDelegate协议，这个协议有个可选方法`- (void)performanceAnalysis:completeWithFilePath:;`，每当你触发了保存操作后，它就会被调用。它会告诉你数据保存的位置。
-- analyzer把统计数据保存在了沙盒的共享目录下，你可以给工程的ingo.plist添加'Application supports iTunes file sharing'字段，并设置为`YES`，你就可以把手机连上iTunes，在`应用`界面，向下滑到'文件共享'拦，选择你的APP，就会看下图：
+- CHPerformanceAnalyzer有一个delegate，它遵从CHPerformanceAnalyzerDelegate协议，这个协议有个可选方法`- (void)performanceAnalysis:completeWithFilePath:`，每当你触发了保存操作后，它就会被调用。它会告诉你数据保存的位置。
+- analyzer把统计数据保存在了沙盒的共享目录下，你可以给工程的info.plist添加'Application supports iTunes file sharing'字段，并设置为`YES`，你就可以把手机连上iTunes，在`应用`界面，向下滑到'文件共享'栏，选择你的APP，就会看到下图：
 ![](./res/1.png)
 `performance.txt`就是统计数据了。
-- 统计数据的格式是Excel的csv格式可以直接导入Excel的，具体教程请看[这里](http://jingyan.baidu.com/article/e6c8503c2d44e3e54f1a18c7.html)。analyzer的默认的数据分隔符是英文逗号，请记得选择。转换的时候，可能有编码问题，如果出现这个问题，建议先把原始数据转换成中文编码再导入。
+- 统计数据的格式是Excel的csv格式，它是可以直接导入Excel的，具体教程请看[这里](http://jingyan.baidu.com/article/e6c8503c2d44e3e54f1a18c7.html)。analyzer的默认的数据分隔符是英文逗号，请记得选择。转换的时候，可能有编码问题，如果出现这个问题，建议先把原始数据转换成中文编码再导入。
 
 ## 自定义设置加载时间的END FLAG
 如果有的view controller比较特殊，需要延迟一会儿才能加载完整个界面，而此时`- (void)viewDidAppear:`已经被调用过。此时，需要自己去定制一个方法去表示END FLAG并替换analyzer的END FLAG。你可以查看我在PerformanceAnalyzer里面的[CHPerformancerExterns.mm](./PerformanceAnalyzer/include/CHPerformancerExterns.mm)文件。为了方便解释，这里贴出代码：
@@ -86,9 +86,9 @@ iOS平台下可对APP的CPU、FPS、Memory、LoadingTime进行内部统计的一
     };
 ```
 我们加载一个网页的时候，当调用了协议方法`- (void)webViewDidFinishLoad:`后，就代表网页加载完毕了，我在这个方法中更改了navigation的标题。
-`[analyzer addObservered:self forKeyPath:@"navigationItem.title"];`的作用就是让analyzer作为Controller的观察者，观察Controller的`navigationItem.title`属性路径，发生了新值变化后，analyzer就会收到对应通知，此时analyzer就会更新页面的加载时间。你也可以关注其它属性路径，我这儿只是抛砖引玉。
+`[analyzer addObservered:self forKeyPath:@"navigationItem.title"]`的作用就是让analyzer作为Controller的观察者，观察Controller的`navigationItem.title`属性路径，当发生了新值变化后，analyzer就会收到对应通知，此时analyzer就会更新页面的加载时间。你也可以关注其它属性路径，我这儿只是抛砖引玉。
 
-其中`[self viewDidAppear_aop2:animated];`和在`CHPerformanceAnalyzerAOPInitializer`block中的
+其中`[self viewDidAppear_aop2:animated]`和在`CHPerformanceAnalyzerAOPInitializer`block中的
 ```
 [analyzer registerLoadingRuleWithClass:[WebViewController class]
                             originalSelector:@selector(viewDidAppear:)
@@ -105,7 +105,7 @@ iOS平台下可对APP的CPU、FPS、Memory、LoadingTime进行内部统计的一
 摇晃手机就可以关闭anayzer，再次摇晃就会开启。
 
 # 注意
-- Module的名字来自navigationItem的title属性，请设置它的属性，如果没有CHPerformanceAnalyzer就会从它的titleView中查找，如果没有就会为null。
+- Module的名字来自navigationItem的title属性，请设置它的属性，如果没有analyzer就会从它的titleView中查找，如果没有就会为null。
 - 每个View Controller的加载时间是从调用`- (void)loadView`前开始，直到调用完`- (void)viewDidAppear:`
 - 更多信息，请查看我的[CHPerformanceAnalyzer.h](./PerformanceAnalyzer/PerformanceAnalyzer/include/CHPerformanceAnalyzer.h)，这里面的注释很详尽。
 
