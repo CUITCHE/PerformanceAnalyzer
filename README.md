@@ -22,6 +22,13 @@ iOS平台下可对APP的CPU、FPS、Memory、LoadingTime进行内部统计的一
     ```
 - 请运行工程，尽情使用吧！
 
+# Demo截图
+![](./res/2.png)
+![](./res/3.png)
+
+你可以移动它到你想要的位置。
+![](./res/4.png)
+
 # 扩展使用
 ## 自定义数据统计项
 你可以在全局的任何地方定义`CHPerformanceAnalyzerShowType CHPerformanceAnalyzerShowTypeSetting;`来控制统计项，它的值请看[CHPerformanceAnalyzer.h](./PerformanceAnalyzer/include/CHPerformanceAnalyzer.h)中的定义。
@@ -33,9 +40,9 @@ iOS平台下可对APP的CPU、FPS、Memory、LoadingTime进行内部统计的一
 
 ## 如何获得统计数据
 - 当你用两根手指连续点击统计界面2次就会将当前的统计数据保存到沙盒。
-- CHPerformanceAnalyzer有一个delegate，它遵从CHPerformanceAnalyzerDelegate协议，这个协议有个可选方法`- (void)performanceAnalysis: completeWithFilePath:;`，每当你触发了保存操作后，它就会被调用。它会告诉你数据保存的位置。
+- CHPerformanceAnalyzer有一个delegate，它遵从CHPerformanceAnalyzerDelegate协议，这个协议有个可选方法`- (void)performanceAnalysis:completeWithFilePath:;`，每当你触发了保存操作后，它就会被调用。它会告诉你数据保存的位置。
 - analyzer把统计数据保存在了沙盒的共享目录下，你可以给工程的ingo.plist添加'Application supports iTunes file sharing'字段，并设置为`YES`，你就可以把手机连上iTunes，在`应用`界面，向下滑到'文件共享'拦，选择你的APP，就会看下图：
-[](./res/1.png)
+![](./res/1.png)
 `performance.txt`就是统计数据了。
 - 统计数据的格式是Excel的csv格式可以直接导入Excel的，具体教程请看[这里](http://jingyan.baidu.com/article/e6c8503c2d44e3e54f1a18c7.html)。analyzer的默认的数据分隔符是英文逗号，请记得选择。转换的时候，可能有编码问题，如果出现这个问题，建议先把原始数据转换成中文编码再导入。
 
@@ -100,3 +107,8 @@ iOS平台下可对APP的CPU、FPS、Memory、LoadingTime进行内部统计的一
 # 注意
 - Module的名字来自navigationItem的title属性，请设置它的属性，如果没有CHPerformanceAnalyzer就会从它的titleView中查找，如果没有就会为null。
 - 每个View Controller的加载时间是从调用`- (void)loadView`前开始，直到调用完`- (void)viewDidAppear:`
+- 更多信息，请查看我的[CHPerformanceAnalyzer.h](./PerformanceAnalyzer/PerformanceAnalyzer/include/CHPerformanceAnalyzer.h)，这里面的注释很详尽。
+
+# 联系方式
+- Email：[xiaohe918@vip.qq.com](mailto:xiaohe918@vip.qq.com) 欢迎来信告诉我bug！也欢迎交流！
+- QQ：947702755
