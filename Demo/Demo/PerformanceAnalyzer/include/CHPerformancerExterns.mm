@@ -51,3 +51,4 @@ void(^CHPerformanceAnalyzerAOPInitializer)() = ^{
 };
 
 NSString *CHPerformanceAnalyzerApplicationDelegateClassName = @"AppDelegate";
+CHPerformanceAnalyzerShowType CHPerformanceAnalyzerShowTypeSetting = CHPerformanceAnalyzerShowTypeAll;
