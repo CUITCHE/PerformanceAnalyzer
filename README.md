@@ -1,4 +1,4 @@
-# PerformanceAnalyzer
+# PerformanceAnalyzer 开源啦!!!
 iOS平台下可对APP的CPU、FPS、Memory、LoadingTime进行内部统计的一款工具，并提供统计数据的输出。
 # 前言
 有项目需求，所以做了这款性能分析工具。正如简介所说，它可以统计iOS APP的CPU、FPS、Memory、LoadingTime。由于我在工具内部设定的是默认0.5秒统计一次所有数据（FPS除外，它一秒统计一次）故而内存开销可能比较大，所以如果你特别在意内存，建议只统计内存，把其它统计项关掉，至于怎么关掉，可以看看后文的详解。
@@ -6,21 +6,9 @@ iOS平台下可对APP的CPU、FPS、Memory、LoadingTime进行内部统计的一
 只需要把PerformanceAnalyzer文件夹包含进入你的工程，然后修改一下`main.m`文件少许代码就可以启动性能分析器，你甚至都不用包含任何文件。
 
 # 如何使用
-- 将我传入的`PerformanceAnalyzer`文件夹复制到你的工程。选择`项目工程`->`Build Phases`->`Link Binary With Libraries`把`libPerformanceAnalyzer.a`添加进去。
-- 你不需要包含`CHPerformanceAnalyzer.h`。
-- 把项目的`main.m`改成`main.mm`，在main函数中调用`startPerformanceAnalyzer()`方法。可以参考下面的代码，你需要前置声明`extern void startPerformanceAnalyzer()`，因为这个方法存在于性能分析器静态库中，它的作用就是启动性能分析，这个函数将不会做任何多余的工作，它其实就是一个空函数，仅仅是为了把libPerformanceAnalyzer.a中的符号导入到你的工程中。
-
-    ```Objective-C
-    extern void startPerformanceAnalyzer();
-
-    int main(int argc, char * argv[]) {
-        @autoreleasepool {
-            startPerformanceAnalyzer();
-            return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
-        }
-    }
-    ```
-- 请运行工程，尽情使用吧！
+- 将'PerformanceAnalyzer/CHPerformanceAnalyzer/CHPerformanceAnalyzer/PerformanceAnalyzer1.0.1/'拷贝至你的工程即可。
+- 启动你的APP吧，我们为效率而生！
+- 就只需要这样，不需要额外的代码。
 
 # Demo截图
 ![](./res/2.png)
@@ -56,13 +44,13 @@ iOS平台下可对APP的CPU、FPS、Memory、LoadingTime进行内部统计的一
 
     @implementation WebViewController (PageLoading)
 
-    - (void)viewDidAppear_aop2:(BOOL)animated
+    - (void)loadView_aop2
     {
         CHPerformanceAnalyzer *analyzer = [CHPerformanceAnalyzer sharedPerformanceAnalyzer];
         // 反观察者模式，让analyzer成为这个'self'的观察者，去关注属性路径'navigationItem.title'
         [analyzer addObservered:self forKeyPath:@"navigationItem.title"];
         // 这句只能在上面的后面，颠倒位置将不会正确统计信息
-        [self viewDidAppear_aop2:animated];
+        [self loadView_aop2];
     }
 
     - (void)viewDidDisappear_aop:(BOOL)animated
@@ -77,12 +65,12 @@ iOS平台下可对APP的CPU、FPS、Memory、LoadingTime进行内部统计的一
 
     void(^CHPerformanceAnalyzerAOPInitializer)() = ^{
         CHPerformanceAnalyzer *analyzer = [CHPerformanceAnalyzer sharedPerformanceAnalyzer];
-        [analyzer registerLoadingRuleWithClass:[WebViewController class]
-                            originalSelector:@selector(viewDidAppear:)
-                                        newSEL:@selector(viewDidAppear_aop2:)];
-        [analyzer registerLoadingRuleWithClass:[WebViewController class]
-                            originalSelector:@selector(viewDidDisappear:)
-                                        newSEL:@selector(viewDidDisappear_aop:)];
+    [analyzer registerLoadingRuleWithClass:[WebViewController class]
+                          originalSelector:@selector(loadView)
+                                    newSEL:@selector(loadView_aop2)];
+    [analyzer registerLoadingRuleWithClass:[WebViewController class]
+                          originalSelector:@selector(viewDidDisappear:)
+                                    newSEL:@selector(viewDidDisappear_aop:)];
     };
 ```
 我们加载一个网页的时候，当调用了协议方法`- (void)webViewDidFinishLoad:`后，就代表网页加载完毕了，我在这个方法中更改了navigation的标题。
@@ -98,8 +86,8 @@ iOS平台下可对APP的CPU、FPS、Memory、LoadingTime进行内部统计的一
 
 注意：不能使用`viewDidAppear_aop`作为你的自定义函数名字，analyzer内部采用了这个名字，如果不幸，你这样使用，将会进入无限递归直至爆栈。
 
-## 跳过特定的模块
-你可以设置analyzer的skipModules属性的值，来跳过一些模块的统计。
+## 提供统计数据接口
+现在，你可以通过属性`modulesOfStatistic`获得分析器经历的所有模块的名称，然后根据这些模块调用`- (id)statisticsWithType:ofKey:`获得统计数据，返回值一般是一个NSArray对象，为了方便今后增加新的统计数据模型，故这里写成id类型。
 
 ## 关闭统计
 摇晃手机就可以关闭anayzer，再次摇晃就会开启。
@@ -107,9 +95,3 @@ iOS平台下可对APP的CPU、FPS、Memory、LoadingTime进行内部统计的一
 # 注意
 - Module的名字来自navigationItem的title属性，请设置它的属性，如果没有analyzer就会从它的titleView中查找，如果没有就会为null。
 - 每个View Controller的加载时间是从调用`- (void)loadView`前开始，直到调用完`- (void)viewDidAppear:`
-- 更多信息，请查看我的[CHPerformanceAnalyzer.h](./PerformanceAnalyzer/PerformanceAnalyzer/include/CHPerformanceAnalyzer.h)，这里面的注释很详尽。
-- 关于libPerformanceAnalyzer.a，它包含了模拟器和真机的Debug和Release版本的链接库信息，所以比较大。
-
-# 联系方式
-- Email：[xiaohe918@vip.qq.com](mailto:xiaohe918@vip.qq.com) 欢迎来信告诉我bug！也欢迎交流！
-- QQ：947702755

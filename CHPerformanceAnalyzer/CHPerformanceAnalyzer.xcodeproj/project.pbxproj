@@ -18,7 +18,7 @@
 		FB7A44231D3E2B59002BD219 /* CHPerformanceAnalyzer.mm in Sources */ = {isa = PBXBuildFile; fileRef = FB7A44011D3E2B59002BD219 /* CHPerformanceAnalyzer.mm */; };
 		FB7A44241D3E2B59002BD219 /* CHPerformanceData.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7A44031D3E2B59002BD219 /* CHPerformanceData.m */; };
 		FB7A44251D3E2B59002BD219 /* CHPerformanceDataPackager.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7A44051D3E2B59002BD219 /* CHPerformanceDataPackager.m */; };
-		FB7A44261D3E2B59002BD219 /* CHPerformancerExterns.mm in Sources */ = {isa = PBXBuildFile; fileRef = FB7A44071D3E2B59002BD219 /* CHPerformancerExterns.mm */; };
+		FB7A44261D3E2B59002BD219 /* CHPerformancerExterns.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7A44071D3E2B59002BD219 /* CHPerformancerExterns.m */; };
 		FB7A44271D3E2B59002BD219 /* NSMutableArray+Stack.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7A44091D3E2B59002BD219 /* NSMutableArray+Stack.m */; };
 		FB7A44281D3E2B59002BD219 /* CHAOPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7A440C1D3E2B59002BD219 /* CHAOPManager.m */; };
 		FB7A44291D3E2B59002BD219 /* CHTime.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7A440E1D3E2B59002BD219 /* CHTime.m */; };
@@ -52,7 +52,7 @@
 		FB7A44041D3E2B59002BD219 /* CHPerformanceDataPackager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHPerformanceDataPackager.h; sourceTree = "<group>"; };
 		FB7A44051D3E2B59002BD219 /* CHPerformanceDataPackager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHPerformanceDataPackager.m; sourceTree = "<group>"; };
 		FB7A44061D3E2B59002BD219 /* CHPerformancerExterns.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHPerformancerExterns.h; sourceTree = "<group>"; };
-		FB7A44071D3E2B59002BD219 /* CHPerformancerExterns.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CHPerformancerExterns.mm; sourceTree = "<group>"; };
+		FB7A44071D3E2B59002BD219 /* CHPerformancerExterns.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHPerformancerExterns.m; sourceTree = "<group>"; };
 		FB7A44081D3E2B59002BD219 /* NSMutableArray+Stack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Stack.h"; sourceTree = "<group>"; };
 		FB7A44091D3E2B59002BD219 /* NSMutableArray+Stack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Stack.m"; sourceTree = "<group>"; };
 		FB7A440B1D3E2B59002BD219 /* CHAOPManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHAOPManager.h; sourceTree = "<group>"; };
@@ -153,7 +153,7 @@
 				FB7A44041D3E2B59002BD219 /* CHPerformanceDataPackager.h */,
 				FB7A44051D3E2B59002BD219 /* CHPerformanceDataPackager.m */,
 				FB7A44061D3E2B59002BD219 /* CHPerformancerExterns.h */,
-				FB7A44071D3E2B59002BD219 /* CHPerformancerExterns.mm */,
+				FB7A44071D3E2B59002BD219 /* CHPerformancerExterns.m */,
 				FB7A44081D3E2B59002BD219 /* NSMutableArray+Stack.h */,
 				FB7A44091D3E2B59002BD219 /* NSMutableArray+Stack.m */,
 			);
@@ -294,7 +294,7 @@
 				FB11B3501D3CB0790068AB27 /* AppDelegate.m in Sources */,
 				FB7A442B1D3E2B59002BD219 /* ALView+PureLayout.m in Sources */,
 				FB7A43D61D3E1729002BD219 /* WebViewController.m in Sources */,
-				FB7A44261D3E2B59002BD219 /* CHPerformancerExterns.mm in Sources */,
+				FB7A44261D3E2B59002BD219 /* CHPerformancerExterns.m in Sources */,
 				FB7A44241D3E2B59002BD219 /* CHPerformanceData.m in Sources */,
 				FB11B34D1D3CB0790068AB27 /* main.m in Sources */,
 			);
