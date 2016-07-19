@@ -3,7 +3,7 @@
 Under the iOS platform, the analyzer is a tool which statistics CPU, FPS, Memory, Loading-Time and provides the output of statistical data.
 # Preface
 Because of the needs of project, I write the code for performance analyzer. As above, the analyzer can statistic some app-data, such as CPU, FPS, Memory, Loading-Time. And the memory overhead may be large because analyzer statistics every 0.5s defaultly(except FPS, it does it every 1s). So If you really care about memory overhead, you can switch off other statistical items and only open the Memory statistical item. As for how to turn off, you can see the detailed in below chapters.
-# Advantage
+# Advantages
 - Only include directory named `PerformanceAnalyzer` into your project. Don't need to do anythig except that, and then run your code.
 - source code contains method `NSUInteger accurateInstanceMemoryReserved()` which eliminates analyzer's memory. (However method also exists bug, waiting for fix)
 
