@@ -76,15 +76,15 @@ iOS平台下可对APP的CPU、FPS、Memory、LoadingTime进行内部统计的一
 我们加载一个网页的时候，当调用了协议方法`- (void)webViewDidFinishLoad:`后，就代表网页加载完毕了，我在这个方法中更改了navigation的标题。
 `[analyzer addObservered:self forKeyPath:@"navigationItem.title"]`的作用就是让analyzer作为Controller的观察者，观察Controller的`navigationItem.title`属性路径，当发生了新值变化后，analyzer就会收到对应通知，此时analyzer就会更新页面的加载时间。你也可以关注其它属性路径，我这儿只是抛砖引玉。
 
-其中`[self viewDidAppear_aop2:animated]`和在`CHPerformanceAnalyzerAOPInitializer`block中的
+其中`[self loadView_aop2]`和在`CHPerformanceAnalyzerAOPInitializer`block中的
 ```
 [analyzer registerLoadingRuleWithClass:[WebViewController class]
-                            originalSelector:@selector(viewDidAppear:)
-                                        newSEL:@selector(viewDidAppear_aop2:)];
+                      originalSelector:@selector(loadView)
+                                newSEL:@selector(loadView_aop2)];
 ```
 这两句的代码以及顺序不能颠倒，这两句采用了AOP技术，更新内部实现。
 
-注意：不能使用`viewDidAppear_aop`作为你的自定义函数名字，analyzer内部采用了这个名字，如果不幸，你这样使用，将会进入无限递归直至爆栈。
+注意：不能使用`loadView_aop`作为你的自定义函数名字，analyzer内部采用了这个名字，如果不幸，你这样使用，将会进入无限递归直至爆栈。
 
 ## 提供统计数据接口
 现在，你可以通过属性`modulesOfStatistic`获得分析器经历的所有模块的名称，然后根据这些模块调用`- (id)statisticsWithType:ofKey:`获得统计数据，返回值一般是一个NSArray对象，为了方便今后增加新的统计数据模型，故这里写成id类型。
@@ -93,5 +93,5 @@ iOS平台下可对APP的CPU、FPS、Memory、LoadingTime进行内部统计的一
 摇晃手机就可以关闭anayzer，再次摇晃就会开启。
 
 # 注意
-- Module的名字来自navigationItem的title属性，请设置它的属性，如果没有analyzer就会从它的titleView中查找，如果没有就会为null。
+- Module的名字来自`viewController`的`title`属性，如果没有就会取`navigationItem`的`title`属性。如果还没有，就会尝试调用delegate的`- (NSString *)performanceAnalyzer: titleMethodWithViewController:`方法。
 - 每个View Controller的加载时间是从调用`- (void)loadView`前开始，直到调用完`- (void)viewDidAppear:`

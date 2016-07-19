@@ -399,11 +399,8 @@ struct __InternalMethodFlags {
         if (title) {
             break;
         }
-        id titleView = viewController.navigationItem.titleView;
-        if ([titleView isKindOfClass:[UIButton class]]) {
-            title = ((UIButton *)titleView).titleLabel.text;
-        } else if ([titleView isKindOfClass:[UILabel class]]) {
-            title = ((UILabel *)titleView).text;
+        if (_analyzerFlags.methodFlagPerformanceAnalyzerTitleMethodWithViewController) {
+            title = [_delegate performanceAnalyzer:self titleMethodWithViewController:viewController];
         }
     } while (0);
     Class cls = [viewController class];
