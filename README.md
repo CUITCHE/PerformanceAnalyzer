@@ -96,3 +96,9 @@ iOS平台下可对APP的CPU、FPS、Memory、LoadingTime进行内部统计的一
 # 注意
 - Module的名字来自`viewController`的`title`属性，如果没有就会取`navigationItem`的`title`属性。如果还没有，就会尝试调用delegate的`- (NSString *)performanceAnalyzer: titleMethodWithViewController:`方法。
 - 每个View Controller的加载时间是从调用`- (void)loadView`前开始，直到调用完`- (void)viewDidAppear:`
+
+# Enviroment
+- Xcode 7.3
+- iOS 7.0+
+- [PureLayout](https://github.com/PureLayout/PureLayout)
+- ExtObj
