@@ -22,7 +22,11 @@ extern "C" {
     NS_INLINE unsigned long long usageOfCurrentAPPMemory();
     NS_INLINE CGFloat usageOfCurrentAPPCPU();
     NS_INLINE NSString *PerformanceDataFilePath();
-    NS_INLINE BOOL application_aop_didFinishLaunchingWithOptions(id self, SEL selector, UIApplication *application, NSDictionary *launchOptions);
+    NS_INLINE BOOL application_aop_didFinishLaunchingWithOptions(id self,
+                                                                 SEL selector,
+                                                                 UIApplication *application,
+                                                                 NSDictionary *launchOptions);
+    NS_INLINE NSUInteger accurateInstanceMemoryReserved(id instance, BOOL containerDeep = NO);
 #if defined(__cplusplus)
 }
 #endif
@@ -65,22 +69,24 @@ __weak CHPerformanceAnalyzerWindow *instanceButInternal = []() {
 struct __InternalMethodFlags {
     uint32_t needRecordMemoryIncrement   : 1;
     uint32_t needStatisticReservedMemory : 1;
-    uint32_t methodFlagPerformanceAnalyzerCompleteWithFilePath : 1;
+    uint32_t methodFlagPerformanceAnalyzerCompleteWithFilePath          : 1;
     uint32_t methodFlagPerformanceAnalyzerTitleMethodWithViewController : 1;
 };
 
 @interface CHPerformanceAnalyzer () <CHPerformanceAnalyzerWindowDelegate>
 {
-    struct __InternalMethodFlags _analyzerFlags;
-    NSMutableArray<CHObserveredPrivate *> *_registeredObservereds;
-    CHTime *_loadingTime;
+    NSUInteger                  _fpsCount;
+    CFTimeInterval              _fpsLastTime;
+    CHTime *                    _loadingTime;
+    NSUInteger                  _analyzerReserved;
     NSMutableArray<NSString *> *_moduleStack;
+    struct __InternalMethodFlags                          _analyzerFlags;
+    NSMutableArray<CHObserveredPrivate *> *               _registeredObservereds;
     NSMutableDictionary<NSString *, CHPerformanceData *> *_performanceData;
-    NSUInteger _analyzerReserved;
 }
 
-@property (nonatomic, strong) CHPerformanceAnalyzerWindow *performanceWindow;
 @property (nonatomic, copy) NSString *title;
+@property (nonatomic, strong) CHPerformanceAnalyzerWindow *performanceWindow;
 
 @property (nonatomic, strong) CADisplayLink *fpsDisplayLinker;
 @property (nonatomic, strong) NSTimer *updater;
@@ -119,6 +125,7 @@ struct __InternalMethodFlags {
 
 - (void)accurateMemoryReservedForInitial
 {
+    _analyzerReserved ^= _analyzerReserved;
     _analyzerReserved += accurateInstanceMemoryReserved(_loadingTime);
     _analyzerReserved += accurateInstanceMemoryReserved(_title);
     _analyzerReserved += accurateInstanceMemoryReserved(_performanceWindow);
@@ -127,9 +134,9 @@ struct __InternalMethodFlags {
 - (NSUInteger)accurateMemoryReserved
 {
     NSUInteger reserved = accurateInstanceMemoryReserved(_registeredObservereds) +
-                          accurateInstanceMemoryReserved(_moduleStack) +
-                          accurateInstanceMemoryReserved(_performanceData);
-    return reserved;
+                          accurateInstanceMemoryReserved(_moduleStack, YES) +
+                          accurateInstanceMemoryReserved(_performanceData, YES);
+    return reserved + _analyzerReserved;
 }
 
 #pragma mark - Interface
@@ -175,8 +182,11 @@ struct __InternalMethodFlags {
 
     self.performanceWindow.hidden = YES;
     [self.performanceWindow resignKeyWindow];
+
     [_moduleStack removeAllObjects];
     [_performanceData removeAllObjects];
+    _fpsCount    = 0;
+    _fpsLastTime = 0;
 }
 
 - (NSArray<NSString *> *)modulesOfStatistic
@@ -188,19 +198,21 @@ struct __InternalMethodFlags {
 {
     CHPerformanceData *d = [_performanceData valueForKey:moduleKey];
     NSArray<NSNumber *> *tmp = nil;
-    switch (type) {
-        case CHPerformanceDataTypeCPU:
-            tmp = d.cpu;
-            break;
-        case CHPerformanceDataTypeMemory:
-            tmp = d.memory;
-            break;
-        case CHPerformanceDataTypeFPS:
-            tmp = d.fps;
-            break;
-        case CHPerformanceDataTypeLoadingTime:
-            tmp = d.loadingTime;
-            break;
+    if (d) {
+        switch (type) {
+            case CHPerformanceDataTypeCPU:
+                tmp = d.cpu;
+                break;
+            case CHPerformanceDataTypeMemory:
+                tmp = d.memory;
+                break;
+            case CHPerformanceDataTypeFPS:
+                tmp = d.fps;
+                break;
+            case CHPerformanceDataTypeLoadingTime:
+                tmp = d.loadingTime;
+                break;
+        }
     }
     return tmp;
 }
@@ -233,8 +245,8 @@ struct __InternalMethodFlags {
                     options:NSKeyValueObservingOptionNew
                     context:nil];
     NSEnumerator<CHObserveredPrivate *> *enumerator = [_registeredObservereds objectEnumerator];
-    CHObserveredPrivate *d = enumerator.nextObject;
-    while (d) { // find the CHObserveredPrivate instance to recycle use.
+    CHObserveredPrivate *d = nil;
+    while ((d = enumerator.nextObject)) { // find the CHObserveredPrivate instance to recycle use.
         if (!d.active) {
             d.active = YES;
             d.observered = observered;
@@ -242,15 +254,14 @@ struct __InternalMethodFlags {
             d.className = NSStringFromClass([observered class]);
             break;
         }
-        d = enumerator.nextObject;
     }
     if (!d) {
-        CHObserveredPrivate *newObj = [[CHObserveredPrivate alloc] init];
-        newObj.observered = observered;
-        newObj.keyPath = keyPath;
-        newObj.className = NSStringFromClass([observered class]);
-        newObj.active = YES;
-        [_registeredObservereds addObject:newObj];
+        d            = [[CHObserveredPrivate alloc] init];
+        d.observered = observered;
+        d.keyPath    = keyPath;
+        d.className  = NSStringFromClass([observered class]);
+        d.active     = YES;
+        [_registeredObservereds addObject:d];
     }
 }
 
@@ -259,28 +270,25 @@ struct __InternalMethodFlags {
     [observered removeObserver:self
                     forKeyPath:keyPath
                        context:nil];
-    NSEnumerator<CHObserveredPrivate *> *enumerator = [_registeredObservereds objectEnumerator];
-    CHObserveredPrivate *d = enumerator.nextObject;
-    while (d) {
+    for (CHObserveredPrivate *d in _registeredObservereds) {
         if (d.observered == observered) {
             d.active = NO;
             break;
         }
-        d = enumerator.nextObject;
     }
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary<NSString *,id> *)change
+                       context:(void *)context
 {
-    NSEnumerator<CHObserveredPrivate *> *enumerator = [_registeredObservereds objectEnumerator];
-    CHObserveredPrivate *d = enumerator.nextObject;
-    while (d) {
+    for (CHObserveredPrivate *d in _registeredObservereds) {
         if (d.observered == object) {
             [self updatePageLoadingWithClassName:d.className
                              andUpdateModuleName:[change objectForKey:NSKeyValueChangeNewKey]];
             break;
         }
-        d = enumerator.nextObject;
     }
 }
 
@@ -289,6 +297,12 @@ struct __InternalMethodFlags {
 {
     [CHAOPManager aopInstanceMethodWithOriClass:cls oriSEL:oriSelector
                                        aopClass:cls aopSEL:newSelector];
+}
+
+#pragma mark - Register
+- (void)registerSkipModuleWithClass:(Class)aClass
+{
+    [_performanceWindow addSkipModuleWithClassName:aClass];
 }
 
 #pragma mark - Update
@@ -302,11 +316,13 @@ struct __InternalMethodFlags {
     NSString *identifier = [NSString stringWithFormat:@"%@-%@", moduleName, className];
     NSUInteger index = [_moduleStack indexOfObject:identifier];
     if (index == NSNotFound) {
-        self.title = identifier; // 本句不能和else分支的合并为一句拿到if-else外，这里处理的是逻辑问题，步骤不可少
+        self.title = identifier;
         if (option_check(_performanceWindow.showType, CHPerformanceAnalyzerShowTypePageLoading)) {
             NSTimeInterval interval = [_loadingTime interval];
             [_performanceWindow setPageLoadingTimeWithValue:interval];
-            [[self currentPerformanceData] addPerformanceData:@(interval) forType:CHPerformanceDataTypeLoadingTime];
+            auto d = [self currentPerformanceData];
+            [d addPerformanceData:@(interval)
+                          forType:CHPerformanceDataTypeLoadingTime];
         }
     } else {
         [_moduleStack popFromIndex:index];
@@ -351,7 +367,7 @@ struct __InternalMethodFlags {
     if (option_check(_performanceWindow.showType, CHPerformanceAnalyzerShowTypeMemory)) {
         CGFloat value = -1;
         if (_analyzerFlags.needRecordMemoryIncrement) {
-            value = (usageOfCurrentAPPMemory() - 0) / (1024 * 1024.0);
+            value = (usageOfCurrentAPPMemory() - [self accurateMemoryReserved]) / (1024 * 1024.0);
         }
         [cur addPerformanceData:@(value) forType:CHPerformanceDataTypeMemory];
         [_performanceWindow setMemoryWithValue:value];
@@ -360,21 +376,19 @@ struct __InternalMethodFlags {
 
 - (void)onFPSDisplayLinker:(CADisplayLink *)linker
 {
-    static CFTimeInterval lastTime = 0;
-    static NSUInteger count = 0;
     do {
-        if (lastTime == 0) {
-            lastTime = linker.timestamp;
+        if (_fpsLastTime == 0) {
+            _fpsLastTime = linker.timestamp;
             break;
         }
-        ++count;
-        CFTimeInterval delta = linker.timestamp - lastTime;
+        ++_fpsCount;
+        CFTimeInterval delta = linker.timestamp - _fpsLastTime;
         if (delta < 1) {
             break;
         }
-        CGFloat fps = count / delta;
-        count = 0;
-        lastTime = linker.timestamp;
+        CGFloat fps = _fpsCount / delta;
+        _fpsCount    = 0;
+        _fpsLastTime = linker.timestamp;
         [_performanceWindow setFPSWithValue:fps];
 
         CHPerformanceData *cur = [self currentPerformanceData];
@@ -400,22 +414,22 @@ struct __InternalMethodFlags {
             break;
         }
         if (_analyzerFlags.methodFlagPerformanceAnalyzerTitleMethodWithViewController) {
-            title = [_delegate performanceAnalyzer:self titleMethodWithViewController:viewController];
+            title = [_delegate performanceAnalyzer:self
+                     titleMethodWithViewController:viewController];
         }
     } while (0);
-    Class cls = [viewController class];
-    __block BOOL exists = NO;
-    [_registeredObservereds enumerateObjectsUsingBlock:^(CHObserveredPrivate *obj, NSUInteger idx, BOOL *stop) {
-        if ([cls isSubclassOfClass:obj.observered.class] && obj.active) {
-            *stop = YES;
+
+    BOOL exists = NO;
+    for (CHObserveredPrivate *d in _registeredObservereds) {
+        if (viewController == d.observered) {
             exists = YES;
+            break;
         }
-    }];
-    if (exists) {
-        return;
     }
-    [self updatePageLoadingWithClassName:NSStringFromClass(cls)
-                     andUpdateModuleName:title];
+    if (!exists) {
+        [self updatePageLoadingWithClassName:NSStringFromClass(viewController.class)
+                         andUpdateModuleName:title];
+    }
 }
 
 - (void)performanceAnalyzerWantStart:(CHPerformanceAnalyzerWindow *)analyzerWindow
@@ -431,14 +445,18 @@ struct __InternalMethodFlags {
 - (void)performanceAnalyzerWantSave:(CHPerformanceAnalyzerWindow *)analyzerWindow
 {
     NSMutableString *msg = [NSMutableString stringWithString:_performanceWindow.moduleTitleString];
-    CHPerformanceDataPackager *packager = [CHPerformanceDataPackager packagerWithPerformanceShowType:_performanceWindow.showType];
+    auto packager = [CHPerformanceDataPackager packagerWithPerformanceShowType:_performanceWindow.showType];
     packager.dataSource = _performanceData;
     NSString *text = [packager performanceDataLocalizedToCSV];
     NSError *error = nil;
     NSString *fullpath = [PerformanceDataFilePath() stringByAppendingPathComponent:@"performance.txt"];
-    [text writeToFile:fullpath atomically:YES encoding:NSUTF8StringEncoding error:&error];
+    [text writeToFile:fullpath
+           atomically:YES
+             encoding:NSUTF8StringEncoding
+                error:&error];
     if (error) {
         [msg appendString:@"(save Failed!)"];
+        NSLog(@"%@", error);
     } else {
         [msg appendString:@"(save OK!)"];
         fullpath = nil;
@@ -526,7 +544,7 @@ NS_INLINE NSString *PerformanceDataFilePath()
 NS_INLINE BOOL application_aop_didFinishLaunchingWithOptions(id self, SEL selector, UIApplication *application, NSDictionary *launchOptions)
 {
     NSMethodSignature *signature = [self methodSignatureForSelector:selector];
-    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
+    NSInvocation *invocation     = [NSInvocation invocationWithMethodSignature:signature];
     invocation.target = self;
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
@@ -535,18 +553,89 @@ NS_INLINE BOOL application_aop_didFinishLaunchingWithOptions(id self, SEL select
     void *app = (__bridge void *)application;
     [invocation setArgument:&app atIndex:2];
 
-    void *l = (__bridge void *)launchOptions;
-    [invocation setArgument:&l atIndex:3];
+    void *lau = (__bridge void *)launchOptions;
+    [invocation setArgument:&lau atIndex:3];
     [invocation invoke];
-    BOOL t = 0;
-    [invocation getReturnValue:&t];
+    BOOL retr = 0;
+    [invocation getReturnValue:&retr];
     if (CHPerformanceAnalyzerAOPInitializer) {
         CHPerformanceAnalyzerAOPInitializer();
     }
     [[CHPerformanceAnalyzer sharedPerformanceAnalyzer] startAnalysis];
-    return t;
+    return retr;
 }
 
+#include <malloc/malloc.h>
+
+union __save_count_ivar__ {
+    uint32_t count;
+    Ivar *p;
+};
+
+NS_INLINE NSInteger accurateContainerMemoryReserved(id container);
+
+NSUInteger accurateInstanceMemoryReserved(id instance, BOOL containerDeep/* = NO*/)
+{
+#define POINTER_SIZE sizeof(void*)
+    NSUInteger reserved = 0;
+    do {
+        if (!instance) {
+            reserved = POINTER_SIZE;
+            break;
+        }
+        if ([instance isMemberOfClass:[NSObject class]]) {
+            break;
+        }
+        if (object_isClass(instance)) { // This is a class object or meta-class
+            break;
+        }
+        void *c_instance = (__bridge void*)instance;
+        reserved = malloc_size(c_instance);
+        union __save_count_ivar__ u;
+        u.count = 0;
+        Class cls = [instance class];
+        Ivar *ivars = class_copyIvarList(cls, &u.count);
+        if (!ivars) { // NULL, but also calculate pointer size
+            reserved += POINTER_SIZE;
+            break;
+        }
+        Ivar *ivarsEnd = ivars + u.count;
+        u.p = ivars - 1;
+        while (++u.p < ivarsEnd) {
+            const char *type = ivar_getTypeEncoding(*u.p);
+            if (type[0] == '@') {
+                if (type[1] == '\"' && type[2] != '<') { // This is a delegate, avoid to recycle.
+                    NSString *key = [NSString stringWithUTF8String:ivar_getName(*u.p)];
+                    id value = [instance valueForKey:key];
+                    reserved += accurateInstanceMemoryReserved(value);
+                }
+            } else if (type[0] == '^') { // get malloc size of C/C++ style pointer
+                auto d = reinterpret_cast<NSInteger>(c_instance);
+                const void *ptr = reinterpret_cast<void *>(d + ivar_getOffset(*u.p));
+                reserved += malloc_size(ptr);
+            }
+        }
+        free(ivars);
+        if (containerDeep) {
+            reserved = accurateContainerMemoryReserved(instance);
+        }
+    } while (0);
+    return reserved;
+}
+
+NS_INLINE NSInteger accurateContainerMemoryReserved(id container)
+{
+    NSUInteger reserved = 0;
+    // check whether instance is array or dictionary or not.
+    if ([container respondsToSelector:@selector(objectEnumerator)]) {
+        NSEnumerator *enumerator = [container performSelector:@selector(objectEnumerator)];
+        id obj = nil;
+        while ((obj = enumerator.nextObject)) {
+            reserved += accurateInstanceMemoryReserved(obj);
+        }
+    }
+    return reserved;
+}
 #if defined(__cplusplus)
 }
 #endif

@@ -32,7 +32,7 @@ typedef NS_ENUM(NSInteger, CHPerformanceDataType) {
  * Add performance data to property[cpu, memory, fps, loadingTime];
  *
  * @param performance A NSNumber value. It must not be nil.
- * @param type        Only accept string: cpu, memory, fps, loadingTime.
+ * @param type        See CHPerformanceDataType
  */
 - (void)addPerformanceData:(NSNumber *)performance forType:(CHPerformanceDataType)type;
 

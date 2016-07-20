@@ -10,6 +10,8 @@
 #import <UIKit/UIGeometry.h>
 #import "CHGlobalDefines.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @protocol CHPerformanceAnalyzerDelegate;
 @class UIViewController;
 
@@ -24,7 +26,7 @@
 /**
  * @author hejunqiu, 16-03-29 11:03:07
  *
- * Start performance analysis enginer. The method will return
+ * Start performance analysis enginer.
  */
 - (void)startAnalysis;
 
@@ -53,7 +55,15 @@
 - (void)registerLoadingRuleWithClass:(Class)cls
                     originalSelector:(SEL)oriSelector
                               newSEL:(SEL)newSelector;
-
+/**
+ * @author hejunqiu, 16-07-20 15:07:51
+ *
+ * Register a Class to analyzer. If analyzer is going to analysis a view which is
+ * member of the Class, analyzer will not analysis the view.
+ *
+ * @param aClass A Class object.
+ */
+- (void)registerSkipModuleWithClass:(Class)aClass;
 @end
 
 
@@ -78,13 +88,14 @@
  *
  * @return Maybe an array contained NSNumber object.
  */
-- (id)statisticsWithType:(NSInteger)type ofKey:(NSString *)moduleKey;
+- (id)statisticsWithType:(NSInteger)type ofKey:(nullable NSString *)moduleKey;
 
 @end
 
 
 @protocol CHPerformanceAnalyzerDelegate <NSObject>
 
+@optional
 /**
  * @author hejunqiu, 16-03-29 20:03:56
  *
@@ -94,9 +105,19 @@
  * @param filePath  A file path indicate to save statistics data recent time. If
  * save failed or other error, it would be nil.
  */
-- (void)performanceAnalyzer:(CHPerformanceAnalyzer *)analyzer
-       completeWithFilePath:(NSString *)filePath;
+- (void)performanceAnalyzer:(CHPerformanceAnalyzer  *)analyzer
+       completeWithFilePath:(nullable NSString *)filePath;
 
+/**
+ * @author hejunqiu, 16-07-20 14:07:01
+ *
+ * Invoke when analyzer can't get vaild title of module.
+ *
+ * @param analyzer       A performance analyzer.
+ * @param viewController An UIViewController object which is loading.
+ *
+ * @return Expect return a string contains module name.
+ */
 - (NSString *)performanceAnalyzer:(CHPerformanceAnalyzer *)analyzer
     titleMethodWithViewController:(UIViewController *)viewController;
 @end
@@ -143,3 +164,5 @@ FOUNDATION_EXTERN void(^CHPerformanceAnalyzerAOPInitializer)();
  * @return void
  */
 extern volatile void startPerformanceAnalyzer();
+
+NS_ASSUME_NONNULL_END

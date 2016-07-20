@@ -38,6 +38,8 @@ static Class class_UINavigationController = [UINavigationController class];
 @property (nonatomic, weak) NSLayoutConstraint *leftConstraint;
 
 @property (nonatomic) struct _InternalMethodFlags analyzerFlags;
+@property (nonatomic, strong) NSMutableSet<Class> *skipClass;
+
 @end
 
 @implementation CHPerformanceAnalyzerWindow
@@ -53,6 +55,7 @@ static Class class_UINavigationController = [UINavigationController class];
         [self setupLayouts];
         [self initializGestures];
         [self.class methodExchange];
+        _skipClass = [NSMutableSet setWithArray:@[NSClassFromString(@"UIInputWindowController"), [UINavigationController class]]];
         [UIApplication sharedApplication].applicationSupportsShakeToEdit = YES;
     }
     return self;
@@ -207,6 +210,7 @@ static Class class_UINavigationController = [UINavigationController class];
     return _defaultViews[CHInternalIndexModule].text;
 }
 
+#pragma mark - public
 - (void)setPageLoadingTimeWithValue:(NSTimeInterval)interval
 {
     NSString *text = nil;
@@ -239,6 +243,10 @@ static Class class_UINavigationController = [UINavigationController class];
     _defaultViews[CHInternalIndexFPS].text = [NSString stringWithFormat:@"FPS:%.01f", fps];
 }
 
+- (void)addSkipModuleWithClassName:(Class)aClass
+{
+    [_skipClass addObject:aClass];
+}
 @end
 
 
@@ -247,19 +255,22 @@ static Class class_UINavigationController = [UINavigationController class];
 
 - (void)loadView_aop
 {
+    @onExit {
+        [self loadView_aop];
+    };
     do {
         if (!instanceButInternal.analyzerFlags.methodFlagViewControllerLoadingView) {
             break;
         }
-        if ([self isMemberOfClass:class_UIInputViewController]) {
-            break;
-        }
-        if ([self isMemberOfClass:class_UINavigationController]) {
-            break;
+        NSSet *set = instanceButInternal.skipClass;
+        for (Class aClass in set) {
+            if ([self isMemberOfClass:aClass]) {
+                goto ext;
+            }
         }
         [instanceButInternal.delegate viewControllerLoadingView:self];
     } while (0);
-    [self loadView_aop];
+ext:;
 }
 
 - (void)viewDidAppear_aop:(BOOL)animated
@@ -269,14 +280,15 @@ static Class class_UINavigationController = [UINavigationController class];
         if (!instanceButInternal.analyzerFlags.methodFlagViewControllerDidApper) {
             break;
         }
-        if ([self isMemberOfClass:class_UIInputViewController]) {
-            break;
-        }
-        if ([self isMemberOfClass:class_UINavigationController]) {
-            break;
+        NSSet *set = instanceButInternal.skipClass;
+        for (Class aClass in set) {
+            if ([self isMemberOfClass:aClass]) {
+                goto ext;
+            }
         }
         [instanceButInternal.delegate viewControllerDidApper:self];
     } while (0);
+ext:;
 }
 
 

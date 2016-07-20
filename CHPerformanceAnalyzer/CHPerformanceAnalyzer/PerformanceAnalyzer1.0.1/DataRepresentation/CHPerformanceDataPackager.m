@@ -116,27 +116,18 @@
 /**
  * @author hejunqiu, 16-03-30 11:03:21
  *
- * calculate average, max and min.
+ * calculate average
  *
  * @param array A array contains float value.
  *
- * @return Return a string such as "87,98,70"
+ * @return Return a string such as "87"
  */
 + (NSString *)calculateStatistics:(NSArray<NSNumber *> *)array
 {
     CGFloat average = 0;
-    //    CGFloat max = CGFLOAT_MIN;
-    //    CGFloat min = CGFLOAT_MAX;
     for (NSNumber *v in array) {
         average += v.floatValue;
-        //        if (v.floatValue > max) {
-        //            max = v.floatValue;
-        //        }
-        //        if (v.floatValue < min) {
-        //            min = v.floatValue;
-        //        }
     }
-    //    return [NSString stringWithFormat:@"%f,%f,%f", average, max, min];
     if (array.count != 0) {
         average /= array.count;
     }

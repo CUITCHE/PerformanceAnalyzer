@@ -10,7 +10,6 @@
 #import "CHMetaMacro.h"
 
 /* Fake */
-
 @interface CHGlobalDefines : NSObject
 
 @end
@@ -33,5 +32,3 @@ typedef NS_ENUM(uint8_t, CHInternalIndex) {
 };
 
 #define option_check(var, opt) (((var) & (opt))==opt)
-
-FOUNDATION_EXTERN NSUInteger accurateInstanceMemoryReserved(id instance);

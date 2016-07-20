@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "CHGlobalDefines.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @protocol CHPerformanceAnalyzerWindowDelegate;
 
 @interface CHPerformanceAnalyzerWindow : UIWindow
@@ -25,6 +27,7 @@
 - (void)setCPUWithValue:(CGFloat)cpuRate;
 - (void)setFPSWithValue:(CGFloat)fps;
 
+- (void)addSkipModuleWithClassName:(Class)aClass;
 @end
 
 
@@ -39,6 +42,7 @@
 
 @protocol CHPerformanceAnalyzerWindowDelegate <NSObject>
 
+@required
 - (void)viewControllerLoadingView:(UIViewController *)viewController;
 - (void)viewControllerDidApper:(UIViewController *)viewController;
 
@@ -47,3 +51,5 @@
 - (void)performanceAnalyzerWantSave:(CHPerformanceAnalyzerWindow *)analyzerWindow;
 
 @end
+
+NS_ASSUME_NONNULL_END
