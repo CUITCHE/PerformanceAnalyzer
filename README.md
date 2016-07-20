@@ -15,7 +15,7 @@ Because of the needs of project, I write the code for performance analyzer. As a
 ![](./res/2.png)
 ![](./res/3.png)
 
-You can move it to anywhere.
+**You can move it to anywhere.**
 ![](./res/4.png)
 
 # Extended Use
@@ -24,18 +24,18 @@ You can define `CHPerformanceAnalyzerShowType CHPerformanceAnalyzerShowTypeSetti
  
 ## Custom AppDelegate
 Generally, your app delegate which is a class follows UIApplicationDelegate protocol is `AppDelegate`. But if not, you need define `NSString *CHPerformanceAnalyzerApplicationDelegateClassName = @"YourAppDelegate";` anywhere in the global.
-> You can complete above things in source code [CHPerformancerExterns.m](./CHPerformanceAnalyzer/CHPerformanceAnalyzer/PerformanceAnalyzer1.0.1/DataRepresentation/CHPerformancerExterns.m). Defaultly, there has some content and you may need modify it.
+> You can complete above things in source code [CHPerformancerExterns.m](./CHPerformanceAnalyzer/CHPerformanceAnalyzer/PerformanceAnalyzer1.0.1/DataRepresentation/CHPerformancerExterns.m). Defaultly, there has some content and you may need to modify it.
 
 ## How To Get Statistical Data
 - Analyzer will save current statistical data to sandbox when you tap statistical window twice by two fingers.
-- CHPerformanceAnalyzer has a delegate which follows CHPerformanceAnalyzerDelegate protocol which contains an optional method `- (void)performanceAnalysis:completeWithFilePath:`. Delegate will tell you fullpath of data save when you trigger save operation.
+- CHPerformanceAnalyzer has a delegate which follows CHPerformanceAnalyzerDelegate protocol which contains an optional method `- (void)performanceAnalyzer:completeWithFilePath:`. Delegate will tell you fullpath of data save when you trigger save operation.
 - Analyzer save the data at shared directory of sandbox. You can add field `Application supports iTunes file sharing` into 'info.plist' and set it to `YES`. And then connect the iPhone to iTunes. And select `Application` item at iTunes and slide down to 'File Sharing' bar at right side. Finally, select your app, and later you can see content like below picture.
 ![](./res/1.png)
-File `performance.txt` saved the data。
-- The format of statistical data is CSV-fromat of Excel. It can be import into Excel. You can find the import-tutorial at [here](http://jingyan.baidu.com/article/e6c8503c2d44e3e54f1a18c7.html). Remember the separator is comma(',') defaultly. And If occur problem when transforming, I suggest that thansform the original data to CN-encoding such as 'GB2312' before import.
+**File `performance.txt` saved the data**
+- The format of statistical data is CSV-fromat of Excel. It can be import into Excel. You can find the import-tutorial at [here](http://jingyan.baidu.com/article/e6c8503c2d44e3e54f1a18c7.html)(uhm..Chinese needed). Remember the separator is comma(',') defaultly. And If occur problem when transforming, I suggest that thansform the original data to CN-encoding such as 'GB2312' before import.
 
 ## Custom Set the End Flag of Loading-Time
-Sometimes some view controller is special, that is, finish loading the whole view needs much time and meanwhile method `- (void)viewDidAppear:` has called. So, we need make a method to represent 'END FLAG' and replace analyzer's 'END FLAG'. Detailed code is [CHPerformancerExterns.m](./CHPerformanceAnalyzer/CHPerformanceAnalyzer/PerformanceAnalyzer1.0.1/DataRepresentation/CHPerformancerExterns.m).
+Sometimes view controller is special, that is, finishing loading the whole view is needed much time and meanwhile method `- (void)viewDidAppear:` has been called. So, we need make a method to represent 'END FLAG' and replace analyzer's 'END FLAG'. Detailed code is in [CHPerformancerExterns.m](./CHPerformanceAnalyzer/CHPerformanceAnalyzer/PerformanceAnalyzer1.0.1/DataRepresentation/CHPerformancerExterns.m).
 ```Objective-C
     @interface WebViewController (PageLoading)
 
@@ -73,7 +73,7 @@ Sometimes some view controller is special, that is, finish loading the whole vie
     };
 ```
 
-Finishing a webpage when method `- (void)webViewDidFinishLoad:` has been called. I changed the title of navigation. Function `[analyzer addObservered:self forKeyPath:@"navigationItem.title"]` make anlayzer become observer of controller to concern the property path `navigationItem.title`. When its value changed, analyzer will receive notification and update the loading-time. You can also concern other property path. I just throw out a minnow to catch a whale.
+Finishing a webpage when method `- (void)webViewDidFinishLoad:` has been called. I change the title of navigation. Function `[analyzer addObservered:self forKeyPath:@"navigationItem.title"]` make anlayzer become observer of controller to concern the property path `navigationItem.title`. When its value has been changed, analyzer will receive notification and update the loading-time. You can also concern other property path. I just throw out a minnow to catch a whale.
 
 In `[self loadView_aop2]` and `CHPerformanceAnalyzerAOPInitializer`
 
@@ -85,7 +85,7 @@ In `[self loadView_aop2]` and `CHPerformanceAnalyzerAOPInitializer`
 
 Their order cannot be reversed.
 
-Note: can't use `loadView_aop` as your name of custom method. Analyzer used the name in the internal. If you do, program will go into infinite recursion until stack overflow.
+Note: can't use `loadView_aop` as your name of custom method. Analyzer uses the name in the internal. If you do, program will go into infinite recursion until stack overflow.
 
 ## Statistical Data Interface
 Now, you can get all of module names which analyzer statisticed through property `modulesOfStatistic`. According to the modules, call method `- (id)statisticsWithType:ofKey:` to get statistical data. Generally, the method returns a NSArray object. To be currency in the future, write return type to id.
@@ -94,11 +94,11 @@ Now, you can get all of module names which analyzer statisticed through property
 Shake the phone to turn off analyzer, turn on shake again.
 
 # Note
-- The module which Analyzer got comes from property `title` of `viewController`. If its nil, will find from property `title` of `navigationItem`. And if still nil, analyzer will try to call method `- (NSString *)performanceAnalyzer: titleMethodWithViewController:` of analyzer's delegate.
+- The module which Analyzer got comes from property `title` of `viewController`. If it's nil, analyzer will find from property `title` of `navigationItem`. And if still nil, analyzer will try to call method `- (NSString *)performanceAnalyzer: titleMethodWithViewController:` of analyzer's delegate.
 - The loading-time is cacluated from that before calling `- (void)loadView` to finish calling `- (void)viewDidAppear:`
 
-# Enviroment
+# Requirement
 - Xcode 7.3
 - iOS 7.0+
 - [PureLayout](https://github.com/PureLayout/PureLayout)
-- ExtObj
+- [libextobjc](https://github.com/jspahrsummers/libextobjc)
