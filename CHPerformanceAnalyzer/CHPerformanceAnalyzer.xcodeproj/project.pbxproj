@@ -12,21 +12,21 @@
 		FB11B3531D3CB0790068AB27 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB11B3521D3CB0790068AB27 /* ViewController.m */; };
 		FB11B3581D3CB0790068AB27 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB11B3571D3CB0790068AB27 /* Assets.xcassets */; };
 		FB11B35B1D3CB0790068AB27 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB11B3591D3CB0790068AB27 /* LaunchScreen.storyboard */; };
+		FB141FA11D3FC07200ED0688 /* CHGlobalDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = FB141F7C1D3FC07200ED0688 /* CHGlobalDefines.m */; };
+		FB141FA21D3FC07200ED0688 /* CHObserveredPrivate.m in Sources */ = {isa = PBXBuildFile; fileRef = FB141F7F1D3FC07200ED0688 /* CHObserveredPrivate.m */; };
+		FB141FA31D3FC07200ED0688 /* CHPerformanceAnalyzer.mm in Sources */ = {isa = PBXBuildFile; fileRef = FB141F811D3FC07200ED0688 /* CHPerformanceAnalyzer.mm */; };
+		FB141FA41D3FC07200ED0688 /* CHPerformanceData.m in Sources */ = {isa = PBXBuildFile; fileRef = FB141F831D3FC07200ED0688 /* CHPerformanceData.m */; };
+		FB141FA51D3FC07200ED0688 /* CHPerformanceDataPackager.m in Sources */ = {isa = PBXBuildFile; fileRef = FB141F851D3FC07200ED0688 /* CHPerformanceDataPackager.m */; };
+		FB141FA61D3FC07200ED0688 /* CHPerformancerExterns.m in Sources */ = {isa = PBXBuildFile; fileRef = FB141F871D3FC07200ED0688 /* CHPerformancerExterns.m */; };
+		FB141FA71D3FC07200ED0688 /* NSMutableArray+Stack.m in Sources */ = {isa = PBXBuildFile; fileRef = FB141F891D3FC07200ED0688 /* NSMutableArray+Stack.m */; };
+		FB141FA81D3FC07200ED0688 /* CHAOPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FB141F8C1D3FC07200ED0688 /* CHAOPManager.m */; };
+		FB141FA91D3FC07200ED0688 /* CHTime.m in Sources */ = {isa = PBXBuildFile; fileRef = FB141F8E1D3FC07200ED0688 /* CHTime.m */; };
+		FB141FAA1D3FC07200ED0688 /* EXTScope.m in Sources */ = {isa = PBXBuildFile; fileRef = FB141F921D3FC07200ED0688 /* EXTScope.m */; };
+		FB141FAB1D3FC07200ED0688 /* ALView+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = FB141F961D3FC07200ED0688 /* ALView+PureLayout.m */; };
+		FB141FAC1D3FC07200ED0688 /* NSArray+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = FB141F981D3FC07200ED0688 /* NSArray+PureLayout.m */; };
+		FB141FAD1D3FC07200ED0688 /* NSLayoutConstraint+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = FB141F9A1D3FC07200ED0688 /* NSLayoutConstraint+PureLayout.m */; };
+		FB141FAE1D3FC07200ED0688 /* CHPerformanceAnalyzerWindow.mm in Sources */ = {isa = PBXBuildFile; fileRef = FB141FA01D3FC07200ED0688 /* CHPerformanceAnalyzerWindow.mm */; };
 		FB7A43D61D3E1729002BD219 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7A43D51D3E1729002BD219 /* WebViewController.m */; };
-		FB7A44211D3E2B59002BD219 /* CHGlobalDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7A43FC1D3E2B59002BD219 /* CHGlobalDefines.m */; };
-		FB7A44221D3E2B59002BD219 /* CHObserveredPrivate.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7A43FF1D3E2B59002BD219 /* CHObserveredPrivate.m */; };
-		FB7A44231D3E2B59002BD219 /* CHPerformanceAnalyzer.mm in Sources */ = {isa = PBXBuildFile; fileRef = FB7A44011D3E2B59002BD219 /* CHPerformanceAnalyzer.mm */; };
-		FB7A44241D3E2B59002BD219 /* CHPerformanceData.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7A44031D3E2B59002BD219 /* CHPerformanceData.m */; };
-		FB7A44251D3E2B59002BD219 /* CHPerformanceDataPackager.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7A44051D3E2B59002BD219 /* CHPerformanceDataPackager.m */; };
-		FB7A44261D3E2B59002BD219 /* CHPerformancerExterns.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7A44071D3E2B59002BD219 /* CHPerformancerExterns.m */; };
-		FB7A44271D3E2B59002BD219 /* NSMutableArray+Stack.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7A44091D3E2B59002BD219 /* NSMutableArray+Stack.m */; };
-		FB7A44281D3E2B59002BD219 /* CHAOPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7A440C1D3E2B59002BD219 /* CHAOPManager.m */; };
-		FB7A44291D3E2B59002BD219 /* CHTime.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7A440E1D3E2B59002BD219 /* CHTime.m */; };
-		FB7A442A1D3E2B59002BD219 /* EXTScope.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7A44121D3E2B59002BD219 /* EXTScope.m */; };
-		FB7A442B1D3E2B59002BD219 /* ALView+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7A44161D3E2B59002BD219 /* ALView+PureLayout.m */; };
-		FB7A442C1D3E2B59002BD219 /* NSArray+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7A44181D3E2B59002BD219 /* NSArray+PureLayout.m */; };
-		FB7A442D1D3E2B59002BD219 /* NSLayoutConstraint+PureLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7A441A1D3E2B59002BD219 /* NSLayoutConstraint+PureLayout.m */; };
-		FB7A442E1D3E2B59002BD219 /* CHPerformanceAnalyzerWindow.mm in Sources */ = {isa = PBXBuildFile; fileRef = FB7A44201D3E2B59002BD219 /* CHPerformanceAnalyzerWindow.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,41 +39,41 @@
 		FB11B3571D3CB0790068AB27 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FB11B35A1D3CB0790068AB27 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FB11B35C1D3CB0790068AB27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FB141F7B1D3FC07200ED0688 /* CHGlobalDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHGlobalDefines.h; sourceTree = "<group>"; };
+		FB141F7C1D3FC07200ED0688 /* CHGlobalDefines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHGlobalDefines.m; sourceTree = "<group>"; };
+		FB141F7E1D3FC07200ED0688 /* CHObserveredPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHObserveredPrivate.h; sourceTree = "<group>"; };
+		FB141F7F1D3FC07200ED0688 /* CHObserveredPrivate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHObserveredPrivate.m; sourceTree = "<group>"; };
+		FB141F801D3FC07200ED0688 /* CHPerformanceAnalyzer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHPerformanceAnalyzer.h; sourceTree = "<group>"; };
+		FB141F811D3FC07200ED0688 /* CHPerformanceAnalyzer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CHPerformanceAnalyzer.mm; sourceTree = "<group>"; };
+		FB141F821D3FC07200ED0688 /* CHPerformanceData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHPerformanceData.h; sourceTree = "<group>"; };
+		FB141F831D3FC07200ED0688 /* CHPerformanceData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHPerformanceData.m; sourceTree = "<group>"; };
+		FB141F841D3FC07200ED0688 /* CHPerformanceDataPackager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHPerformanceDataPackager.h; sourceTree = "<group>"; };
+		FB141F851D3FC07200ED0688 /* CHPerformanceDataPackager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHPerformanceDataPackager.m; sourceTree = "<group>"; };
+		FB141F861D3FC07200ED0688 /* CHPerformancerExterns.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHPerformancerExterns.h; sourceTree = "<group>"; };
+		FB141F871D3FC07200ED0688 /* CHPerformancerExterns.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHPerformancerExterns.m; sourceTree = "<group>"; };
+		FB141F881D3FC07200ED0688 /* NSMutableArray+Stack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Stack.h"; sourceTree = "<group>"; };
+		FB141F891D3FC07200ED0688 /* NSMutableArray+Stack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Stack.m"; sourceTree = "<group>"; };
+		FB141F8B1D3FC07200ED0688 /* CHAOPManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHAOPManager.h; sourceTree = "<group>"; };
+		FB141F8C1D3FC07200ED0688 /* CHAOPManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHAOPManager.m; sourceTree = "<group>"; };
+		FB141F8D1D3FC07200ED0688 /* CHTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHTime.h; sourceTree = "<group>"; };
+		FB141F8E1D3FC07200ED0688 /* CHTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHTime.m; sourceTree = "<group>"; };
+		FB141F901D3FC07200ED0688 /* CHMetaMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMetaMacro.h; sourceTree = "<group>"; };
+		FB141F911D3FC07200ED0688 /* EXTScope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTScope.h; sourceTree = "<group>"; };
+		FB141F921D3FC07200ED0688 /* EXTScope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXTScope.m; sourceTree = "<group>"; };
+		FB141F931D3FC07200ED0688 /* metamacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = metamacros.h; sourceTree = "<group>"; };
+		FB141F951D3FC07200ED0688 /* ALView+PureLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALView+PureLayout.h"; sourceTree = "<group>"; };
+		FB141F961D3FC07200ED0688 /* ALView+PureLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALView+PureLayout.m"; sourceTree = "<group>"; };
+		FB141F971D3FC07200ED0688 /* NSArray+PureLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+PureLayout.h"; sourceTree = "<group>"; };
+		FB141F981D3FC07200ED0688 /* NSArray+PureLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+PureLayout.m"; sourceTree = "<group>"; };
+		FB141F991D3FC07200ED0688 /* NSLayoutConstraint+PureLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSLayoutConstraint+PureLayout.h"; sourceTree = "<group>"; };
+		FB141F9A1D3FC07200ED0688 /* NSLayoutConstraint+PureLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSLayoutConstraint+PureLayout.m"; sourceTree = "<group>"; };
+		FB141F9B1D3FC07200ED0688 /* PureLayout+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PureLayout+Internal.h"; sourceTree = "<group>"; };
+		FB141F9C1D3FC07200ED0688 /* PureLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PureLayout.h; sourceTree = "<group>"; };
+		FB141F9D1D3FC07200ED0688 /* PureLayoutDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PureLayoutDefines.h; sourceTree = "<group>"; };
+		FB141F9F1D3FC07200ED0688 /* CHPerformanceAnalyzerWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHPerformanceAnalyzerWindow.h; sourceTree = "<group>"; };
+		FB141FA01D3FC07200ED0688 /* CHPerformanceAnalyzerWindow.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CHPerformanceAnalyzerWindow.mm; sourceTree = "<group>"; };
 		FB7A43D41D3E1729002BD219 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		FB7A43D51D3E1729002BD219 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
-		FB7A43FB1D3E2B59002BD219 /* CHGlobalDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHGlobalDefines.h; sourceTree = "<group>"; };
-		FB7A43FC1D3E2B59002BD219 /* CHGlobalDefines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHGlobalDefines.m; sourceTree = "<group>"; };
-		FB7A43FE1D3E2B59002BD219 /* CHObserveredPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHObserveredPrivate.h; sourceTree = "<group>"; };
-		FB7A43FF1D3E2B59002BD219 /* CHObserveredPrivate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHObserveredPrivate.m; sourceTree = "<group>"; };
-		FB7A44001D3E2B59002BD219 /* CHPerformanceAnalyzer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHPerformanceAnalyzer.h; sourceTree = "<group>"; };
-		FB7A44011D3E2B59002BD219 /* CHPerformanceAnalyzer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CHPerformanceAnalyzer.mm; sourceTree = "<group>"; };
-		FB7A44021D3E2B59002BD219 /* CHPerformanceData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHPerformanceData.h; sourceTree = "<group>"; };
-		FB7A44031D3E2B59002BD219 /* CHPerformanceData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHPerformanceData.m; sourceTree = "<group>"; };
-		FB7A44041D3E2B59002BD219 /* CHPerformanceDataPackager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHPerformanceDataPackager.h; sourceTree = "<group>"; };
-		FB7A44051D3E2B59002BD219 /* CHPerformanceDataPackager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHPerformanceDataPackager.m; sourceTree = "<group>"; };
-		FB7A44061D3E2B59002BD219 /* CHPerformancerExterns.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHPerformancerExterns.h; sourceTree = "<group>"; };
-		FB7A44071D3E2B59002BD219 /* CHPerformancerExterns.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHPerformancerExterns.m; sourceTree = "<group>"; };
-		FB7A44081D3E2B59002BD219 /* NSMutableArray+Stack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Stack.h"; sourceTree = "<group>"; };
-		FB7A44091D3E2B59002BD219 /* NSMutableArray+Stack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Stack.m"; sourceTree = "<group>"; };
-		FB7A440B1D3E2B59002BD219 /* CHAOPManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHAOPManager.h; sourceTree = "<group>"; };
-		FB7A440C1D3E2B59002BD219 /* CHAOPManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHAOPManager.m; sourceTree = "<group>"; };
-		FB7A440D1D3E2B59002BD219 /* CHTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHTime.h; sourceTree = "<group>"; };
-		FB7A440E1D3E2B59002BD219 /* CHTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHTime.m; sourceTree = "<group>"; };
-		FB7A44101D3E2B59002BD219 /* CHMetaMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMetaMacro.h; sourceTree = "<group>"; };
-		FB7A44111D3E2B59002BD219 /* EXTScope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXTScope.h; sourceTree = "<group>"; };
-		FB7A44121D3E2B59002BD219 /* EXTScope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXTScope.m; sourceTree = "<group>"; };
-		FB7A44131D3E2B59002BD219 /* metamacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = metamacros.h; sourceTree = "<group>"; };
-		FB7A44151D3E2B59002BD219 /* ALView+PureLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALView+PureLayout.h"; sourceTree = "<group>"; };
-		FB7A44161D3E2B59002BD219 /* ALView+PureLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALView+PureLayout.m"; sourceTree = "<group>"; };
-		FB7A44171D3E2B59002BD219 /* NSArray+PureLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+PureLayout.h"; sourceTree = "<group>"; };
-		FB7A44181D3E2B59002BD219 /* NSArray+PureLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+PureLayout.m"; sourceTree = "<group>"; };
-		FB7A44191D3E2B59002BD219 /* NSLayoutConstraint+PureLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSLayoutConstraint+PureLayout.h"; sourceTree = "<group>"; };
-		FB7A441A1D3E2B59002BD219 /* NSLayoutConstraint+PureLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSLayoutConstraint+PureLayout.m"; sourceTree = "<group>"; };
-		FB7A441B1D3E2B59002BD219 /* PureLayout+Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PureLayout+Internal.h"; sourceTree = "<group>"; };
-		FB7A441C1D3E2B59002BD219 /* PureLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PureLayout.h; sourceTree = "<group>"; };
-		FB7A441D1D3E2B59002BD219 /* PureLayoutDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PureLayoutDefines.h; sourceTree = "<group>"; };
-		FB7A441F1D3E2B59002BD219 /* CHPerformanceAnalyzerWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHPerformanceAnalyzerWindow.h; sourceTree = "<group>"; };
-		FB7A44201D3E2B59002BD219 /* CHPerformanceAnalyzerWindow.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CHPerformanceAnalyzerWindow.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,7 +106,7 @@
 		FB11B34A1D3CB0790068AB27 /* CHPerformanceAnalyzer */ = {
 			isa = PBXGroup;
 			children = (
-				FB7A43FA1D3E2B59002BD219 /* PerformanceAnalyzer1.0.1 */,
+				FB141F7A1D3FC07200ED0688 /* PerformanceAnalyzer1.0 */,
 				FB11B34E1D3CB0790068AB27 /* AppDelegate.h */,
 				FB11B34F1D3CB0790068AB27 /* AppDelegate.m */,
 				FB11B3511D3CB0790068AB27 /* ViewController.h */,
@@ -129,82 +129,82 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		FB7A43FA1D3E2B59002BD219 /* PerformanceAnalyzer1.0.1 */ = {
+		FB141F7A1D3FC07200ED0688 /* PerformanceAnalyzer1.0 */ = {
 			isa = PBXGroup;
 			children = (
-				FB7A43FB1D3E2B59002BD219 /* CHGlobalDefines.h */,
-				FB7A43FC1D3E2B59002BD219 /* CHGlobalDefines.m */,
-				FB7A43FD1D3E2B59002BD219 /* DataRepresentation */,
-				FB7A440A1D3E2B59002BD219 /* framework */,
-				FB7A441E1D3E2B59002BD219 /* UI */,
+				FB141F7B1D3FC07200ED0688 /* CHGlobalDefines.h */,
+				FB141F7C1D3FC07200ED0688 /* CHGlobalDefines.m */,
+				FB141F7D1D3FC07200ED0688 /* DataRepresentation */,
+				FB141F8A1D3FC07200ED0688 /* framework */,
+				FB141F9E1D3FC07200ED0688 /* UI */,
 			);
-			path = PerformanceAnalyzer1.0.1;
+			path = PerformanceAnalyzer1.0;
 			sourceTree = "<group>";
 		};
-		FB7A43FD1D3E2B59002BD219 /* DataRepresentation */ = {
+		FB141F7D1D3FC07200ED0688 /* DataRepresentation */ = {
 			isa = PBXGroup;
 			children = (
-				FB7A43FE1D3E2B59002BD219 /* CHObserveredPrivate.h */,
-				FB7A43FF1D3E2B59002BD219 /* CHObserveredPrivate.m */,
-				FB7A44001D3E2B59002BD219 /* CHPerformanceAnalyzer.h */,
-				FB7A44011D3E2B59002BD219 /* CHPerformanceAnalyzer.mm */,
-				FB7A44021D3E2B59002BD219 /* CHPerformanceData.h */,
-				FB7A44031D3E2B59002BD219 /* CHPerformanceData.m */,
-				FB7A44041D3E2B59002BD219 /* CHPerformanceDataPackager.h */,
-				FB7A44051D3E2B59002BD219 /* CHPerformanceDataPackager.m */,
-				FB7A44061D3E2B59002BD219 /* CHPerformancerExterns.h */,
-				FB7A44071D3E2B59002BD219 /* CHPerformancerExterns.m */,
-				FB7A44081D3E2B59002BD219 /* NSMutableArray+Stack.h */,
-				FB7A44091D3E2B59002BD219 /* NSMutableArray+Stack.m */,
+				FB141F7E1D3FC07200ED0688 /* CHObserveredPrivate.h */,
+				FB141F7F1D3FC07200ED0688 /* CHObserveredPrivate.m */,
+				FB141F801D3FC07200ED0688 /* CHPerformanceAnalyzer.h */,
+				FB141F811D3FC07200ED0688 /* CHPerformanceAnalyzer.mm */,
+				FB141F821D3FC07200ED0688 /* CHPerformanceData.h */,
+				FB141F831D3FC07200ED0688 /* CHPerformanceData.m */,
+				FB141F841D3FC07200ED0688 /* CHPerformanceDataPackager.h */,
+				FB141F851D3FC07200ED0688 /* CHPerformanceDataPackager.m */,
+				FB141F861D3FC07200ED0688 /* CHPerformancerExterns.h */,
+				FB141F871D3FC07200ED0688 /* CHPerformancerExterns.m */,
+				FB141F881D3FC07200ED0688 /* NSMutableArray+Stack.h */,
+				FB141F891D3FC07200ED0688 /* NSMutableArray+Stack.m */,
 			);
 			path = DataRepresentation;
 			sourceTree = "<group>";
 		};
-		FB7A440A1D3E2B59002BD219 /* framework */ = {
+		FB141F8A1D3FC07200ED0688 /* framework */ = {
 			isa = PBXGroup;
 			children = (
-				FB7A440B1D3E2B59002BD219 /* CHAOPManager.h */,
-				FB7A440C1D3E2B59002BD219 /* CHAOPManager.m */,
-				FB7A440D1D3E2B59002BD219 /* CHTime.h */,
-				FB7A440E1D3E2B59002BD219 /* CHTime.m */,
-				FB7A440F1D3E2B59002BD219 /* ExtObjPartion */,
-				FB7A44141D3E2B59002BD219 /* PureLayout */,
+				FB141F8B1D3FC07200ED0688 /* CHAOPManager.h */,
+				FB141F8C1D3FC07200ED0688 /* CHAOPManager.m */,
+				FB141F8D1D3FC07200ED0688 /* CHTime.h */,
+				FB141F8E1D3FC07200ED0688 /* CHTime.m */,
+				FB141F8F1D3FC07200ED0688 /* ExtObjPartion */,
+				FB141F941D3FC07200ED0688 /* PureLayout */,
 			);
 			path = framework;
 			sourceTree = "<group>";
 		};
-		FB7A440F1D3E2B59002BD219 /* ExtObjPartion */ = {
+		FB141F8F1D3FC07200ED0688 /* ExtObjPartion */ = {
 			isa = PBXGroup;
 			children = (
-				FB7A44101D3E2B59002BD219 /* CHMetaMacro.h */,
-				FB7A44111D3E2B59002BD219 /* EXTScope.h */,
-				FB7A44121D3E2B59002BD219 /* EXTScope.m */,
-				FB7A44131D3E2B59002BD219 /* metamacros.h */,
+				FB141F901D3FC07200ED0688 /* CHMetaMacro.h */,
+				FB141F911D3FC07200ED0688 /* EXTScope.h */,
+				FB141F921D3FC07200ED0688 /* EXTScope.m */,
+				FB141F931D3FC07200ED0688 /* metamacros.h */,
 			);
 			path = ExtObjPartion;
 			sourceTree = "<group>";
 		};
-		FB7A44141D3E2B59002BD219 /* PureLayout */ = {
+		FB141F941D3FC07200ED0688 /* PureLayout */ = {
 			isa = PBXGroup;
 			children = (
-				FB7A44151D3E2B59002BD219 /* ALView+PureLayout.h */,
-				FB7A44161D3E2B59002BD219 /* ALView+PureLayout.m */,
-				FB7A44171D3E2B59002BD219 /* NSArray+PureLayout.h */,
-				FB7A44181D3E2B59002BD219 /* NSArray+PureLayout.m */,
-				FB7A44191D3E2B59002BD219 /* NSLayoutConstraint+PureLayout.h */,
-				FB7A441A1D3E2B59002BD219 /* NSLayoutConstraint+PureLayout.m */,
-				FB7A441B1D3E2B59002BD219 /* PureLayout+Internal.h */,
-				FB7A441C1D3E2B59002BD219 /* PureLayout.h */,
-				FB7A441D1D3E2B59002BD219 /* PureLayoutDefines.h */,
+				FB141F951D3FC07200ED0688 /* ALView+PureLayout.h */,
+				FB141F961D3FC07200ED0688 /* ALView+PureLayout.m */,
+				FB141F971D3FC07200ED0688 /* NSArray+PureLayout.h */,
+				FB141F981D3FC07200ED0688 /* NSArray+PureLayout.m */,
+				FB141F991D3FC07200ED0688 /* NSLayoutConstraint+PureLayout.h */,
+				FB141F9A1D3FC07200ED0688 /* NSLayoutConstraint+PureLayout.m */,
+				FB141F9B1D3FC07200ED0688 /* PureLayout+Internal.h */,
+				FB141F9C1D3FC07200ED0688 /* PureLayout.h */,
+				FB141F9D1D3FC07200ED0688 /* PureLayoutDefines.h */,
 			);
 			path = PureLayout;
 			sourceTree = "<group>";
 		};
-		FB7A441E1D3E2B59002BD219 /* UI */ = {
+		FB141F9E1D3FC07200ED0688 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				FB7A441F1D3E2B59002BD219 /* CHPerformanceAnalyzerWindow.h */,
-				FB7A44201D3E2B59002BD219 /* CHPerformanceAnalyzerWindow.mm */,
+				FB141F9F1D3FC07200ED0688 /* CHPerformanceAnalyzerWindow.h */,
+				FB141FA01D3FC07200ED0688 /* CHPerformanceAnalyzerWindow.mm */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -279,24 +279,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FB7A442A1D3E2B59002BD219 /* EXTScope.m in Sources */,
-				FB7A44281D3E2B59002BD219 /* CHAOPManager.m in Sources */,
-				FB7A44271D3E2B59002BD219 /* NSMutableArray+Stack.m in Sources */,
 				FB11B3531D3CB0790068AB27 /* ViewController.m in Sources */,
-				FB7A442D1D3E2B59002BD219 /* NSLayoutConstraint+PureLayout.m in Sources */,
-				FB7A44221D3E2B59002BD219 /* CHObserveredPrivate.m in Sources */,
-				FB7A44291D3E2B59002BD219 /* CHTime.m in Sources */,
-				FB7A442C1D3E2B59002BD219 /* NSArray+PureLayout.m in Sources */,
-				FB7A44231D3E2B59002BD219 /* CHPerformanceAnalyzer.mm in Sources */,
-				FB7A442E1D3E2B59002BD219 /* CHPerformanceAnalyzerWindow.mm in Sources */,
-				FB7A44211D3E2B59002BD219 /* CHGlobalDefines.m in Sources */,
-				FB7A44251D3E2B59002BD219 /* CHPerformanceDataPackager.m in Sources */,
+				FB141FA21D3FC07200ED0688 /* CHObserveredPrivate.m in Sources */,
+				FB141FAD1D3FC07200ED0688 /* NSLayoutConstraint+PureLayout.m in Sources */,
 				FB11B3501D3CB0790068AB27 /* AppDelegate.m in Sources */,
-				FB7A442B1D3E2B59002BD219 /* ALView+PureLayout.m in Sources */,
+				FB141FA11D3FC07200ED0688 /* CHGlobalDefines.m in Sources */,
+				FB141FAC1D3FC07200ED0688 /* NSArray+PureLayout.m in Sources */,
+				FB141FA91D3FC07200ED0688 /* CHTime.m in Sources */,
 				FB7A43D61D3E1729002BD219 /* WebViewController.m in Sources */,
-				FB7A44261D3E2B59002BD219 /* CHPerformancerExterns.m in Sources */,
-				FB7A44241D3E2B59002BD219 /* CHPerformanceData.m in Sources */,
+				FB141FA41D3FC07200ED0688 /* CHPerformanceData.m in Sources */,
 				FB11B34D1D3CB0790068AB27 /* main.m in Sources */,
+				FB141FA81D3FC07200ED0688 /* CHAOPManager.m in Sources */,
+				FB141FA51D3FC07200ED0688 /* CHPerformanceDataPackager.m in Sources */,
+				FB141FAA1D3FC07200ED0688 /* EXTScope.m in Sources */,
+				FB141FAE1D3FC07200ED0688 /* CHPerformanceAnalyzerWindow.mm in Sources */,
+				FB141FA71D3FC07200ED0688 /* NSMutableArray+Stack.m in Sources */,
+				FB141FA61D3FC07200ED0688 /* CHPerformancerExterns.m in Sources */,
+				FB141FAB1D3FC07200ED0688 /* ALView+PureLayout.m in Sources */,
+				FB141FA31D3FC07200ED0688 /* CHPerformanceAnalyzer.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
