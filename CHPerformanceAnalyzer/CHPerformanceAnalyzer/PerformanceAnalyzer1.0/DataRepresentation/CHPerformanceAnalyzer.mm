@@ -607,7 +607,7 @@ NSUInteger accurateInstanceMemoryReserved(id instance, BOOL containerDeep/* = NO
                 if (type[1] == '\"' && type[2] != '<') { // This is a delegate, avoid to recycle.
                     NSString *key = [NSString stringWithUTF8String:ivar_getName(*u.p)];
                     id value = [instance valueForKey:key];
-                    reserved += accurateInstanceMemoryReserved(value);
+                    reserved += accurateInstanceMemoryReserved(value, containerDeep);
                 }
             } else if (type[0] == '^') { // get malloc size of C/C++ style pointer
                 auto d = reinterpret_cast<NSInteger>(c_instance);
