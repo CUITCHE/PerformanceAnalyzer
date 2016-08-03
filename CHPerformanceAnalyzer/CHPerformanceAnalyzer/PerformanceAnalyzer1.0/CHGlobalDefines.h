@@ -41,7 +41,7 @@ typedef NS_ENUM(uint8_t, CHInternalIndex) {
     CHInternalIndexCount
 };
 
-typedef NS_OPTIONS(uint8_t, CHPAMonitorType) PA_API_AVAILABLE(1.1) {
+typedef NS_OPTIONS(NSInteger, CHPAMonitorType) PA_API_AVAILABLE(1.1) {
     CHPAMonitorTypeNone = 0,
     CHPAMonitorTypeSQLExecute = 1,
     CHPAMonitorTypeUIRefreshInMainThread = 1 << 1

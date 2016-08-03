@@ -26,7 +26,7 @@ extern "C" {
                                                                  SEL selector,
                                                                  UIApplication *application,
                                                                  NSDictionary *launchOptions);
-    NS_INLINE NSUInteger accurateInstanceMemoryReserved(id instance, BOOL containerDeep = NO);
+    NSUInteger accurateInstanceMemoryReserved(id instance, BOOL containerDeep = NO);
     NS_INLINE id executeQuery_aop_withArgumentsInArray_orDictionary_orVAList(id self,
                                                                              SEL selector,
                                                                              NSString *sql,
@@ -40,6 +40,11 @@ extern "C" {
                                                                                       NSArray *arrayArgs,
                                                                                       NSDictionary *dictionaryArgs,
                                                                                       va_list args) PA_API_AVAILABLE(1.1);
+    NS_INLINE void setNeedsLayout_aop(id self, SEL selector) PA_API_AVAILABLE(1.1);
+    NS_INLINE void layoutIfNeeded_aop(id self, SEL selector) PA_API_AVAILABLE(1.1);
+    NS_INLINE void setNeedsDisplay_aop(id self, SEL selector) PA_API_AVAILABLE(1.1);
+    NS_INLINE void setNeedsDisplayInRect_aop(id self, SEL selector, CGRect rect) PA_API_AVAILABLE(1.1);
+    NS_INLINE void setNeedsUpdateConstraints_aop(id self, SEL selector) PA_API_AVAILABLE(1.1);
 #if defined(__cplusplus)
 }
 #endif
@@ -56,15 +61,13 @@ volatile void startPerformanceAnalyzer()
  *
  */
 __weak CHPerformanceAnalyzerWindow *instanceButInternal = []() {
-    do {
-        Class cls = NSClassFromString(CHPerformanceAnalyzerApplicationDelegateClassName);
-        if (!cls) {
-            fprintf(stderr, "ERROR:The App Delegate:%s is invalid! Performance Analyzer start failed!\n",
-                    CHPerformanceAnalyzerApplicationDelegateClassName.UTF8String);
-            break;
-        }
+    Class cls = NSClassFromString(CHPerformanceAnalyzerApplicationDelegateClassName);
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
+    if (!cls) {
+        fprintf(stderr, "ERROR:The App Delegate:%s is invalid! Performance Analyzer start failed!\n",
+                CHPerformanceAnalyzerApplicationDelegateClassName.UTF8String);
+    } else {
         class_addMethod(cls,
                         @selector(application_aop:didFinishLaunchingWithOptions:),
                         (IMP)application_aop_didFinishLaunchingWithOptions,
@@ -73,12 +76,12 @@ __weak CHPerformanceAnalyzerWindow *instanceButInternal = []() {
                                              oriSEL:@selector(application:didFinishLaunchingWithOptions:)
                                            aopClass:cls
                                              aopSEL:@selector(application_aop:didFinishLaunchingWithOptions:)];
+    }
 
-        Class fmdatabaseClass = NSClassFromString(@"FMDatabase");
-        if (!fmdatabaseClass) {
-            fprintf(stderr, "Tip: Your project doesn't include FMDatabase framework. SQL Monitor will not be opened.\n");
-            break;
-        }
+    Class fmdatabaseClass = NSClassFromString(@"FMDatabase");
+    if (!fmdatabaseClass) {
+        fprintf(stderr, "Tip: Your project doesn't include FMDatabase framework. SQL Monitor will not be opened.\n");
+    } else {
         class_addMethod(fmdatabaseClass,
                         @selector(executeQuery_aop:withArgumentsInArray:orDictionary:orVAList:),
                         (IMP)executeQuery_aop_withArgumentsInArray_orDictionary_orVAList,
@@ -91,9 +94,39 @@ __weak CHPerformanceAnalyzerWindow *instanceButInternal = []() {
                         @selector(executeUpdate_aop:error:withArgumentsInArray:orDictionary:orVAList:),
                         (IMP)executeUpdate_aop_error_withArgumentsInArray_orDictionary_orVAList,
                         "B@:@^@@@@");
-#pragma clang diagnostic pop
-    } while(0);
+    }
 
+    Class viewClass = NSClassFromString(@"UIView");
+    if (!viewClass) {
+        fprintf(stderr, "Error: No UIView Class!");
+    } else {
+        class_addMethod(viewClass, @selector(setNeedsLayout_aop), (IMP)setNeedsLayout_aop, "v@:");
+        [CHAOPManager aopInstanceMethodWithOriClass:viewClass
+                                             oriSEL:@selector(setNeedsLayout)
+                                           aopClass:viewClass
+                                             aopSEL:@selector(setNeedsLayout_aop)];
+        class_addMethod(viewClass, @selector(layoutIfNeeded_aop), (IMP)layoutIfNeeded_aop, "v@:");
+        [CHAOPManager aopInstanceMethodWithOriClass:viewClass
+                                             oriSEL:@selector(layoutIfNeeded)
+                                           aopClass:viewClass
+                                             aopSEL:@selector(layoutIfNeeded_aop)];
+        class_addMethod(viewClass, @selector(setNeedsDisplay_aop), (IMP)setNeedsDisplay_aop, "v@:");
+        [CHAOPManager aopInstanceMethodWithOriClass:viewClass
+                                             oriSEL:@selector(setNeedsDisplay)
+                                           aopClass:viewClass
+                                             aopSEL:@selector(setNeedsDisplay_aop)];
+        class_addMethod(viewClass, @selector(setNeedsDisplayInRect_aop:), (IMP)setNeedsDisplayInRect_aop, "v@:{CGRect=\"origin\"{CGPoint=\"x\"d\"y\"d}\"size\"{CGSize=\"width\"d\"height\"d}}");
+        [CHAOPManager aopInstanceMethodWithOriClass:viewClass
+                                             oriSEL:@selector(setNeedsDisplayInRect:)
+                                           aopClass:viewClass
+                                             aopSEL:@selector(setNeedsDisplayInRect_aop:)];
+        class_addMethod(viewClass, @selector(setNeedsUpdateConstraints_aop), (IMP)setNeedsUpdateConstraints_aop, "v@:");
+        [CHAOPManager aopInstanceMethodWithOriClass:viewClass
+                                             oriSEL:@selector(setNeedsUpdateConstraints)
+                                           aopClass:viewClass
+                                             aopSEL:@selector(setNeedsUpdateConstraints_aop)];
+    }
+#pragma clang diagnostic pop
     return nil;
 }();
 
@@ -102,6 +135,7 @@ struct __InternalMethodFlags {
     uint32_t needStatisticReservedMemory : 1;
     uint32_t methodFlagPerformanceAnalyzerCompleteWithFilePath          : 1;
     uint32_t methodFlagPerformanceAnalyzerTitleMethodWithViewController : 1;
+    uint32_t methodFlagPerformanceAnalyzerMonitorTypeMessage            : 1;
 };
 
 @interface CHPerformanceAnalyzer () <CHPerformanceAnalyzerWindowDelegate>
@@ -269,6 +303,7 @@ struct __InternalMethodFlags {
     if (![_delegate isEqual:delegate]) {
         _analyzerFlags.methodFlagPerformanceAnalyzerCompleteWithFilePath = [_delegate respondsToSelector:@selector(performanceAnalyzer:completeWithFilePath:)];
         _analyzerFlags.methodFlagPerformanceAnalyzerTitleMethodWithViewController = [_delegate respondsToSelector:@selector(performanceAnalyzer:titleMethodWithViewController:)];
+        _analyzerFlags.methodFlagPerformanceAnalyzerMonitorTypeMessage = [_delegate respondsToSelector:@selector(performanceAnalyzer:monitorType:message:)];
     }
 }
 
@@ -542,15 +577,25 @@ struct __InternalMethodFlags {
         {
             NSNumber *threshold = [self.monitorTreshold objectForKey:@(CHPAMonitorTypeSQLExecute)];
             if ([threshold compare:value] == NSOrderedAscending) {
-                // TODO: notification
+                if (_analyzerFlags.methodFlagPerformanceAnalyzerMonitorTypeMessage) {
+                    NSString *sql = message[@"s"];
+                    NSString *type= message[@"t"];
+                    NSString *msg = [NSString stringWithFormat:@"- SQL Monitor: %@ SQL(%@) use %@s. Please be careful.",
+                                     type, sql, value];
+                    [_delegate performanceAnalyzer:self monitorType:CHPAMonitorTypeSQLExecute message:msg];
+                }
             }
         }
             break;
         case CHPAMonitorTypeUIRefreshInMainThread:
         {
             BOOL does = [[self.monitorTreshold objectForKey:@(CHPAMonitorTypeUIRefreshInMainThread)] boolValue];
-            if (does) {
-                // TODO: notification
+            if (does && _analyzerFlags.methodFlagPerformanceAnalyzerMonitorTypeMessage && !value.boolValue) {
+                id s = message[@"self"];
+                NSString *m = message[@"method"];
+                NSString *msg = [NSString stringWithFormat:@"- UI Monitor: %@ is not invoked in main thread at view<%@>."
+                                 ,m, s];
+                [_delegate performanceAnalyzer:self monitorType:CHPAMonitorTypeUIRefreshInMainThread message:msg];
             }
         }
             break;
@@ -755,6 +800,108 @@ NS_INLINE BOOL executeUpdate_aop_error_withArgumentsInArray_orDictionary_orVALis
                                                            message:message];
     return ret;
 }
+
+// AOP TO: - (void)setNeedsLayout;
+NS_INLINE void setNeedsLayout_aop(id self, SEL selector) PA_API_AVAILABLE(1.1)
+{
+    NSMethodSignature *signature = [self methodSignatureForSelector:selector];
+    NSInvocation *invocation     = [NSInvocation invocationWithMethodSignature:signature];
+    invocation.target = self;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+    invocation.selector = @selector(setNeedsLayout_aop);
+#pragma clang diagnostic pop
+    [invocation invoke];
+
+    BOOL isMainThread = [NSThread isMainThread];
+    if (!isMainThread) {
+        NSDictionary *message = @{@"self"   : self,
+                                  @"method" : @"- (void)setNeedsLayout"};
+        [[CHPerformanceAnalyzer sharedPerformanceAnalyzer] monitorType:CHPAMonitorTypeUIRefreshInMainThread monitorValue:@(isMainThread) message:message];
+    }
+}
+
+// AOP TO: - (void)layoutIfNeeded;
+NS_INLINE void layoutIfNeeded_aop(id self, SEL selector) PA_API_AVAILABLE(1.1)
+{
+    NSMethodSignature *signature = [self methodSignatureForSelector:selector];
+    NSInvocation *invocation     = [NSInvocation invocationWithMethodSignature:signature];
+    invocation.target = self;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+    invocation.selector = @selector(layoutIfNeeded_aop);
+#pragma clang diagnostic pop
+    [invocation invoke];
+
+    BOOL isMainThread = [NSThread isMainThread];
+    if (!isMainThread) {
+        NSDictionary *message = @{@"self"   : self,
+                                  @"method" : @"- (void)layoutIfNeeded"};
+        [[CHPerformanceAnalyzer sharedPerformanceAnalyzer] monitorType:CHPAMonitorTypeUIRefreshInMainThread monitorValue:@(isMainThread) message:message];
+    }
+}
+
+// AOP TO: - (void)setNeedsDisplay;
+NS_INLINE void setNeedsDisplay_aop(id self, SEL selector) PA_API_AVAILABLE(1.1)
+{
+    NSMethodSignature *signature = [self methodSignatureForSelector:selector];
+    NSInvocation *invocation     = [NSInvocation invocationWithMethodSignature:signature];
+    invocation.target = self;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+    invocation.selector = @selector(setNeedsDisplay_aop);
+#pragma clang diagnostic pop
+    [invocation invoke];
+
+    BOOL isMainThread = [NSThread isMainThread];
+    if (!isMainThread) {
+        NSDictionary *message = @{@"self"   : self,
+                                  @"method" : @"- (void)setNeedsDisplay"};
+        [[CHPerformanceAnalyzer sharedPerformanceAnalyzer] monitorType:CHPAMonitorTypeUIRefreshInMainThread monitorValue:@(isMainThread) message:message];
+    }
+}
+
+// AOP TO: - (void)setNeedsDisplayInRect:(CGRect)rect;
+NS_INLINE void setNeedsDisplayInRect_aop(id self, SEL selector, CGRect rect) PA_API_AVAILABLE(1.1)
+{
+    NSMethodSignature *signature = [self methodSignatureForSelector:selector];
+    NSInvocation *invocation     = [NSInvocation invocationWithMethodSignature:signature];
+    invocation.target = self;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+    invocation.selector = @selector(setNeedsDisplayInRect_aop:);
+#pragma clang diagnostic pop
+    [invocation setArgument:&rect atIndex:2];
+    [invocation invoke];
+
+    BOOL isMainThread = [NSThread isMainThread];
+    if (!isMainThread) {
+        NSDictionary *message = @{@"self"   : self,
+                                  @"method" : @"- (void)setNeedsDisplayInRect:"};
+        [[CHPerformanceAnalyzer sharedPerformanceAnalyzer] monitorType:CHPAMonitorTypeUIRefreshInMainThread monitorValue:@(isMainThread) message:message];
+    }
+}
+
+// AOP TO: - (void)setNeedsUpdateConstraints
+NS_INLINE void setNeedsUpdateConstraints_aop(id self, SEL selector) PA_API_AVAILABLE(1.1)
+{
+    NSMethodSignature *signature = [self methodSignatureForSelector:selector];
+    NSInvocation *invocation     = [NSInvocation invocationWithMethodSignature:signature];
+    invocation.target = self;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+    invocation.selector = @selector(setNeedsUpdateConstraints_aop);
+#pragma clang diagnostic pop
+    [invocation invoke];
+
+    BOOL isMainThread = [NSThread isMainThread];
+    if (!isMainThread) {
+        NSDictionary *message = message = @{@"self"   : self,
+                                            @"method" : @"- (void)setNeedsUpdateConstraints"};
+        [[CHPerformanceAnalyzer sharedPerformanceAnalyzer] monitorType:CHPAMonitorTypeUIRefreshInMainThread monitorValue:@(isMainThread) message:message];
+    }
+}
+
 
 #include <malloc/malloc.h>
 

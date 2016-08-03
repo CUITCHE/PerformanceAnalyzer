@@ -141,7 +141,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * @author hejunqiu, 16-07-20 14:07:01
  *
- * Invoke when analyzer can't get vaild title of module.
+ * Invoked when analyzer can't get vaild title of module.
  *
  * @param analyzer       A performance analyzer.
  * @param viewController An UIViewController object which is loading.
@@ -150,6 +150,20 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSString *)performanceAnalyzer:(CHPerformanceAnalyzer *)analyzer
     titleMethodWithViewController:(UIViewController *)viewController;
+
+/**
+ * @author hejunqiu, 16-08-03 16:08:22
+ *
+ * If you opened extension monitor, you will receive messages about monitor type
+ * after something triggered monitor's treshold which you've set.
+ *
+ * @param analyzer    A performance analyzer.
+ * @param monitorType see CHPAMonitorType.
+ * @param message     A message from analyzer.
+ */
+- (void)performanceAnalyzer:(CHPerformanceAnalyzer *)analyzer
+                monitorType:(CHPAMonitorType)monitorType
+                    message:(NSString *)message PA_API_AVAILABLE(1.1);
 @end
 
 /**
