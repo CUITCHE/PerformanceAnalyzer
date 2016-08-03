@@ -1,11 +1,19 @@
 中文介绍请看[这里](./README.CN.md)
 # PerformanceAnalyzer
-Under the iOS platform, the analyzer is a tool which statistics CPU, FPS, Memory, Loading-Time and provides the output of statistical data.
+Under the iOS platform, the analyzer is a tool which statistics CPU, FPS, Memory, Loading-Time and provides the output of statistical data. And contain SQL execution time monitor base on FMDatabase and UI refresh in main thread monitor
+
 # Preface
 Because of the needs of project, I write the code for performance analyzer. As above, the analyzer can statistic some app-data, such as CPU, FPS, Memory, Loading-Time. And the memory overhead may be large because analyzer statistics every 0.5s defaultly(except FPS, it does it every 1s). So If you really care about memory overhead, you can switch off other statistical items and only open the Memory statistical item. As for how to turn off, you can see the detailed in below chapters.
-# Advantages
-- Only include directory named `PerformanceAnalyzer` into your project. Don't need to do anythig except that, and then run your code.
-- source code contains method `NSUInteger accurateInstanceMemoryReserved()` which eliminates analyzer's memory. (However method also exists bug, waiting for fix)
+
+# Features
+- **Statistic CPU, FPS, Memory, PageLoading-time**. And them can be controled to show.
+- Custom set the end flag of Loading-time.
+- Skip modules which you don't want.
+- Freedom to turn on or turn off by shake the iPhone device.
+- Generate output file in sandbox.
+- **SQL execution time monitor***. Set the threshold of the time. If timeout, you will receive notification.
+- **UI refresh monitor**. If a view does not refresh in main thread, you will receive notification.
+- Get statistical data.
 
 # How To Use
 - Copy directory `PerformanceAnalyzer/CHPerformanceAnalyzer/CHPerformanceAnalyzer/PerformanceAnalyzer1.0.1/` to your project.

@@ -1,10 +1,16 @@
 # PerformanceAnalyzer 开源啦!!!
-iOS平台下可对APP的CPU、FPS、Memory、LoadingTime进行内部统计的一款工具，并提供统计数据的输出。
+iOS平台下可对APP的CPU、FPS、Memory、LoadingTime进行内部统计的一款工具，并提供统计数据的输出。新增奖励在FMDatabase framework上的SQL执行耗时监控和UI刷新监控。
 # 前言
 有项目需求，所以做了这款性能分析工具。正如简介所说，它可以统计iOS APP的CPU、FPS、Memory、LoadingTime。由于我在工具内部设定的是默认0.5秒统计一次所有数据（FPS除外，它一秒统计一次）故而内存开销可能比较大，所以如果你特别在意内存，建议只统计内存，把其它统计项关掉，至于怎么关掉，可以看看后文的详解。
-# 优势
-- 只需要把PerformanceAnalyzer文件夹包含进入你的工程，不用修改任何代码便可直接运行你的代码，与业务代码耦合度降到最低。
-- source code中包含了`NSUInteger accurateInstanceMemoryReserved()`用于消除analyzer自身承载的内存，做到更加精确统计内存消耗。不过现在还有一些bug，需要修复。
+# 特性
+- **统计CPU、FPS、Memory、LoadingTime**，并且他们都可以按需统计。
+- 自定义页面加载时间的结束检查点。
+- 跳过一些你不想统计的模块。
+- 摇晃手机可以开启或者关闭analyzer。
+- 将统计数据生成文件并存储在沙盒中。
+- **SQL 执行耗时监控**，设置超时阀值，当SQL执行超时后，你将会收到通知。
+- **UI 刷新监控**，如果view不在主线程刷新，你将会收到通知。
+- 获取analyzer统计的最原始的统计数据。
 
 # 如何使用
 - 将'PerformanceAnalyzer/CHPerformanceAnalyzer/CHPerformanceAnalyzer/PerformanceAnalyzer1.0.1/'拷贝至你的工程即可。
