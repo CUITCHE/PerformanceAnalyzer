@@ -7,8 +7,9 @@
 //
 
 #import "CHPerformanceAnalyzerWindow.h"
-#import "PureLayout.h"
 #import "CHAOPManager.h"
+#import "CHMetaMacro.h"
+#import "PureLayout.h"
 
 struct _InternalMethodFlags {
     uint32_t methodFlagViewControllerLoadingView    : 1;

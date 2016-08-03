@@ -14,6 +14,7 @@
 #import "CHPerformanceData.h"
 #include <objc/runtime.h>
 #import "CHAOPManager.h"
+#import "CHMetaMacro.h"
 #import "CHTime.h"
 
 #if defined(__cplusplus)
@@ -391,9 +392,10 @@ struct __InternalMethodFlags {
                    andUpdateModuleName:(NSString *)moduleName
 {
     if (!moduleName || !className) {
-        NSAssert(NO, @"Error param");
+        NSAssert(NO, @"Error param. You may forget to set title of viewController. module<%@>, class<%@>", moduleName, className);
         return;
     }
+
     NSString *identifier = [NSString stringWithFormat:@"%@-%@", moduleName, className];
     NSUInteger index = [_moduleStack indexOfObject:identifier];
     if (index == NSNotFound) {

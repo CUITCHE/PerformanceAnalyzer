@@ -8,6 +8,10 @@
 
 #import "NSMutableArray+Stack.h"
 
+@implementation NSMutableArrayStack
+
+@end
+
 @implementation NSMutableArray (Stack)
 
 - (void)push:(id)obj

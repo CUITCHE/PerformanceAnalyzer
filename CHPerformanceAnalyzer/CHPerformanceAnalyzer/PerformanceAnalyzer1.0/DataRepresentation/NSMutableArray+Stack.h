@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+@interface NSMutableArrayStack : NSObject
+
+@end
+
 @interface NSMutableArray<ObjectType> (Stack)
 
 - (void)push:(ObjectType)obj;

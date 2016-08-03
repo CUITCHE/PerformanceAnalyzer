@@ -70,8 +70,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CHPerformanceAnalyzer (Update)
 
-- (void)updatePageLoadingWithClassName:(nullable NSString *)className
-                   andUpdateModuleName:(nullable NSString *)moduleName;
+- (void)updatePageLoadingWithClassName:(NSString *)className
+                   andUpdateModuleName:(NSString *)moduleName;
 @end
 
 
@@ -91,7 +91,7 @@ NS_ASSUME_NONNULL_BEGIN
  *
  * @return Maybe an array contained NSNumber object.
  */
-- (nullable id)statisticsWithType:(NSInteger)type ofKey:(nullable NSString *)moduleKey;
+- (id)statisticsWithType:(NSInteger)type ofKey:(nullable NSString *)moduleKey;
 
 @end
 
