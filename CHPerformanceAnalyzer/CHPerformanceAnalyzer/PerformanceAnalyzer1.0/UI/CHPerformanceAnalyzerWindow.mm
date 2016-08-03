@@ -20,9 +20,6 @@ struct _InternalMethodFlags {
 
 extern __weak CHPerformanceAnalyzerWindow *instanceButInternal;
 
-static Class class_UIInputViewController = NSClassFromString(@"UIInputWindowController");
-static Class class_UINavigationController = [UINavigationController class];
-
 @interface CHPerformanceAnalyzerWindow ()
 {
     UILabel* _defaultViews[CHInternalIndexCount];
@@ -290,6 +287,5 @@ ext:;
     } while (0);
 ext:;
 }
-
 
 @end

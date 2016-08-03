@@ -67,11 +67,14 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
+
 @interface CHPerformanceAnalyzer (Update)
 
 - (void)updatePageLoadingWithClassName:(NSString *)className
                    andUpdateModuleName:(NSString *)moduleName;
 @end
+
+
 
 @interface CHPerformanceAnalyzer (StatisticResult)
 
@@ -89,6 +92,33 @@ NS_ASSUME_NONNULL_BEGIN
  * @return Maybe an array contained NSNumber object.
  */
 - (id)statisticsWithType:(NSInteger)type ofKey:(nullable NSString *)moduleKey;
+
+@end
+
+
+@interface CHPerformanceAnalyzer (ExtensionMonitor) PA_CLASS_AVAILABLE(1.1)
+
+/// Default to CHPAMonitorTypeNone.
+@property (nonatomic, readonly) CHPAMonitorType monitorType;
+
+/**
+ * @author hejunqiu, 16-08-03 13:08:35
+ *
+ * Set the monitor type with threshold. Analyzer tell you until beyond threshold.
+ *
+ * 1. If monitorType is CHPAMonitorTypeNone, analyzer will close monitor.
+ *
+ * 2. If monitorType is CHPAMonitorTypeSQLExecute, threshold is NSTimeInterval type.
+ *
+ * 3. If monitorType is CHPAMonitorTypeUIRefreshInMainThread, threshold is BOOL type.
+ * YES represents open and NO represnets close.
+ *
+ * @note If threshold is nil, analyzer will close the monitor of relative type.
+ *
+ * @param monitorType see CHPAMonitorType
+ * @param threshold   An NSNumber object to represent the threshold.
+ */
+- (void)setMonitorType:(CHPAMonitorType)monitorType withThreshold:(nullable NSNumber *)threshold;
 
 @end
 

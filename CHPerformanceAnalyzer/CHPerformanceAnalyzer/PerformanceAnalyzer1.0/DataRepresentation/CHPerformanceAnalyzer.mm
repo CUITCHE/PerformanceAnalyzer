@@ -27,6 +27,19 @@ extern "C" {
                                                                  UIApplication *application,
                                                                  NSDictionary *launchOptions);
     NS_INLINE NSUInteger accurateInstanceMemoryReserved(id instance, BOOL containerDeep = NO);
+    NS_INLINE id executeQuery_aop_withArgumentsInArray_orDictionary_orVAList(id self,
+                                                                             SEL selector,
+                                                                             NSString *sql,
+                                                                             NSArray *arrayArgs,
+                                                                             NSDictionary *dictionaryArgs,
+                                                                             va_list args) PA_API_AVAILABLE(1.1);
+    NS_INLINE BOOL executeUpdate_aop_error_withArgumentsInArray_orDictionary_orVAList(id self,
+                                                                                      SEL selector,
+                                                                                      NSString *sql,
+                                                                                      NSError **outErr,
+                                                                                      NSArray *arrayArgs,
+                                                                                      NSDictionary *dictionaryArgs,
+                                                                                      va_list args) PA_API_AVAILABLE(1.1);
 #if defined(__cplusplus)
 }
 #endif
@@ -60,6 +73,24 @@ __weak CHPerformanceAnalyzerWindow *instanceButInternal = []() {
                                              oriSEL:@selector(application:didFinishLaunchingWithOptions:)
                                            aopClass:cls
                                              aopSEL:@selector(application_aop:didFinishLaunchingWithOptions:)];
+
+        Class fmdatabaseClass = NSClassFromString(@"FMDatabase");
+        if (!fmdatabaseClass) {
+            fprintf(stderr, "Tip: Your project doesn't include FMDatabase framework. SQL Monitor will not be opened.\n");
+            break;
+        }
+        class_addMethod(fmdatabaseClass,
+                        @selector(executeQuery_aop:withArgumentsInArray:orDictionary:orVAList:),
+                        (IMP)executeQuery_aop_withArgumentsInArray_orDictionary_orVAList,
+                        "@@:@@@@");
+        [CHAOPManager aopInstanceMethodWithOriClass:fmdatabaseClass
+                                             oriSEL:@selector(executeQuery:withArgumentsInArray:orDictionary:orVAList:)
+                                           aopClass:fmdatabaseClass
+                                             aopSEL:@selector(executeQuery_aop:withArgumentsInArray:orDictionary:orVAList:)];
+        class_addMethod(fmdatabaseClass,
+                        @selector(executeUpdate_aop:error:withArgumentsInArray:orDictionary:orVAList:),
+                        (IMP)executeUpdate_aop_error_withArgumentsInArray_orDictionary_orVAList,
+                        "B@:@^@@@@");
 #pragma clang diagnostic pop
     } while(0);
 
@@ -90,6 +121,13 @@ struct __InternalMethodFlags {
 
 @property (nonatomic, strong) CADisplayLink *fpsDisplayLinker;
 @property (nonatomic, strong) NSTimer *updater;
+
+@property (nonatomic) CHPAMonitorType monitorType PA_API_AVAILABLE(1.1);
+@property (nonatomic, strong) NSMutableDictionary<NSNumber *, NSNumber *> *monitorTreshold PA_API_AVAILABLE(1.1);
+
+- (void)monitorType:(CHPAMonitorType)monitorType
+       monitorValue:(NSNumber *)value
+            message:(NSDictionary *)message PA_API_AVAILABLE(1.1);
 
 @end
 
@@ -232,6 +270,14 @@ struct __InternalMethodFlags {
         _analyzerFlags.methodFlagPerformanceAnalyzerCompleteWithFilePath = [_delegate respondsToSelector:@selector(performanceAnalyzer:completeWithFilePath:)];
         _analyzerFlags.methodFlagPerformanceAnalyzerTitleMethodWithViewController = [_delegate respondsToSelector:@selector(performanceAnalyzer:titleMethodWithViewController:)];
     }
+}
+
+- (NSMutableDictionary<NSNumber *, NSNumber *> *)monitorTreshold PA_API_AVAILABLE(1.1)
+{
+    if (!_monitorTreshold) {
+        _monitorTreshold = [NSMutableDictionary dictionary];
+    }
+    return _monitorTreshold;
 }
 
 #pragma mark - Observered
@@ -396,7 +442,7 @@ struct __InternalMethodFlags {
     } while (0);
 }
 
-#pragma mark - CHPerformanceAnalyzerDelegate
+#pragma mark - CHPerformanceAnalyzerWindowDelegate
 - (void)viewControllerLoadingView:(UIViewController *)viewController
 {
     [_loadingTime restart];
@@ -467,8 +513,55 @@ struct __InternalMethodFlags {
     _performanceWindow.moduleTitleString = msg;
 }
 
+#pragma mark - Class ExtensionMonitor
+- (void)setMonitorType:(CHPAMonitorType)monitorType withThreshold:(NSNumber *)threshold PA_API_AVAILABLE(1.1)
+{
+    do {
+        if (monitorType == CHPAMonitorTypeNone) {
+            [self.monitorTreshold removeAllObjects];
+            break;
+        }
+        if (!threshold) {
+            [self.monitorTreshold removeObjectForKey:@(monitorType)];
+        } else {
+            [self.monitorTreshold setObject:@(monitorType) forKey:threshold];
+        }
+    } while (0);
+}
+
+#pragma mark - Monitor
+- (void)monitorType:(CHPAMonitorType)monitorType
+       monitorValue:(NSNumber *)value
+            message:(NSDictionary *)message PA_API_AVAILABLE(1.1)
+{
+    switch (monitorType) {
+        case CHPAMonitorTypeNone:
+            NSAssert(NO, @"Logic error.");
+            break;
+        case CHPAMonitorTypeSQLExecute:
+        {
+            NSNumber *threshold = [self.monitorTreshold objectForKey:@(CHPAMonitorTypeSQLExecute)];
+            if ([threshold compare:value] == NSOrderedAscending) {
+                // TODO: notification
+            }
+        }
+            break;
+        case CHPAMonitorTypeUIRefreshInMainThread:
+        {
+            BOOL does = [[self.monitorTreshold objectForKey:@(CHPAMonitorTypeUIRefreshInMainThread)] boolValue];
+            if (does) {
+                // TODO: notification
+            }
+        }
+            break;
+        default:
+            break;
+    }
+}
 @end
 
+
+#pragma mark - C Tools
 
 #if defined(__cplusplus)
 extern "C" {
@@ -563,6 +656,104 @@ NS_INLINE BOOL application_aop_didFinishLaunchingWithOptions(id self, SEL select
     }
     [[CHPerformanceAnalyzer sharedPerformanceAnalyzer] startAnalysis];
     return retr;
+}
+
+// AOP TO: - (FMResultSet *)executeQuery_aop:(NSString *)sql withArgumentsInArray:(NSArray*)arrayArgs orDictionary:(NSDictionary *)dictionaryArgs orVAList:(va_list)args;
+NS_INLINE id executeQuery_aop_withArgumentsInArray_orDictionary_orVAList(id self,
+                                                                         SEL selector,
+                                                                         NSString *sql,
+                                                                         NSArray *arrayArgs,
+                                                                         NSDictionary *dictionaryArgs,
+                                                                         va_list args) PA_API_AVAILABLE(1.1)
+{
+    NSMethodSignature *signature = [self methodSignatureForSelector:selector];
+    NSInvocation *invocation     = [NSInvocation invocationWithMethodSignature:signature];
+    invocation.target = self;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+    invocation.selector = @selector(executeQuery_aop:withArgumentsInArray:orDictionary:orVAList:);
+#pragma clang diagnostic pop
+    void *_sql = (__bridge void *)sql;
+    [invocation setArgument:_sql atIndex:2];
+
+    void *_arrayArgs = (__bridge void *)arrayArgs;
+    [invocation setArgument:&_arrayArgs atIndex:3];
+
+    void *_dictionaryArgs = (__bridge void *)dictionaryArgs;
+    [invocation setArgument:&_dictionaryArgs atIndex:4];
+
+    [invocation setArgument:&args atIndex:5];
+
+    static CHTime *click = [](){
+        CHTime *click = [[CHTime alloc] init];
+        [click start];
+        return click;
+    }();
+
+    // clean click
+    [click restart];
+    // invoke and get return value
+    [invocation invoke];
+    id ret = nil;
+    [invocation getReturnValue:&ret];
+    NSTimeInterval interval = [click interval];
+    NSDictionary *message = @{@"s" : sql ?: @"Empty SQL",
+                              @"t" : @"query"};
+    [[CHPerformanceAnalyzer sharedPerformanceAnalyzer] monitorType:CHPAMonitorTypeSQLExecute
+                                                      monitorValue:@(interval)
+                                                           message:message];
+    return ret;
+}
+
+// AOP TO:  - (BOOL)executeUpdate_aop:(NSString*)sql error:(NSError**)outErr withArgumentsInArray:(NSArray*)arrayArgs orDictionary:(NSDictionary *)dictionaryArgs orVAList:(va_list)args;
+NS_INLINE BOOL executeUpdate_aop_error_withArgumentsInArray_orDictionary_orVAList(id self,
+                                                                                  SEL selector,
+                                                                                  NSString *sql,
+                                                                                  NSError **outErr,
+                                                                                  NSArray *arrayArgs,
+                                                                                  NSDictionary *dictionaryArgs,
+                                                                                  va_list args) PA_API_AVAILABLE(1.1)
+{
+    NSMethodSignature *signature = [self methodSignatureForSelector:selector];
+    NSInvocation *invocation     = [NSInvocation invocationWithMethodSignature:signature];
+    invocation.target = self;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+    invocation.selector = @selector(executeUpdate_aop:error:withArgumentsInArray:orDictionary:orVAList:);
+#pragma clang diagnostic pop
+    void *_sql = (__bridge void *)sql;
+    [invocation setArgument:_sql atIndex:2];
+
+    // TODO: need test!
+    [invocation setArgument:outErr atIndex:3];
+
+    void *_arrayArgs = (__bridge void *)arrayArgs;
+    [invocation setArgument:&_arrayArgs atIndex:4];
+
+    void *_dictionaryArgs = (__bridge void *)dictionaryArgs;
+    [invocation setArgument:&_dictionaryArgs atIndex:5];
+
+    [invocation setArgument:&args atIndex:6];
+
+    static CHTime *click = [](){
+        CHTime *click = [[CHTime alloc] init];
+        [click start];
+        return click;
+    }();
+
+    // clean click
+    [click restart];
+    // invoke and get return value
+    [invocation invoke];
+    BOOL ret = 0;
+    [invocation getReturnValue:&ret];
+    NSTimeInterval interval = [click interval];
+    NSDictionary *message = @{@"s" : sql ?: @"Empty SQL",
+                              @"t" : @"update"};
+    [[CHPerformanceAnalyzer sharedPerformanceAnalyzer] monitorType:CHPAMonitorTypeSQLExecute
+                                                      monitorValue:@(interval)
+                                                           message:message];
+    return ret;
 }
 
 #include <malloc/malloc.h>

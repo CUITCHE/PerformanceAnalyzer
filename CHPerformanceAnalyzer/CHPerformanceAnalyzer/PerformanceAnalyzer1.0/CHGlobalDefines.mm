@@ -11,3 +11,7 @@
 @implementation CHGlobalDefines
 
 @end
+
+#define NS_STRING(a) @#a
+
+NSString *const PA_VERSION_STRING = NS_STRING(PA_VERSION);
