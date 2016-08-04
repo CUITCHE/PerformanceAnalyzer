@@ -78,7 +78,6 @@ __weak CHPerformanceAnalyzerWindow *instanceButInternal = []() {
                                            aopClass:cls
                                              aopSEL:@selector(application_aop:didFinishLaunchingWithOptions:)];
     }
-
     Class fmdatabaseClass = NSClassFromString(@"FMDatabase");
     if (!fmdatabaseClass) {
         fprintf(stderr, "Tip: Your project doesn't include FMDatabase framework. SQL Monitor will not be opened.\n");
@@ -86,7 +85,7 @@ __weak CHPerformanceAnalyzerWindow *instanceButInternal = []() {
         class_addMethod(fmdatabaseClass,
                         @selector(executeQuery_aop:withArgumentsInArray:orDictionary:orVAList:),
                         (IMP)executeQuery_aop_withArgumentsInArray_orDictionary_orVAList,
-                        "@@:@@@@");
+                        "@@:@@@*");
         [CHAOPManager aopInstanceMethodWithOriClass:fmdatabaseClass
                                              oriSEL:@selector(executeQuery:withArgumentsInArray:orDictionary:orVAList:)
                                            aopClass:fmdatabaseClass
@@ -94,7 +93,11 @@ __weak CHPerformanceAnalyzerWindow *instanceButInternal = []() {
         class_addMethod(fmdatabaseClass,
                         @selector(executeUpdate_aop:error:withArgumentsInArray:orDictionary:orVAList:),
                         (IMP)executeUpdate_aop_error_withArgumentsInArray_orDictionary_orVAList,
-                        "B@:@^@@@@");
+                        "B@:@^@@@*");
+        [CHAOPManager aopInstanceMethodWithOriClass:fmdatabaseClass
+                                             oriSEL:@selector(executeUpdate:error:withArgumentsInArray:orDictionary:orVAList:)
+                                           aopClass:fmdatabaseClass
+                                             aopSEL:@selector(executeUpdate_aop:error:withArgumentsInArray:orDictionary:orVAList:)];
     }
 
     Class viewClass = NSClassFromString(@"UIView");
@@ -302,6 +305,7 @@ struct __InternalMethodFlags {
 - (void)setDelegate:(id<CHPerformanceAnalyzerDelegate>)delegate
 {
     if (![_delegate isEqual:delegate]) {
+        _delegate = delegate;
         _analyzerFlags.methodFlagPerformanceAnalyzerCompleteWithFilePath = [_delegate respondsToSelector:@selector(performanceAnalyzer:completeWithFilePath:)];
         _analyzerFlags.methodFlagPerformanceAnalyzerTitleMethodWithViewController = [_delegate respondsToSelector:@selector(performanceAnalyzer:titleMethodWithViewController:)];
         _analyzerFlags.methodFlagPerformanceAnalyzerMonitorTypeMessage = [_delegate respondsToSelector:@selector(performanceAnalyzer:monitorType:message:)];
@@ -561,7 +565,7 @@ struct __InternalMethodFlags {
         if (!threshold) {
             [self.monitorTreshold removeObjectForKey:@(monitorType)];
         } else {
-            [self.monitorTreshold setObject:@(monitorType) forKey:threshold];
+            [self.monitorTreshold setObject:threshold forKey:@(monitorType)];
         }
     } while (0);
 }
@@ -605,8 +609,8 @@ struct __InternalMethodFlags {
             break;
     }
 }
-@end
 
+@end
 
 #pragma mark - C Tools
 
@@ -721,7 +725,7 @@ NS_INLINE id executeQuery_aop_withArgumentsInArray_orDictionary_orVAList(id self
     invocation.selector = @selector(executeQuery_aop:withArgumentsInArray:orDictionary:orVAList:);
 #pragma clang diagnostic pop
     void *_sql = (__bridge void *)sql;
-    [invocation setArgument:_sql atIndex:2];
+    [invocation setArgument:&_sql atIndex:2];
 
     void *_arrayArgs = (__bridge void *)arrayArgs;
     [invocation setArgument:&_arrayArgs atIndex:3];
@@ -742,13 +746,17 @@ NS_INLINE id executeQuery_aop_withArgumentsInArray_orDictionary_orVAList(id self
     // invoke and get return value
     [invocation invoke];
     id ret = nil;
-    [invocation getReturnValue:&ret];
-    NSTimeInterval interval = [click interval];
-    NSDictionary *message = @{@"s" : sql ?: @"Empty SQL",
-                              @"t" : @"query"};
-    [[CHPerformanceAnalyzer sharedPerformanceAnalyzer] monitorType:CHPAMonitorTypeSQLExecute
-                                                      monitorValue:@(interval)
-                                                           message:message];
+    void *ret_p = (__bridge void *)ret;
+    [invocation getReturnValue:&ret_p];
+
+    if (instanceButInternal) {
+        NSTimeInterval interval = [click interval];
+        NSDictionary *message = @{@"s" : sql ?: @"Empty SQL",
+                                  @"t" : @"query"};
+        [[CHPerformanceAnalyzer sharedPerformanceAnalyzer] monitorType:CHPAMonitorTypeSQLExecute
+                                                          monitorValue:@(interval)
+                                                               message:message];
+    }
     return ret;
 }
 
@@ -769,10 +777,10 @@ NS_INLINE BOOL executeUpdate_aop_error_withArgumentsInArray_orDictionary_orVALis
     invocation.selector = @selector(executeUpdate_aop:error:withArgumentsInArray:orDictionary:orVAList:);
 #pragma clang diagnostic pop
     void *_sql = (__bridge void *)sql;
-    [invocation setArgument:_sql atIndex:2];
+    [invocation setArgument:&_sql atIndex:2];
 
     // TODO: need test!
-    [invocation setArgument:outErr atIndex:3];
+    [invocation setArgument:&outErr atIndex:3];
 
     void *_arrayArgs = (__bridge void *)arrayArgs;
     [invocation setArgument:&_arrayArgs atIndex:4];
@@ -864,7 +872,8 @@ NS_INLINE void setNeedsDisplay_aop(id self, SEL selector) PA_API_AVAILABLE(1.1)
 }
 
 // AOP TO: - (void)setNeedsDisplayInRect:(CGRect)rect;
-NS_INLINE void setNeedsDisplayInRect_aop(id self, SEL selector, CGRect rect) PA_API_AVAILABLE(1.1)
+NS_INLINE void setNeedsDisplayInRect_aop(id self,
+                                         SEL selector, CGRect rect) PA_API_AVAILABLE(1.1)
 {
     NSMethodSignature *signature = [self methodSignatureForSelector:selector];
     NSInvocation *invocation     = [NSInvocation invocationWithMethodSignature:signature];
