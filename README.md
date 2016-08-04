@@ -1,4 +1,5 @@
-中文介绍请看[这里](./README.CN.md)
+> - 中文介绍请看[这里](./README.CN.md)
+> - 支持静态库方式启动analyzer：[Support static library](./PerformanceAnalyzer/)
 # PerformanceAnalyzer
 Under the iOS platform, the analyzer is a tool which statistics CPU, FPS, Memory, Loading-Time and provides the output of statistical data. And contain SQL execution time monitor base on FMDatabase and UI refresh in main thread monitor
 
