@@ -116,4 +116,4 @@ Shake the phone to turn off analyzer, turn on shake again.
 
 # Releases
 - 2016-08-04 [Support SQL execute time an UI refresh monitor](https://github.com/CUITCHE/PerformanceAnalyzer/releases/tag/Release1.1)
-- 2016-04-08 【The first ore-release】(https://github.com/CUITCHE/PerformanceAnalyzer/releases/tag/Release0.1)
+- 2016-04-08 [The first ore-release](https://github.com/CUITCHE/PerformanceAnalyzer/releases/tag/Release0.1)
