@@ -13,12 +13,12 @@ Because of the needs of project, I write the code for performance analyzer. As a
 - Skip modules which you don't want.
 - Freedom to turn on or turn off by shake the iPhone device.
 - Generate output file in sandbox.
-- **SQL execution time monitor***. Set the threshold of the time. If timeout, you will receive notification.
+- **SQL execution time monitor**. Set the threshold of the time. If timeout, you will receive notification.
 - **UI refresh monitor**. If a view does not refresh in main thread, you will receive notification.
 - Get statistical data.
 
 # How To Use
-- Copy directory `PerformanceAnalyzer/CHPerformanceAnalyzer/CHPerformanceAnalyzer/PerformanceAnalyzer1.0.1/` to your project.
+- Copy directory `PerformanceAnalyzer/CHPerformanceAnalyzer/CHPerformanceAnalyzer/PerformanceAnalyzer/` to your project.
 - Run your APP!!! Don't need to do anythig except that.
 
 # Demo - Screenshot

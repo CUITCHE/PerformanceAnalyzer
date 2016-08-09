@@ -13,7 +13,7 @@ iOS平台下可对APP的CPU、FPS、Memory、LoadingTime进行内部统计的一
 - 获取analyzer统计的最原始的统计数据。
 
 # 如何使用
-- 将'PerformanceAnalyzer/CHPerformanceAnalyzer/CHPerformanceAnalyzer/PerformanceAnalyzer1.0.1/'拷贝至你的工程即可。
+- 将`PerformanceAnalyzer/CHPerformanceAnalyzer/CHPerformanceAnalyzer/PerformanceAnalyzer/`拷贝至你的工程即可。
 - 启动你的APP吧，我们为效率而生！
 - 就只需要这样，不需要额外的代码。
 
