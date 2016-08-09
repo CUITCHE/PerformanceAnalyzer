@@ -65,10 +65,16 @@ __weak CHPerformanceAnalyzerWindow *instanceButInternal = []() {
     Class cls = NSClassFromString(CHPerformanceAnalyzerApplicationDelegateClassName);
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wundeclared-selector"
-    if (!cls) {
-        fprintf(stderr, "ERROR:The App Delegate:%s is invalid! Performance Analyzer start failed!\n",
-                CHPerformanceAnalyzerApplicationDelegateClassName.UTF8String);
-    } else {
+    do {
+        if (!cls) {
+            fprintf(stderr, "Error: App Delegate:%s is invalid! Performance Analyzer start failed!\n",
+                    CHPerformanceAnalyzerApplicationDelegateClassName.UTF8String);
+            break;
+        }
+        if (!class_conformsToProtocol(cls, NSProtocolFromString(@"UIApplicationDelegate"))) {
+            fprintf(stderr, "Error: The %s does not conform to protocol - UIApplicationDelegate! Performance Analyzer start failed!\n", CHPerformanceAnalyzerApplicationDelegateClassName.UTF8String);
+            break;
+        }
         class_addMethod(cls,
                         @selector(application_aop:didFinishLaunchingWithOptions:),
                         (IMP)application_aop_didFinishLaunchingWithOptions,
@@ -77,11 +83,12 @@ __weak CHPerformanceAnalyzerWindow *instanceButInternal = []() {
                                              oriSEL:@selector(application:didFinishLaunchingWithOptions:)
                                            aopClass:cls
                                              aopSEL:@selector(application_aop:didFinishLaunchingWithOptions:)];
-    }
-    Class fmdatabaseClass = NSClassFromString(@"FMDatabase");
-    if (!fmdatabaseClass) {
-        fprintf(stderr, "Tip: Your project doesn't include FMDatabase framework. SQL Monitor will not be opened.\n");
-    } else {
+
+        Class fmdatabaseClass = NSClassFromString(@"FMDatabase");
+        if (!fmdatabaseClass) {
+            fprintf(stderr, "Tip: Your project doesn't include FMDatabase framework. SQL Monitor will not be opened.\n");
+            break;
+        }
         class_addMethod(fmdatabaseClass,
                         @selector(executeQuery_aop:withArgumentsInArray:orDictionary:orVAList:),
                         (IMP)executeQuery_aop_withArgumentsInArray_orDictionary_orVAList,
@@ -98,12 +105,12 @@ __weak CHPerformanceAnalyzerWindow *instanceButInternal = []() {
                                              oriSEL:@selector(executeUpdate:error:withArgumentsInArray:orDictionary:orVAList:)
                                            aopClass:fmdatabaseClass
                                              aopSEL:@selector(executeUpdate_aop:error:withArgumentsInArray:orDictionary:orVAList:)];
-    }
 
-    Class viewClass = NSClassFromString(@"UIView");
-    if (!viewClass) {
-        fprintf(stderr, "Error: No UIView Class!");
-    } else {
+        Class viewClass = NSClassFromString(@"UIView");
+        if (!viewClass) {
+            fprintf(stderr, "Error: No UIView Class!");
+            break;
+        }
         class_addMethod(viewClass, @selector(setNeedsLayout_aop), (IMP)setNeedsLayout_aop, "v@:");
         [CHAOPManager aopInstanceMethodWithOriClass:viewClass
                                              oriSEL:@selector(setNeedsLayout)
@@ -129,7 +136,7 @@ __weak CHPerformanceAnalyzerWindow *instanceButInternal = []() {
                                              oriSEL:@selector(setNeedsUpdateConstraints)
                                            aopClass:viewClass
                                              aopSEL:@selector(setNeedsUpdateConstraints_aop)];
-    }
+    } while(0);
 #pragma clang diagnostic pop
     return nil;
 }();

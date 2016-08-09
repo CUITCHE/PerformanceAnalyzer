@@ -2,6 +2,9 @@
 //  CHPerformanceAnalyzer.h
 //  CHPerformanceAnalyzer
 //
+//  Github:https://github.com/CUITCHE/PerformanceAnalyzer
+//  LICENSE: The MIT LICENSE
+//
 //  Created by hejunqiu on 16/7/18.
 //  Copyright © 2016年 CHE. All rights reserved.
 //
