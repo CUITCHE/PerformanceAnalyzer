@@ -97,7 +97,7 @@ extern __weak CHPerformanceAnalyzerWindow *instanceButInternal;
 - (void)setupLayouts
 {
     UILabel *module = _defaultViews[CHInternalIndexModule];
-    _topConstraint = [module autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:5-64];
+    _topConstraint = [module autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:5];
     _leftConstraint = [module autoAlignAxisToSuperviewAxis:ALAxisVertical];
     [module autoMatchDimension:ALDimensionWidth toDimension:ALDimensionWidth ofView:self];
 
@@ -152,8 +152,8 @@ extern __weak CHPerformanceAnalyzerWindow *instanceButInternal;
         CGFloat y = location.y - _startPoint.y;
         CGRect frame = CGRectOffset(self.frame, x, y);
         self.frame = frame;
-        _topConstraint.constant -= y;
-        _leftConstraint.constant -= x;
+//        _topConstraint.constant -= y;
+//        _leftConstraint.constant -= x;
         [self setNeedsUpdateConstraints];
     }
 }
