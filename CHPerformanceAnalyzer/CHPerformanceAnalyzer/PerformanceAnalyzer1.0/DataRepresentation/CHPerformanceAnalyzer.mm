@@ -154,7 +154,6 @@ struct __InternalMethodFlags {
     NSUInteger                  _fpsCount;
     CFTimeInterval              _fpsLastTime;
     CHTime *                    _loadingTime;
-    NSUInteger                  _analyzerReserved;
     NSMutableArray<NSString *> *_moduleStack;
     struct __InternalMethodFlags                          _analyzerFlags;
     NSMutableArray<CHObserveredPrivate *> *               _registeredObservereds;
@@ -189,7 +188,6 @@ struct __InternalMethodFlags {
 {
     self = [super init];
     if (self) {
-        _analyzerFlags.needStatisticReservedMemory = YES;
         _performanceWindow = [[CHPerformanceAnalyzerWindow alloc] initWithAnalyzerType:CHPerformanceAnalyzerShowTypeSetting
                                                                                  frame:CGRectMake(5, 64, 310, 100)];
         _performanceWindow.delegate = self;
@@ -200,26 +198,8 @@ struct __InternalMethodFlags {
 
         _moduleStack = [NSMutableArray arrayWithCapacity:10];
         _performanceData = [NSMutableDictionary dictionaryWithCapacity:10];
-
-        [self accurateMemoryReservedForInitial];
     }
     return self;
-}
-
-- (void)accurateMemoryReservedForInitial
-{
-    _analyzerReserved ^= _analyzerReserved;
-    _analyzerReserved += accurateInstanceMemoryReserved(_loadingTime);
-    _analyzerReserved += accurateInstanceMemoryReserved(_title);
-    _analyzerReserved += accurateInstanceMemoryReserved(_performanceWindow);
-}
-
-- (NSUInteger)accurateMemoryReserved
-{
-    NSUInteger reserved = accurateInstanceMemoryReserved(_registeredObservereds) +
-                          accurateInstanceMemoryReserved(_moduleStack, YES) +
-                          accurateInstanceMemoryReserved(_performanceData, YES);
-    return reserved + _analyzerReserved;
 }
 
 #pragma mark - Interface
@@ -239,11 +219,6 @@ struct __InternalMethodFlags {
         _fpsDisplayLinker = [CADisplayLink displayLinkWithTarget:self selector:@selector(onFPSDisplayLinker:)];
         [_fpsDisplayLinker addToRunLoop:[NSRunLoop currentRunLoop] forMode:UITrackingRunLoopMode];
         [_fpsDisplayLinker addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-    }
-    if (_analyzerFlags.needStatisticReservedMemory) {
-        _analyzerReserved += accurateInstanceMemoryReserved(_updater);
-        _analyzerReserved += accurateInstanceMemoryReserved(_fpsDisplayLinker);
-        _analyzerFlags.needStatisticReservedMemory = 0;
     }
 
     @weakify(self);
@@ -461,7 +436,7 @@ struct __InternalMethodFlags {
     if (option_check(_performanceWindow.showType, CHPerformanceAnalyzerShowTypeMemory)) {
         CGFloat value = -1;
         if (_analyzerFlags.needRecordMemoryIncrement) {
-            value = (usageOfCurrentAPPMemory() - [self accurateMemoryReserved]) / (1024 * 1024.0);
+            value = (usageOfCurrentAPPMemory()) / (1024 * 1024.0);
         }
         [cur addPerformanceData:@(value) forType:CHPerformanceDataTypeMemory];
         [_performanceWindow setMemoryWithValue:value];
