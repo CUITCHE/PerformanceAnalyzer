@@ -19,7 +19,7 @@ class CPUMonitor: Monitor {
     var type: MonitorType { return .cpu }
 
     func start() {
-        updater = Timer(timeInterval: 0.5, target: self, selector: #selector(onUpdater(_:)), userInfo: nil, repeats: true)
+        updater = Timer(timeInterval: 1, target: self, selector: #selector(onUpdater(_:)), userInfo: nil, repeats: true)
         RunLoop.main.add(updater, forMode: .defaultRunLoopMode)
         RunLoop.main.add(updater, forMode: .UITrackingRunLoopMode)
         updater.fire()

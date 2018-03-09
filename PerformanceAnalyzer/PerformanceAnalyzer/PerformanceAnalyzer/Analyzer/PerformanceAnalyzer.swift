@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct PerformanceAnalyzer {
+class PerformanceAnalyzer {
     
     private let monitors: [MonitorType: Monitor] = [.fps: FPSMonitor.shared, .memory: MemoryMonitor.shared,
                                                     .pageLoading: PageLoadingMonitor.shared, .cpu: CPUMonitor.shared,
@@ -18,12 +18,14 @@ struct PerformanceAnalyzer {
 
     init(monitorTypes: [MonitorType]) {
         self.monitorTypes = monitorTypes
+        UIViewController.exchangeMethods()
     }
 
-    mutating func startAnalysis() {
-        window = PerformanceAnalyzerWindow(frame: .init(x: 10, y: 64, width: 310, height: 100), analyzerItems: monitorTypes)
-        window.isHidden = false
-        window.makeKeyAndVisible()
+    func startAnalysis() {
+        self.window = PerformanceAnalyzerWindow(frame: .init(x: 10, y: 64, width: 310, height: 100), analyzerItems: self.monitorTypes)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.window.makeKeyAndVisible()
+        }
 
         for type in monitorTypes {
             if var monitor = monitors[type] {
@@ -33,7 +35,7 @@ struct PerformanceAnalyzer {
         }
     }
 
-    mutating func stopAnalysis() {
+    func stopAnalysis() {
         for type in monitorTypes {
             if let monitor = monitors[type] {
                 monitor.stop()
