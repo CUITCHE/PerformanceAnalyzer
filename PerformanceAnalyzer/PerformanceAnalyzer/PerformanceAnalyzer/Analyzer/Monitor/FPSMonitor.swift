@@ -18,6 +18,8 @@ class FPSMonitor: Monitor {
     private var lastTime: CFTimeInterval = 0
     private var count: Int = 0
     private var updater: CADisplayLink! = nil
+    var isMonitoring: Bool { return updater != nil }
+    var type: MonitorType { return .fps }
 
     func start() {
         updater = CADisplayLink(target: self, selector: #selector(onUpdater(_:)))

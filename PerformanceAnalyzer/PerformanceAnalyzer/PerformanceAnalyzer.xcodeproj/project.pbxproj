@@ -23,12 +23,14 @@
 		FB58C1E220511DAC00D99836 /* AnalyzerCFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = FB58C1E020511DAC00D99836 /* AnalyzerCFunction.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FB58C1E520511DAC00D99836 /* AnalyzerCFunction.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB58C1DE20511DAC00D99836 /* AnalyzerCFunction.framework */; };
 		FB58C1E620511DAC00D99836 /* AnalyzerCFunction.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FB58C1DE20511DAC00D99836 /* AnalyzerCFunction.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		FB58C1EE20511DE100D99836 /* rebindings.m in Sources */ = {isa = PBXBuildFile; fileRef = FB58C1EC20511DE100D99836 /* rebindings.m */; };
+		FB58C1EE20511DE100D99836 /* rebindings.mm in Sources */ = {isa = PBXBuildFile; fileRef = FB58C1EC20511DE100D99836 /* rebindings.mm */; };
 		FB58C1F02051246600D99836 /* functions.m in Sources */ = {isa = PBXBuildFile; fileRef = FB58C1EF2051246600D99836 /* functions.m */; };
 		FB58C1F22051261300D99836 /* ObjcMethodExchanges.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB58C1F12051261300D99836 /* ObjcMethodExchanges.swift */; };
 		FB58C1F420512E1600D99836 /* Monitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB58C1F320512E1600D99836 /* Monitor.swift */; };
 		FB58C1F720512E3800D99836 /* FPSMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB58C1F620512E3800D99836 /* FPSMonitor.swift */; };
 		FB58C1F92051342300D99836 /* MemoryMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB58C1F82051342300D99836 /* MemoryMonitor.swift */; };
+		FB63856D20524F7E00475029 /* ModuleMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB63856C20524F7E00475029 /* ModuleMonitor.swift */; };
+		FB6FD0A020527EF80004B0CF /* CGPointExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6FD09F20527EF80004B0CF /* CGPointExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,12 +80,14 @@
 		FB58C1DE20511DAC00D99836 /* AnalyzerCFunction.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AnalyzerCFunction.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB58C1E020511DAC00D99836 /* AnalyzerCFunction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnalyzerCFunction.h; sourceTree = "<group>"; };
 		FB58C1E120511DAC00D99836 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FB58C1EC20511DE100D99836 /* rebindings.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = rebindings.m; sourceTree = "<group>"; };
+		FB58C1EC20511DE100D99836 /* rebindings.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = rebindings.mm; sourceTree = "<group>"; };
 		FB58C1EF2051246600D99836 /* functions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = functions.m; sourceTree = "<group>"; };
 		FB58C1F12051261300D99836 /* ObjcMethodExchanges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjcMethodExchanges.swift; sourceTree = "<group>"; };
 		FB58C1F320512E1600D99836 /* Monitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Monitor.swift; sourceTree = "<group>"; };
 		FB58C1F620512E3800D99836 /* FPSMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FPSMonitor.swift; sourceTree = "<group>"; };
 		FB58C1F82051342300D99836 /* MemoryMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryMonitor.swift; sourceTree = "<group>"; };
+		FB63856C20524F7E00475029 /* ModuleMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleMonitor.swift; sourceTree = "<group>"; };
+		FB6FD09F20527EF80004B0CF /* CGPointExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGPointExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,11 +168,10 @@
 		FB58C1CF2050E1D900D99836 /* Analyzer */ = {
 			isa = PBXGroup;
 			children = (
+				FB58C1D720511A4200D99836 /* PerformanceAnalyzer.swift */,
+				FB63856E20526C5100475029 /* UI */,
 				FB58C1F520512E1E00D99836 /* Monitor */,
 				FB58C1D02050E2DF00D99836 /* Runtime */,
-				FB58C1D32051069A00D99836 /* PerformanceAnalyzerWindow.swift */,
-				FB58C1D520510BB300D99836 /* AnalyzerItemView.swift */,
-				FB58C1D720511A4200D99836 /* PerformanceAnalyzer.swift */,
 			);
 			path = Analyzer;
 			sourceTree = "<group>";
@@ -178,6 +181,7 @@
 			children = (
 				FB58C1F12051261300D99836 /* ObjcMethodExchanges.swift */,
 				FB58C1D12050E36900D99836 /* UIViewControllerExtension.swift */,
+				FB6FD09F20527EF80004B0CF /* CGPointExtension.swift */,
 			);
 			path = Runtime;
 			sourceTree = "<group>";
@@ -187,7 +191,7 @@
 			children = (
 				FB58C1E020511DAC00D99836 /* AnalyzerCFunction.h */,
 				FB58C1E120511DAC00D99836 /* Info.plist */,
-				FB58C1EC20511DE100D99836 /* rebindings.m */,
+				FB58C1EC20511DE100D99836 /* rebindings.mm */,
 				FB58C1EF2051246600D99836 /* functions.m */,
 			);
 			path = AnalyzerCFunction;
@@ -197,12 +201,22 @@
 			isa = PBXGroup;
 			children = (
 				FB58C1F320512E1600D99836 /* Monitor.swift */,
+				FB205A95205146E10066E566 /* CPUMonitor.swift */,
 				FB58C1F620512E3800D99836 /* FPSMonitor.swift */,
 				FB58C1F82051342300D99836 /* MemoryMonitor.swift */,
+				FB63856C20524F7E00475029 /* ModuleMonitor.swift */,
 				FB205A9320513F7E0066E566 /* PageLoadingMonitor.swift */,
-				FB205A95205146E10066E566 /* CPUMonitor.swift */,
 			);
 			path = Monitor;
+			sourceTree = "<group>";
+		};
+		FB63856E20526C5100475029 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				FB58C1D520510BB300D99836 /* AnalyzerItemView.swift */,
+				FB58C1D32051069A00D99836 /* PerformanceAnalyzerWindow.swift */,
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -419,6 +433,8 @@
 				FB58C1C02050E17B00D99836 /* ViewController.swift in Sources */,
 				FB58C1F92051342300D99836 /* MemoryMonitor.swift in Sources */,
 				FB58C1F22051261300D99836 /* ObjcMethodExchanges.swift in Sources */,
+				FB63856D20524F7E00475029 /* ModuleMonitor.swift in Sources */,
+				FB6FD0A020527EF80004B0CF /* CGPointExtension.swift in Sources */,
 				FB58C1BE2050E17B00D99836 /* AppDelegate.swift in Sources */,
 				FB58C1F720512E3800D99836 /* FPSMonitor.swift in Sources */,
 				FB205A9420513F7E0066E566 /* PageLoadingMonitor.swift in Sources */,
@@ -434,7 +450,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB58C1F02051246600D99836 /* functions.m in Sources */,
-				FB58C1EE20511DE100D99836 /* rebindings.m in Sources */,
+				FB58C1EE20511DE100D99836 /* rebindings.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

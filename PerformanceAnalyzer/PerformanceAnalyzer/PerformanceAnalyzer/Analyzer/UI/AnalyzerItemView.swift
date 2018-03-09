@@ -9,25 +9,10 @@
 import UIKit
 import PureLayout
 
-public enum AnalyzerItemType: String {
-    public struct Name: RawRepresentable {
-        public let rawValue: String
-        public init(rawValue: String) {
-            self.rawValue = rawValue
-        }
-        public static let module      = Name(rawValue: "module")
-        public static let cpu         = Name(rawValue: "cpu")
-        public static let memory      = Name(rawValue: "memory")
-        public static let pageLoading = Name(rawValue: "pageLoading")
-        public static let fps         = Name(rawValue: "fps")
-    }
-    case module, cpu, memory, pageLoading, fps
-}
-
 class AnalyzerItemView: UIView {
     let label = UILabel(frame: .zero)
-    let itemType: AnalyzerItemType
-    var value: String = "" {
+    let itemType: MonitorType
+    var value: MonitorDataType = .int(0) {
         didSet {
             switch itemType {
             case .module:
@@ -35,7 +20,10 @@ class AnalyzerItemView: UIView {
             case .cpu:
                 label.text = "\(itemType.rawValue): \(value)%"
             case .memory:
-                label.text = "\(itemType.rawValue): \(value)MB"
+                if case let .int(val) = value {
+                    let mb = Double(val) / 1024 / 1024
+                    label.text = "\(itemType.rawValue): \(mb)MB"
+                }
             case .pageLoading:
                 label.text = "\(itemType.rawValue): \(value)s"
             case .fps:
@@ -44,7 +32,7 @@ class AnalyzerItemView: UIView {
         }
     }
 
-    init(frame: CGRect, itemType: AnalyzerItemType) {
+    init(frame: CGRect, itemType: MonitorType) {
         self.itemType = itemType
         super.init(frame: frame)
         setupUI()
@@ -56,7 +44,7 @@ class AnalyzerItemView: UIView {
 
     private func setupUI() {
         label.text = itemType.rawValue
-        label.font = UIFont.systemFont(ofSize: 11)
+        label.font = UIFont.systemFont(ofSize: 16)
         label.textColor = UIColor.white.withAlphaComponent(0.5)
         label.lineBreakMode = .byWordWrapping
         addSubview(label)

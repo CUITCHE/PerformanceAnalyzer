@@ -12,10 +12,14 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var analyzer = PerformanceAnalyzer(monitorTypes: [.cpu, .fps, .module, .memory, .pageLoading])
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.analyzer.startAnalysis()
+        }
         return true
     }
 

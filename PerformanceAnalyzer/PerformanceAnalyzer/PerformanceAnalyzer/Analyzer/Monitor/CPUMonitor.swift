@@ -10,8 +10,13 @@ import Foundation
 import AnalyzerCFunction
 
 class CPUMonitor: Monitor {
+
+    static let shared = CPUMonitor()
+
     var delegate: MonitorDataSourceDelegate?
     private var updater: Timer!
+    var isMonitoring: Bool { return updater != nil }
+    var type: MonitorType { return .cpu }
 
     func start() {
         updater = Timer(timeInterval: 0.5, target: self, selector: #selector(onUpdater(_:)), userInfo: nil, repeats: true)

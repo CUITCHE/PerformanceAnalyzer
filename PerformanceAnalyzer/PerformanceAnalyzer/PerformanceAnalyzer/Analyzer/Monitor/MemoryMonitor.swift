@@ -9,29 +9,14 @@
 import Foundation
 import AnalyzerCFunction
 
-private var memSize: Int = 0
-private let semaphore: DispatchSemaphore = DispatchSemaphore(value: 1)
-
 class MemoryMonitor: Monitor {
 
     static let shared = MemoryMonitor()
 
     var delegate: MonitorDataSourceDelegate?
     private var updater: Timer!
-
-    init() {
-        malloc_callback = { size in
-            semaphore.wait()
-            memSize += size
-            semaphore.signal()
-        }
-
-        free_callback = { size in
-            semaphore.wait()
-            memSize -= size
-            semaphore.signal()
-        }
-    }
+    var isMonitoring: Bool { return updater != nil }
+    var type: MonitorType { return .memory }
 
     deinit {
         malloc_callback = nil
@@ -53,6 +38,6 @@ class MemoryMonitor: Monitor {
     }
 
     @objc private func onUpdater(_ timer: Timer) {
-        delegate?.monitor(self, occurs: .int(memSize))
+        delegate?.monitor(self, occurs: .int(GetCurrentMallocAllocSize()))
     }
 }

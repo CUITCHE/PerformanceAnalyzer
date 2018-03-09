@@ -11,13 +11,22 @@ import AnalyzerCFunction
 
 extension UIViewController {
     @objc private func loadView$Ex() {
+        ModuleMonitor.shared.switchPage(NSStringFromClass(self.classForCoder))
         PageLoadingMonitor.shared.startFlag()
         loadView$Ex()
     }
 
     @objc private func viewDidAppear$Ex(_ animated: Bool) {
         viewDidAppear$Ex(animated)
-        PageLoadingMonitor.shared.endFlag(with: NSStringFromClass(self.classForCoder))
+        guard PageLoadingMonitor.shared.isNeedTime else { return }
+
+        if let flagSelf = self as? UIViewControllerAnalyzerCustomEndFlag {
+            if !flagSelf.hasEndFlag {
+                PageLoadingMonitor.shared.endFlag(with: NSStringFromClass(self.classForCoder))
+            }
+        } else {
+            PageLoadingMonitor.shared.endFlag(with: NSStringFromClass(self.classForCoder))
+        }
     }
 
     static func exchangeMethods() {

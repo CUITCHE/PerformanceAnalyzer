@@ -19,5 +19,7 @@ FOUNDATION_EXPORT const unsigned char AnalyzerCFunctionVersionString[];
 
 void instanceMethodExchange(Class clazz, SEL sel, SEL esel);
 double usageOfCurrentAPPCPU();
+
 FOUNDATION_EXPORT void (*malloc_callback)(size_t size);
 FOUNDATION_EXPORT void (*free_callback)(size_t size);
+FOUNDATION_EXTERN NSInteger GetCurrentMallocAllocSize();
