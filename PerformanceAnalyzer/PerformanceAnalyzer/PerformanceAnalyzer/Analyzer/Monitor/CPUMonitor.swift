@@ -11,8 +11,6 @@ import AnalyzerCFunction
 
 class CPUMonitor: Monitor {
 
-    static let shared = CPUMonitor()
-
     var delegate: MonitorDataSourceDelegate?
     private var updater: Timer!
     var isMonitoring: Bool { return updater != nil }
@@ -33,6 +31,10 @@ class CPUMonitor: Monitor {
     }
 
     @objc private func onUpdater(_ timer: Timer) {
-        delegate?.monitor(self, occurs: .double(usageOfCurrentAPPCPU()))
+        delegate?.monitor(self, occurs: .double(usageOfCurrentAPPCPU()), at: currentTime())
     }
+}
+
+extension CPUMonitor: MonitorShared {
+    static let shared = CPUMonitor()
 }

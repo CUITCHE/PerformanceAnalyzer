@@ -11,8 +11,6 @@ import QuartzCore.CADisplayLink
 
 class FPSMonitor: Monitor {
 
-    static let shared = FPSMonitor()
-
     var delegate: MonitorDataSourceDelegate?
 
     private var lastTime: CFTimeInterval = 0
@@ -42,8 +40,12 @@ class FPSMonitor: Monitor {
         guard delta >= 1 else { return }
 
         let fps = CFTimeInterval(count) / delta
-        delegate?.monitor(self, occurs: .double(fps))
+        delegate?.monitor(self, occurs: .double(fps), at: currentTime())
         count = 0
         lastTime = displayLink.timestamp
     }
+}
+
+extension FPSMonitor: MonitorShared {
+    static let shared = FPSMonitor()
 }

@@ -11,17 +11,20 @@ import AnalyzerCFunction
 
 extension UIViewController {
     @objc private func loadView$Ex() {
-        ModuleMonitor.shared.switchPage(NSStringFromClass(self.classForCoder))
         PageLoadingMonitor.shared.startFlag()
         loadView$Ex()
     }
 
+    @objc private func viewWillAppear$Ex(_ animated: Bool) {
+        ModuleMonitor.shared.switch(page: NSStringFromClass(self.classForCoder))
+        ModuleMonitor.shared.currentViewController = self
+        viewWillAppear$Ex(animated)
+    }
+
     @objc private func viewDidAppear$Ex(_ animated: Bool) {
         viewDidAppear$Ex(animated)
-        guard PageLoadingMonitor.shared.isNeedTime else { return }
-
-        if let flagSelf = self as? UIViewControllerAnalyzerCustomEndFlag {
-            if !flagSelf.hasEndFlag {
+        if let flagSelf = self as? UIViewControllerAnalyzerCustom {
+            if flagSelf.hasEndFlag?() ?? false == false {
                 PageLoadingMonitor.shared.endFlag(with: NSStringFromClass(self.classForCoder))
             }
         } else {
@@ -29,12 +32,16 @@ extension UIViewController {
         }
     }
 
+    @objc private func viewWillDisappear$Ex(_ animated: Bool) {
+        ModuleMonitor.shared.currentViewController = nil
+        viewWillDisappear$Ex(animated)
+    }
+
     static func exchangeMethods() {
-        func UIViewControllerEx() {
-            let cls = UIViewController.self
-            instanceMethodExchange(cls, #selector(loadView), #selector(loadView$Ex))
-            instanceMethodExchange(cls, #selector(viewDidAppear(_:)), #selector(viewDidAppear$Ex(_:)))
-        }
-        UIViewControllerEx()
+        let cls = UIViewController.self
+        instanceMethodExchange(cls, #selector(loadView), #selector(loadView$Ex))
+        instanceMethodExchange(cls, #selector(viewWillAppear(_:)), #selector(viewWillAppear$Ex(_:)))
+        instanceMethodExchange(cls, #selector(viewDidAppear(_:)), #selector(viewDidAppear$Ex(_:)))
+        instanceMethodExchange(cls, #selector(viewWillDisappear(_:)), #selector(viewWillDisappear$Ex(_:)))
     }
 }

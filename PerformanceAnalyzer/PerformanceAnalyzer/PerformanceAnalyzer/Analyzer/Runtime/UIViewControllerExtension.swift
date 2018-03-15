@@ -8,14 +8,15 @@
 
 import UIKit
 
-@objc public protocol UIViewControllerAnalyzerCustomEndFlag: NSObjectProtocol {
-    @objc var hasEndFlag: Bool { get }
+@objc public protocol UIViewControllerAnalyzerCustom: NSObjectProtocol {
+    @objc optional func hasEndFlag() -> Bool
+    @objc optional func moduleName() -> String
 }
 
 extension UIViewController {
     public func _pageLoadingEnd() {
-        if let flagSelf = self as? UIViewControllerAnalyzerCustomEndFlag {
-            if flagSelf.hasEndFlag {
+        if let flagSelf = self as? UIViewControllerAnalyzerCustom {
+            if flagSelf.hasEndFlag?() == true {
                 PageLoadingMonitor.shared.endFlag(with: NSStringFromClass(self.classForCoder))
             }
         }

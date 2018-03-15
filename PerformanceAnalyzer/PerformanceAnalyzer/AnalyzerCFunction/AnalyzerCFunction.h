@@ -17,9 +17,6 @@ FOUNDATION_EXPORT const unsigned char AnalyzerCFunctionVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <AnalyzerCFunction/PublicHeader.h>
 
-void instanceMethodExchange(Class clazz, SEL sel, SEL esel);
-double usageOfCurrentAPPCPU();
-
-FOUNDATION_EXPORT void (*malloc_callback)(size_t size);
-FOUNDATION_EXPORT void (*free_callback)(size_t size);
+FOUNDATION_EXTERN void instanceMethodExchange(Class clazz, SEL sel, SEL esel);
+FOUNDATION_EXTERN double usageOfCurrentAPPCPU();
 FOUNDATION_EXTERN NSInteger GetCurrentMallocAllocSize();

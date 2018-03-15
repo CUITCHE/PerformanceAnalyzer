@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import QuartzCore.CABase
 
 enum MonitorDataType: CustomStringConvertible {
     case text(String)
@@ -32,8 +33,10 @@ enum MonitorType: String {
     case fps, memory, pageLoading, cpu, module
 }
 
+typealias MonitorTimeInterval = Double
+
 protocol MonitorDataSourceDelegate {
-    func monitor(_ monitor: Monitor, occurs data: MonitorDataType)
+    func monitor(_ monitor: Monitor, occurs data: MonitorDataType, at time: MonitorTimeInterval)
 }
 
 protocol Monitor {
@@ -42,4 +45,15 @@ protocol Monitor {
     func stop()
     var isMonitoring: Bool { get }
     var type: MonitorType { get }
+}
+
+extension Monitor {
+    func currentTime() -> MonitorTimeInterval {
+        return CACurrentMediaTime()
+    }
+}
+
+protocol MonitorShared {
+    associatedtype SharedType: Monitor
+    static var shared: SharedType { get }
 }

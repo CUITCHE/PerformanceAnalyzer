@@ -7,10 +7,9 @@
 //
 
 import Foundation
+import UIKit.UIViewController
 
 class ModuleMonitor: Monitor {
-    static let shared = ModuleMonitor()
-
     var delegate: MonitorDataSourceDelegate?
 
     func start() {
@@ -21,14 +20,37 @@ class ModuleMonitor: Monitor {
         // Always monitoring
     }
 
-    func switchPage(_ name: String) {
-        delegate?.monitor(self, occurs: .text(name))
+    func `switch`(page name: String) {
+        delegate?.monitor(self, occurs: .text(name), at: currentTime())
     }
 
     var isMonitoring: Bool { return true }
 
     var type: MonitorType { return .module }
 
-
+    /// Get the module name of current view controller.
+    ///
+    /// The order of geting-name:
+    /// - If view controller conforms protocol UIViewControllerAnalyzerCustom and implement the `moduleName`.
+    /// - The vc.title if it's valid.
+    /// - The vc.navigationItem.title if it's vaild.
+    /// - Return nil.
+    var currentModuleName: String? {
+        guard let curvc = currentViewController else { return nil }
+        if let vc = curvc as? UIViewControllerAnalyzerCustom, let title = vc.moduleName?() {
+            return title
+        }
+        if let title = curvc.title {
+            return title
+        }
+        if let title = curvc.navigationItem.title {
+            return title
+        }
+        return "undefine"
+    }
+    var currentViewController: UIViewController?
 }
 
+extension ModuleMonitor: MonitorShared {
+    static let shared = ModuleMonitor()
+}

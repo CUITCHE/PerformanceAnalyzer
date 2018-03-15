@@ -14,29 +14,35 @@
 static void* (*orig_malloc)(size_t size);
 static void (*orig_free)(void *ptr);
 
-void (*malloc_callback)(size_t size) = nullptr;
-void (*free_callback)(size_t size) = nullptr;
-
 static std::atomic<NSInteger> _memory_size(0);
 FOUNDATION_EXPORT NSInteger GetCurrentMallocAllocSize() { return _memory_size; }
 
+struct Tail {
+    size_t magic;
+};
+
+#define MAGIC 0xdead7a11
+#define TAILSIZE sizeof(struct Tail)
+
 void* my_malloc(size_t size)
 {
-    void *ptr = orig_malloc(size);
+    void *ptr = orig_malloc(size + TAILSIZE);
     size_t sz = malloc_size(ptr);
+    struct Tail *tail = (struct Tail *)((char *)ptr + sz - TAILSIZE);
+    tail->magic = MAGIC;
     _memory_size += sz;
-    if (malloc_callback) {
-        malloc_callback(sz);
-    }
     return ptr;
 }
 
 void my_free(void *ptr)
 {
+    if (ptr == nullptr) {
+        return;
+    }
     size_t sz = malloc_size(ptr);
-//    _memory_size -= sz;
-    if (free_callback) {
-        free_callback(sz);
+    struct Tail *tail = (struct Tail *)((char *)ptr + sz - TAILSIZE);
+    if (tail->magic == MAGIC) {
+        _memory_size -= sz;
     }
     orig_free(ptr);
 }

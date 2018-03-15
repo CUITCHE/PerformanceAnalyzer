@@ -10,18 +10,10 @@ import Foundation
 import AnalyzerCFunction
 
 class MemoryMonitor: Monitor {
-
-    static let shared = MemoryMonitor()
-
     var delegate: MonitorDataSourceDelegate?
     private var updater: Timer!
     var isMonitoring: Bool { return updater != nil }
     var type: MonitorType { return .memory }
-
-    deinit {
-        malloc_callback = nil
-        free_callback = nil
-    }
 
     func start() {
         updater = Timer(timeInterval: 1, target: self, selector: #selector(onUpdater(_:)), userInfo: nil, repeats: true)
@@ -38,6 +30,10 @@ class MemoryMonitor: Monitor {
     }
 
     @objc private func onUpdater(_ timer: Timer) {
-        delegate?.monitor(self, occurs: .int(GetCurrentMallocAllocSize()))
+        delegate?.monitor(self, occurs: .int(GetCurrentMallocAllocSize()), at: currentTime())
     }
+}
+
+extension MemoryMonitor: MonitorShared {
+    static let shared = MemoryMonitor()
 }

@@ -31,6 +31,7 @@
 		FB58C1F92051342300D99836 /* MemoryMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB58C1F82051342300D99836 /* MemoryMonitor.swift */; };
 		FB63856D20524F7E00475029 /* ModuleMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB63856C20524F7E00475029 /* ModuleMonitor.swift */; };
 		FB6FD0A020527EF80004B0CF /* CGPointExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6FD09F20527EF80004B0CF /* CGPointExtension.swift */; };
+		FB868C3C205ACF500009012D /* MonitorDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB868C3B205ACF500009012D /* MonitorDataModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +89,7 @@
 		FB58C1F82051342300D99836 /* MemoryMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryMonitor.swift; sourceTree = "<group>"; };
 		FB63856C20524F7E00475029 /* ModuleMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleMonitor.swift; sourceTree = "<group>"; };
 		FB6FD09F20527EF80004B0CF /* CGPointExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGPointExtension.swift; sourceTree = "<group>"; };
+		FB868C3B205ACF500009012D /* MonitorDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitorDataModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +170,7 @@
 		FB58C1CF2050E1D900D99836 /* Analyzer */ = {
 			isa = PBXGroup;
 			children = (
+				FB868C3B205ACF500009012D /* MonitorDataModel.swift */,
 				FB58C1D720511A4200D99836 /* PerformanceAnalyzer.swift */,
 				FB63856E20526C5100475029 /* UI */,
 				FB58C1F520512E1E00D99836 /* Monitor */,
@@ -433,6 +436,7 @@
 				FB58C1C02050E17B00D99836 /* ViewController.swift in Sources */,
 				FB58C1F92051342300D99836 /* MemoryMonitor.swift in Sources */,
 				FB58C1F22051261300D99836 /* ObjcMethodExchanges.swift in Sources */,
+				FB868C3C205ACF500009012D /* MonitorDataModel.swift in Sources */,
 				FB63856D20524F7E00475029 /* ModuleMonitor.swift in Sources */,
 				FB6FD0A020527EF80004B0CF /* CGPointExtension.swift in Sources */,
 				FB58C1BE2050E17B00D99836 /* AppDelegate.swift in Sources */,
@@ -639,6 +643,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = AnalyzerCFunction/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hejunqiu.AnalyzerCFunction;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -663,6 +668,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = AnalyzerCFunction/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hejunqiu.AnalyzerCFunction;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";

@@ -15,6 +15,7 @@ class PerformanceAnalyzer {
                                                     .module: ModuleMonitor.shared]
     let monitorTypes: [MonitorType]
     var window: PerformanceAnalyzerWindow!
+    var monitorData: [MonitorDataModel] = []
 
     init(monitorTypes: [MonitorType]) {
         self.monitorTypes = monitorTypes
@@ -47,7 +48,17 @@ class PerformanceAnalyzer {
 }
 
 extension PerformanceAnalyzer: MonitorDataSourceDelegate {
-    func monitor(_ monitor: Monitor, occurs data: MonitorDataType) {
+    func monitor(_ monitor: Monitor, occurs data: MonitorDataType, at time: MonitorTimeInterval) {
+        switch data {
+        case .text(let name):
+            monitorData.append(.module(name: name, timeline: time))
+        case .int(let memory):
+            monitorData.append(.memory(bytes: memory, timeline: time))
+        case .double(let val):
+            monitorData.append(monitor is FPSMonitor ? .fps(hertz: val, timeline: time): .cpu(percent: val, timeline: time))
+        case .pageLoading(_, let start, let end):
+            monitorData.append(.pageLoading(interval: end - start, timeline: time))
+        }
         window.update(forView: monitor.type, with: data)
     }
 }
