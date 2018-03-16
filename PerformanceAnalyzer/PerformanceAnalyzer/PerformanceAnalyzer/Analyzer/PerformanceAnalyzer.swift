@@ -19,6 +19,7 @@ class PerformanceAnalyzer {
 
     init(monitorTypes: [MonitorType]) {
         self.monitorTypes = monitorTypes
+        monitorData.reserveCapacity(1024 * 16)
         UIViewController.exchangeMethods()
     }
 
