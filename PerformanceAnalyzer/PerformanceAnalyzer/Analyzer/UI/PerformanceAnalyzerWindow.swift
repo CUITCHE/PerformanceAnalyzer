@@ -14,11 +14,14 @@ class PerformanceAnalyzerWindow: UIWindow {
 
     private lazy var panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(panGestureHandler(_:)))
 
-    init(frame: CGRect, analyzerItems: [MonitorType]) {
+    override init(frame: CGRect) {
         super.init(frame: frame)
+        layer.cornerRadius = 10
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOpacity = 0.7
+        layer.shadowRadius = 7
+        layer.shadowOffset = CGSize(width: 0, height: 4)
         windowLevel = UIWindowLevelStatusBar + UIWindowLevel(1 << 21)
-        backgroundColor = UIColor.black.withAlphaComponent(0.3)
-        setupUI(with: analyzerItems)
         addGestureRecognizer(panGestureRecognizer)
     }
 
@@ -38,27 +41,10 @@ class PerformanceAnalyzerWindow: UIWindow {
         }
         return nil
     }
-
-    private func setupUI(with monitorTypes: [MonitorType]) {
-        for item in monitorTypes {
-            let view = AnalyzerItemView(frame: .zero, itemType: item)
-            addSubview(view)
-            analyzerItemViews.append(view)
-            view.autoMatch(.width, to: .width, of: self)
-            view.autoSetDimension(.height, toSize: 20)
-            view.autoPinEdge(toSuperviewEdge: .leading)
-        }
-        var tmp = analyzerItemViews.first!
-        tmp.autoPinEdge(toSuperviewEdge: .top)
-        for item in analyzerItemViews.dropFirst() {
-            item.autoPinEdge(.top, to: .bottom, of: tmp)
-            tmp = item
-        }
-    }
 }
 
 extension PerformanceAnalyzerWindow {
-    @objc func panGestureHandler(_ gesture: UIPanGestureRecognizer) {
+    @objc private func panGestureHandler(_ gesture: UIPanGestureRecognizer) {
         if gesture.state == .began {
             startPoint = gesture.location(in: self)
         } else if gesture.state == .changed {

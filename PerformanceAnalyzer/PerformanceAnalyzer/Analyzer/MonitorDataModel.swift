@@ -12,6 +12,6 @@ enum MonitorDataModel {
     case cpu(percent: Double, timeline: MonitorTimeInterval)
     case fps(hertz: Double, timeline: MonitorTimeInterval)
     case memory(bytes: Int, timeline: MonitorTimeInterval) // for Bytes
-    case pageLoading(interval: Double, timeline: MonitorTimeInterval)
+    case pageLoading(name: String?, interval: Double, timeline: MonitorTimeInterval) // Arg name is for record view title
     case module(name: String, timeline: MonitorTimeInterval)
 }

@@ -1,8 +1,8 @@
 //
 //  ViewController.swift
-//  PerformanceAnalyzer
+//  PerformanceTestDemo
 //
-//  Created by He,Junqiu on 2018/3/8.
+//  Created by hejunqiu on 2018/3/18.
 //  Copyright © 2018年 hejunqiu. All rights reserved.
 //
 

@@ -44,8 +44,8 @@ class AnalyzerItemView: UIView {
 
     private func setupUI() {
         label.text = itemType.rawValue
-        label.font = UIFont.systemFont(ofSize: 16)
-        label.textColor = UIColor.white.withAlphaComponent(0.5)
+        label.font = UIFont.systemFont(ofSize: 15)
+        label.textColor = .black
         label.lineBreakMode = .byWordWrapping
         addSubview(label)
         label.autoPinEdgesToSuperviewEdges()

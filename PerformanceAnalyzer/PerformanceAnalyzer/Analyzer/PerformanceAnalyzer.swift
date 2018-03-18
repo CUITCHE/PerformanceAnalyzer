@@ -8,8 +8,8 @@
 
 import UIKit
 
-class PerformanceAnalyzer {
-    
+public class PerformanceAnalyzer {
+    public static let `defualt` = PerformanceAnalyzer(monitorTypes: [.fps, .memory, .pageLoading, .cpu, .module])
     private let monitors: [MonitorType: Monitor] = [.fps: FPSMonitor.shared, .memory: MemoryMonitor.shared,
                                                     .pageLoading: PageLoadingMonitor.shared, .cpu: CPUMonitor.shared,
                                                     .module: ModuleMonitor.shared]
@@ -23,9 +23,11 @@ class PerformanceAnalyzer {
         UIViewController.exchangeMethods()
     }
 
-    func startAnalysis() {
-        self.window = PerformanceAnalyzerWindow(frame: .init(x: 10, y: 64, width: 310, height: 100), analyzerItems: self.monitorTypes)
+    public func startAnalysis() {
+        window = PerformanceAnalyzerWindow(frame: .init(x: 10, y: 64, width: UIScreen.main.bounds.width - 10 * 2, height: 200))
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.window.backgroundColor = .white
+            self.window.rootViewController = OverviewViewController(analyzerItems: self.monitorTypes)
             self.window.makeKeyAndVisible()
         }
 
@@ -37,7 +39,7 @@ class PerformanceAnalyzer {
         }
     }
 
-    func stopAnalysis() {
+    public func stopAnalysis() {
         for type in monitorTypes {
             if let monitor = monitors[type] {
                 monitor.stop()
@@ -58,7 +60,7 @@ extension PerformanceAnalyzer: MonitorDataSourceDelegate {
         case .double(let val):
             monitorData.append(monitor is FPSMonitor ? .fps(hertz: val, timeline: time): .cpu(percent: val, timeline: time))
         case .pageLoading(_, let start, let end):
-            monitorData.append(.pageLoading(interval: end - start, timeline: time))
+            monitorData.append(.pageLoading(name: ModuleMonitor.shared.currentModuleName, interval: end - start, timeline: time))
         }
         window.update(forView: monitor.type, with: data)
     }

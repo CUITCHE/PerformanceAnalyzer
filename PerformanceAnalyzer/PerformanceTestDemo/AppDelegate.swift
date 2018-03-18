@@ -1,23 +1,23 @@
 //
 //  AppDelegate.swift
-//  PerformanceAnalyzer
+//  PerformanceTestDemo
 //
-//  Created by He,Junqiu on 2018/3/8.
+//  Created by hejunqiu on 2018/3/18.
 //  Copyright © 2018年 hejunqiu. All rights reserved.
 //
 
 import UIKit
+import PerformanceAnalyzer
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var analyzer = PerformanceAnalyzer(monitorTypes: [.cpu, .fps, .module, .memory, .pageLoading])
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        analyzer.startAnalysis()
+        PerformanceAnalyzer.defualt.startAnalysis()
         return true
     }
 

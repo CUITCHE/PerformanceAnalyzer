@@ -1,5 +1,13 @@
 # Uncomment the next line to define a global platform for your project
-platform :ios, '8.0'
+ platform :ios, '8.0'
+
+target 'AnalyzerCFunctions' do
+  # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for AnalyzerCFunctions
+  pod 'fishhook', '~> 0.2'
+end
 
 target 'PerformanceAnalyzer' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
@@ -10,8 +18,8 @@ target 'PerformanceAnalyzer' do
   pod 'fishhook', '~> 0.2'
 end
 
-target 'AnalyzerCFunction' do
+target 'PerformanceTestDemo' do
     use_frameworks!
+    pod 'PureLayout', '~> 3.0.2'
     pod 'fishhook', '~> 0.2'
-
 end

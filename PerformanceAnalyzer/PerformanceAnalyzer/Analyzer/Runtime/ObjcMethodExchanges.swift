@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import AnalyzerCFunction
+import AnalyzerCFunctions
 
 extension UIViewController {
     @objc private func loadView$Ex() {
