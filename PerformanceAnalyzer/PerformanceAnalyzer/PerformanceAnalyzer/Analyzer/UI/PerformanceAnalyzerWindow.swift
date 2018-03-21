@@ -8,8 +8,11 @@
 
 import UIKit
 
+protocol PerformanceAnalyzerViewControllerDelegate {
+    func setValue(_ value: MonitorDataType, for type: MonitorType)
+}
+
 class PerformanceAnalyzerWindow: UIWindow {
-    private var analyzerItemViews: [AnalyzerItemView] = []
     var startPoint: CGPoint = .zero
 
     private lazy var panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(panGestureHandler(_:)))
@@ -18,9 +21,10 @@ class PerformanceAnalyzerWindow: UIWindow {
         super.init(frame: frame)
         layer.cornerRadius = 10
         layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOpacity = 0.7
-        layer.shadowRadius = 7
+        layer.shadowOpacity = 0.4
+        layer.shadowRadius = 10
         layer.shadowOffset = CGSize(width: 0, height: 4)
+        backgroundColor = .white
         windowLevel = UIWindowLevelStatusBar + UIWindowLevel(1 << 21)
         addGestureRecognizer(panGestureRecognizer)
     }
@@ -30,16 +34,9 @@ class PerformanceAnalyzerWindow: UIWindow {
     }
 
     func update(forView type: MonitorType, with value: MonitorDataType) {
-        if let view = findView(with: type) {
-            view.value = value
+        if let vc = rootViewController as? PerformanceAnalyzerViewControllerDelegate {
+            vc.setValue(value, for: type)
         }
-    }
-
-    private func findView(with type: MonitorType) -> AnalyzerItemView? {
-        for item in analyzerItemViews where item.itemType == type {
-            return item
-        }
-        return nil
     }
 }
 

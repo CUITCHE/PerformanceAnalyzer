@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:PerfomanceTestDemo/PerfomanceTestDemo.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:PerformanceAnalyzer.xcodeproj">
    </FileRef>
    <FileRef

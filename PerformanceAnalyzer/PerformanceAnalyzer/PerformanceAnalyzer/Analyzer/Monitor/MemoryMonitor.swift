@@ -1,5 +1,5 @@
 //
-//  CPUMonitor.swift
+//  MemoryMonitor.swift
 //  PerformanceAnalyzer
 //
 //  Created by He,Junqiu on 2018/3/8.
@@ -7,14 +7,12 @@
 //
 
 import Foundation
-import AnalyzerCFunctions
 
-class CPUMonitor: Monitor {
-
+class MemoryMonitor: Monitor {
     var delegate: MonitorDataSourceDelegate?
     private var updater: Timer!
     var isMonitoring: Bool { return updater != nil }
-    var type: MonitorType { return .cpu }
+    var type: MonitorType { return .memory }
 
     func start() {
         updater = Timer(timeInterval: 1, target: self, selector: #selector(onUpdater(_:)), userInfo: nil, repeats: true)
@@ -31,10 +29,10 @@ class CPUMonitor: Monitor {
     }
 
     @objc private func onUpdater(_ timer: Timer) {
-        delegate?.monitor(self, occurs: .double(usageOfCurrentAPPCPU()), at: currentTime())
+        delegate?.monitor(self, occurs: .int(GetCurrentMallocAllocSize()), at: currentTime())
     }
 }
 
-extension CPUMonitor: MonitorShared {
-    static let shared = CPUMonitor()
+extension MemoryMonitor: MonitorShared {
+    static let shared = MemoryMonitor()
 }

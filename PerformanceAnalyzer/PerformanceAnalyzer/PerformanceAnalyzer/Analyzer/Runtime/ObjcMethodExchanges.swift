@@ -7,22 +7,28 @@
 //
 
 import UIKit
-import AnalyzerCFunctions
 
 extension UIViewController {
     @objc private func loadView$Ex() {
+        defer {
+            loadView$Ex()
+        }
+        guard (self is UIViewControllerAnalyzer) == false else { return }
         PageLoadingMonitor.shared.startFlag()
-        loadView$Ex()
     }
 
     @objc private func viewWillAppear$Ex(_ animated: Bool) {
+        defer {
+            viewWillAppear$Ex(animated)
+        }
+        guard (self is UIViewControllerAnalyzer) == false else { return }
         ModuleMonitor.shared.switch(page: NSStringFromClass(self.classForCoder))
         ModuleMonitor.shared.currentViewController = self
-        viewWillAppear$Ex(animated)
     }
 
     @objc private func viewDidAppear$Ex(_ animated: Bool) {
         viewDidAppear$Ex(animated)
+        guard (self is UIViewControllerAnalyzer) == false else { return }
         if let flagSelf = self as? UIViewControllerAnalyzerCustom {
             if flagSelf.hasEndFlag?() ?? false == false {
                 PageLoadingMonitor.shared.endFlag(with: NSStringFromClass(self.classForCoder))
@@ -33,8 +39,11 @@ extension UIViewController {
     }
 
     @objc private func viewWillDisappear$Ex(_ animated: Bool) {
+        defer {
+            viewWillDisappear$Ex(animated)
+        }
+        guard (self is UIViewControllerAnalyzer) == false else { return }
         ModuleMonitor.shared.currentViewController = nil
-        viewWillDisappear$Ex(animated)
     }
 
     static func exchangeMethods() {

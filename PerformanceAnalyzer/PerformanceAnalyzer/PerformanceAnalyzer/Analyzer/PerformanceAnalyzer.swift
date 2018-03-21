@@ -25,9 +25,8 @@ public class PerformanceAnalyzer {
 
     public func startAnalysis() {
         window = PerformanceAnalyzerWindow(frame: .init(x: 10, y: 64, width: UIScreen.main.bounds.width - 10 * 2, height: 200))
+        self.window.rootViewController = OverviewViewController(analyzerItems: self.monitorTypes)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.window.backgroundColor = .white
-            self.window.rootViewController = OverviewViewController(analyzerItems: self.monitorTypes)
             self.window.makeKeyAndVisible()
         }
 
@@ -63,5 +62,15 @@ extension PerformanceAnalyzer: MonitorDataSourceDelegate {
             monitorData.append(.pageLoading(name: ModuleMonitor.shared.currentModuleName, interval: end - start, timeline: time))
         }
         window.update(forView: monitor.type, with: data)
+    }
+}
+
+public class Analyzer: NSObject {
+    @objc public static func startAnalysis() {
+        PerformanceAnalyzer.defualt.startAnalysis()
+    }
+
+    @objc public static func stopAnalysis() {
+        PerformanceAnalyzer.defualt.stopAnalysis()
     }
 }
