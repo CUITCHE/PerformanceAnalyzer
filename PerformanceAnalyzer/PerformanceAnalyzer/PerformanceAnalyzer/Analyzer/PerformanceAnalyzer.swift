@@ -31,7 +31,7 @@ public class PerformanceAnalyzer {
         }
 
         for type in monitorTypes {
-            if var monitor = monitors[type] {
+            if let monitor = monitors[type] {
                 monitor.delegate = self
                 monitor.start()
             }

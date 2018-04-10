@@ -39,7 +39,7 @@ protocol MonitorDataSourceDelegate {
     func monitor(_ monitor: Monitor, occurs data: MonitorDataType, at time: MonitorTimeInterval)
 }
 
-protocol Monitor {
+protocol Monitor: class {
     var delegate: MonitorDataSourceDelegate? { get set }
     func start()
     func stop()

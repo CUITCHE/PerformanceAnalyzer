@@ -74,3 +74,14 @@ double usageOfCurrentAPPCPU()
     vm_deallocate(mach_task_self(), (vm_offset_t)thread_list, thread_count * sizeof(thread_t));
     return tot_cpu * 100;
 }
+
+NSInteger GetCurrentMallocAllocSize()
+{
+    struct mach_task_basic_info info;
+    mach_msg_type_number_t count = MACH_TASK_BASIC_INFO_COUNT;
+
+    int r = task_info(mach_task_self(), MACH_TASK_BASIC_INFO, (task_info_t)&info, & count);
+
+    return r == KERN_SUCCESS ? info.resident_size : -1;
+}
+

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		EDDABC95F1E7C91EC678EFBF /* Pods_PerformanceAnalyzer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 944A9FF286C1E47E93ABF5C5 /* Pods_PerformanceAnalyzer.framework */; };
+		FB2EED75207CBADE007F0F81 /* _OBJCInputStreamProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = FB2EED73207CBADE007F0F81 /* _OBJCInputStreamProxy.h */; };
+		FB2EED76207CBADE007F0F81 /* _OBJCInputStreamProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2EED74207CBADE007F0F81 /* _OBJCInputStreamProxy.m */; };
 		FB73928F205F7B850083195F /* PerformanceAnalyzerWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB73927B205F7B850083195F /* PerformanceAnalyzerWindow.swift */; };
 		FB739290205F7B850083195F /* AnalyzerItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB73927C205F7B850083195F /* AnalyzerItemView.swift */; };
 		FB739291205F7B850083195F /* OverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB73927D205F7B850083195F /* OverviewViewController.swift */; };
@@ -40,6 +42,8 @@
 		B74700C0D18AB18DCDA94B40 /* Pods-PerformanceAnalyzer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PerformanceAnalyzer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PerformanceAnalyzer/Pods-PerformanceAnalyzer.debug.xcconfig"; sourceTree = "<group>"; };
 		C663DBBFCAD9298CDEF32E73 /* Pods-PerformanceAnalyzer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PerformanceAnalyzer.release.xcconfig"; path = "Pods/Target Support Files/Pods-PerformanceAnalyzer/Pods-PerformanceAnalyzer.release.xcconfig"; sourceTree = "<group>"; };
 		C7C3CAB9850E0B0E3CC2819B /* Pods-AnalyzerCFunctions.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnalyzerCFunctions.release.xcconfig"; path = "Pods/Target Support Files/Pods-AnalyzerCFunctions/Pods-AnalyzerCFunctions.release.xcconfig"; sourceTree = "<group>"; };
+		FB2EED73207CBADE007F0F81 /* _OBJCInputStreamProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _OBJCInputStreamProxy.h; sourceTree = "<group>"; };
+		FB2EED74207CBADE007F0F81 /* _OBJCInputStreamProxy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = _OBJCInputStreamProxy.m; sourceTree = "<group>"; };
 		FB73927B205F7B850083195F /* PerformanceAnalyzerWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformanceAnalyzerWindow.swift; sourceTree = "<group>"; };
 		FB73927C205F7B850083195F /* AnalyzerItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyzerItemView.swift; sourceTree = "<group>"; };
 		FB73927D205F7B850083195F /* OverviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverviewViewController.swift; sourceTree = "<group>"; };
@@ -157,6 +161,8 @@
 				FB73928D205F7B850083195F /* functions.m */,
 				FB73928E205F7B850083195F /* rebingdings.mm */,
 				FB7392A1205F7DF30083195F /* Objc.h */,
+				FB2EED73207CBADE007F0F81 /* _OBJCInputStreamProxy.h */,
+				FB2EED74207CBADE007F0F81 /* _OBJCInputStreamProxy.m */,
 			);
 			name = Objc;
 			path = PerformanceAnalyzer/Objc;
@@ -199,6 +205,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB7D0ED1205E439B000ADC5C /* PerformanceAnalyzer.h in Headers */,
+				FB2EED75207CBADE007F0F81 /* _OBJCInputStreamProxy.h in Headers */,
 				FB7392A2205F7E640083195F /* Objc.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -233,7 +240,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0910;
-				LastUpgradeCheck = 0910;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = hejunqiu;
 				TargetAttributes = {
 					FB7D0ECB205E439B000ADC5C = {
@@ -321,6 +328,7 @@
 				FB739292205F7B850083195F /* ModuleMonitor.swift in Sources */,
 				FB739297205F7B850083195F /* Monitor.swift in Sources */,
 				FB739299205F7B850083195F /* PerformanceAnalyzer.swift in Sources */,
+				FB2EED76207CBADE007F0F81 /* _OBJCInputStreamProxy.m in Sources */,
 				FB73928F205F7B850083195F /* PerformanceAnalyzerWindow.swift in Sources */,
 				FB739290205F7B850083195F /* AnalyzerItemView.swift in Sources */,
 				FB739298205F7B850083195F /* UIColorExtension.swift in Sources */,
@@ -350,6 +358,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -357,6 +366,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -410,6 +420,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -417,6 +428,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
