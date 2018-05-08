@@ -27,6 +27,19 @@ void instanceMethodExchange(Class clazz, SEL sel, SEL esel)
     }
 }
 
+void classMethodExchange(Class clazz, SEL sel, SEL esel)
+{
+    Method oriMethod = class_getClassMethod(clazz, sel);
+    Method aopMethod = class_getClassMethod(clazz, esel);
+    BOOL didAddMethod = class_addMethod(clazz, sel, method_getImplementation(aopMethod), method_getTypeEncoding(aopMethod));
+    if (didAddMethod) {
+        class_replaceMethod(clazz, esel, method_getImplementation(oriMethod), method_getTypeEncoding(oriMethod));
+    } else {
+        class_addMethod(clazz, esel, method_getImplementation(aopMethod), method_getTypeEncoding(aopMethod));
+        method_exchangeImplementations(oriMethod, aopMethod);
+    }
+}
+
 double usageOfCurrentAPPCPU()
 {
     // ref: http://stackoverflow.com/questions/8223348/ios-get-cpu-usage-from-application
@@ -66,7 +79,6 @@ double usageOfCurrentAPPCPU()
             tot_usec = tot_usec + basic_info_th->system_time.microseconds + basic_info_th->system_time.microseconds;
             tot_cpu = tot_cpu + basic_info_th->cpu_usage / (float)TH_USAGE_SCALE;
         }
-
     } // for each thread
     if (tot_cpu - 1 > 0.00000001) {
         tot_cpu = 1;

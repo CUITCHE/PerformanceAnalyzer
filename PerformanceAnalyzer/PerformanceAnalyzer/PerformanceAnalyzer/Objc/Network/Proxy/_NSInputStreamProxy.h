@@ -1,5 +1,5 @@
 //
-//  _OBJCInputStreamProxy.h
+//  _NSInputStreamProxy.h
 //  PerformanceAnalyzer
 //
 //  Created by He,Junqiu on 2018/4/10.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface _OBJCInputStreamProxy : NSProxy {
+@interface _NSInputStreamProxy : NSProxy {
     NSInputStream *stream;
 }
 

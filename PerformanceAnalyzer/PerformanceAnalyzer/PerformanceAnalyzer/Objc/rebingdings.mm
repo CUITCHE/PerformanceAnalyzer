@@ -8,7 +8,7 @@
 
 #import <fishhook/fishhook.h>
 #import <Foundation/Foundation.h>
-#import "_OBJCInputStreamProxy.h"
+#import "_NSInputStreamProxy.h"
 
 static CFReadStreamRef (*original_CFReadStreamCreateForHTTPRequest)(CFAllocatorRef __nullable alloc,
                                                                     CFHTTPMessageRef request);
@@ -19,7 +19,7 @@ static CFReadStreamRef MyCFReadStreamCreateForHTTPRequest(CFAllocatorRef alloc,
     CFReadStreamRef originalCFStream = original_CFReadStreamCreateForHTTPRequest(alloc, request);
     // 将 CFReadStreamRef 转换成 NSInputStream，并保存在 XXInputStreamProxy，最后返回的时候再转回 CFReadStreamRef
     NSInputStream *stream = (__bridge NSInputStream *)originalCFStream;
-    _OBJCInputStreamProxy *outStream = [_OBJCInputStreamProxy inputStreamWithStream:stream];
+    _NSInputStreamProxy *outStream = [_NSInputStreamProxy inputStreamWithStream:stream];
     CFRelease(originalCFStream);
     CFReadStreamRef result = (__bridge_retained CFReadStreamRef)outStream;
     return result;

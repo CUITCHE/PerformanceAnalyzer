@@ -8,8 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		EDDABC95F1E7C91EC678EFBF /* Pods_PerformanceAnalyzer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 944A9FF286C1E47E93ABF5C5 /* Pods_PerformanceAnalyzer.framework */; };
-		FB2EED75207CBADE007F0F81 /* _OBJCInputStreamProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = FB2EED73207CBADE007F0F81 /* _OBJCInputStreamProxy.h */; };
-		FB2EED76207CBADE007F0F81 /* _OBJCInputStreamProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2EED74207CBADE007F0F81 /* _OBJCInputStreamProxy.m */; };
+		FB2EED75207CBADE007F0F81 /* _NSInputStreamProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = FB2EED73207CBADE007F0F81 /* _NSInputStreamProxy.h */; };
+		FB2EED76207CBADE007F0F81 /* _NSInputStreamProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2EED74207CBADE007F0F81 /* _NSInputStreamProxy.m */; };
+		FB6B99EC208499B700645ABF /* NSURLSessionTaskEx.h in Headers */ = {isa = PBXBuildFile; fileRef = FB6B99EA208499B700645ABF /* NSURLSessionTaskEx.h */; };
+		FB6B99ED208499B700645ABF /* NSURLSessionTaskEx.m in Sources */ = {isa = PBXBuildFile; fileRef = FB6B99EB208499B700645ABF /* NSURLSessionTaskEx.m */; };
 		FB73928F205F7B850083195F /* PerformanceAnalyzerWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB73927B205F7B850083195F /* PerformanceAnalyzerWindow.swift */; };
 		FB739290205F7B850083195F /* AnalyzerItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB73927C205F7B850083195F /* AnalyzerItemView.swift */; };
 		FB739291205F7B850083195F /* OverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB73927D205F7B850083195F /* OverviewViewController.swift */; };
@@ -30,6 +32,14 @@
 		FB7392A2205F7E640083195F /* Objc.h in Headers */ = {isa = PBXBuildFile; fileRef = FB7392A1205F7DF30083195F /* Objc.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FB7392D6205F8C700083195F /* UIViewControllerAnalyzer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7392D5205F8C700083195F /* UIViewControllerAnalyzer.swift */; };
 		FB7D0ED1205E439B000ADC5C /* PerformanceAnalyzer.h in Headers */ = {isa = PBXBuildFile; fileRef = FB7D0ECF205E439B000ADC5C /* PerformanceAnalyzer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FB7DFFBA207DB58B00BB85A1 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB7DFFB9207DB58B00BB85A1 /* NetworkManager.swift */; };
+		FB7DFFCB207DE25300BB85A1 /* runtime.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7DFFCA207DE25300BB85A1 /* runtime.m */; };
+		FB7DFFD3207DE5FF00BB85A1 /* NetworkManage.h in Headers */ = {isa = PBXBuildFile; fileRef = FB7DFFD1207DE5FF00BB85A1 /* NetworkManage.h */; };
+		FB7DFFD4207DE5FF00BB85A1 /* NetworkManage.mm in Sources */ = {isa = PBXBuildFile; fileRef = FB7DFFD2207DE5FF00BB85A1 /* NetworkManage.mm */; };
+		FB7DFFDB207E019400BB85A1 /* NSURLSessionEx.h in Headers */ = {isa = PBXBuildFile; fileRef = FB7DFFD9207E019400BB85A1 /* NSURLSessionEx.h */; };
+		FB7DFFDC207E019400BB85A1 /* NSURLSessionEx.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7DFFDA207E019400BB85A1 /* NSURLSessionEx.m */; };
+		FB7DFFDF207E03EA00BB85A1 /* NSURLSessionDelegateProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = FB7DFFDD207E03EA00BB85A1 /* NSURLSessionDelegateProxy.h */; };
+		FB7DFFE0207E03EA00BB85A1 /* NSURLSessionDelegateProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = FB7DFFDE207E03EA00BB85A1 /* NSURLSessionDelegateProxy.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,8 +52,10 @@
 		B74700C0D18AB18DCDA94B40 /* Pods-PerformanceAnalyzer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PerformanceAnalyzer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PerformanceAnalyzer/Pods-PerformanceAnalyzer.debug.xcconfig"; sourceTree = "<group>"; };
 		C663DBBFCAD9298CDEF32E73 /* Pods-PerformanceAnalyzer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PerformanceAnalyzer.release.xcconfig"; path = "Pods/Target Support Files/Pods-PerformanceAnalyzer/Pods-PerformanceAnalyzer.release.xcconfig"; sourceTree = "<group>"; };
 		C7C3CAB9850E0B0E3CC2819B /* Pods-AnalyzerCFunctions.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnalyzerCFunctions.release.xcconfig"; path = "Pods/Target Support Files/Pods-AnalyzerCFunctions/Pods-AnalyzerCFunctions.release.xcconfig"; sourceTree = "<group>"; };
-		FB2EED73207CBADE007F0F81 /* _OBJCInputStreamProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _OBJCInputStreamProxy.h; sourceTree = "<group>"; };
-		FB2EED74207CBADE007F0F81 /* _OBJCInputStreamProxy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = _OBJCInputStreamProxy.m; sourceTree = "<group>"; };
+		FB2EED73207CBADE007F0F81 /* _NSInputStreamProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = _NSInputStreamProxy.h; sourceTree = "<group>"; };
+		FB2EED74207CBADE007F0F81 /* _NSInputStreamProxy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = _NSInputStreamProxy.m; sourceTree = "<group>"; };
+		FB6B99EA208499B700645ABF /* NSURLSessionTaskEx.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSURLSessionTaskEx.h; sourceTree = "<group>"; };
+		FB6B99EB208499B700645ABF /* NSURLSessionTaskEx.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NSURLSessionTaskEx.m; sourceTree = "<group>"; };
 		FB73927B205F7B850083195F /* PerformanceAnalyzerWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformanceAnalyzerWindow.swift; sourceTree = "<group>"; };
 		FB73927C205F7B850083195F /* AnalyzerItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyzerItemView.swift; sourceTree = "<group>"; };
 		FB73927D205F7B850083195F /* OverviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverviewViewController.swift; sourceTree = "<group>"; };
@@ -68,6 +80,14 @@
 		FB7D0ED0205E439B000ADC5C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FB7D0F4F205EA5F5000ADC5C /* fishhook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = fishhook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB7D0F51205EA600000ADC5C /* fishhook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = fishhook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FB7DFFB9207DB58B00BB85A1 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		FB7DFFCA207DE25300BB85A1 /* runtime.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = runtime.m; sourceTree = "<group>"; };
+		FB7DFFD1207DE5FF00BB85A1 /* NetworkManage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetworkManage.h; sourceTree = "<group>"; };
+		FB7DFFD2207DE5FF00BB85A1 /* NetworkManage.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NetworkManage.mm; sourceTree = "<group>"; };
+		FB7DFFD9207E019400BB85A1 /* NSURLSessionEx.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSURLSessionEx.h; sourceTree = "<group>"; };
+		FB7DFFDA207E019400BB85A1 /* NSURLSessionEx.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NSURLSessionEx.m; sourceTree = "<group>"; };
+		FB7DFFDD207E03EA00BB85A1 /* NSURLSessionDelegateProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSURLSessionDelegateProxy.h; sourceTree = "<group>"; };
+		FB7DFFDE207E03EA00BB85A1 /* NSURLSessionDelegateProxy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NSURLSessionDelegateProxy.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +130,7 @@
 		FB739279205F7B850083195F /* Analyzer */ = {
 			isa = PBXGroup;
 			children = (
+				FB7DFFB8207DB53500BB85A1 /* Network */,
 				FB73927A205F7B850083195F /* UI */,
 				FB73927E205F7B850083195F /* Monitor */,
 				FB739285205F7B850083195F /* UIColorExtension.swift */,
@@ -158,11 +179,10 @@
 		FB73928C205F7B850083195F /* Objc */ = {
 			isa = PBXGroup;
 			children = (
+				FB7DFFD0207DE4D400BB85A1 /* Network */,
 				FB73928D205F7B850083195F /* functions.m */,
 				FB73928E205F7B850083195F /* rebingdings.mm */,
 				FB7392A1205F7DF30083195F /* Objc.h */,
-				FB2EED73207CBADE007F0F81 /* _OBJCInputStreamProxy.h */,
-				FB2EED74207CBADE007F0F81 /* _OBJCInputStreamProxy.m */,
 			);
 			name = Objc;
 			path = PerformanceAnalyzer/Objc;
@@ -197,6 +217,56 @@
 			path = PerformanceAnalyzer;
 			sourceTree = "<group>";
 		};
+		FB7DFFB8207DB53500BB85A1 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				FB7DFFC2207DBEA200BB85A1 /* Swizz */,
+				FB7DFFB9207DB58B00BB85A1 /* NetworkManager.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		FB7DFFBD207DBC5100BB85A1 /* Proxy */ = {
+			isa = PBXGroup;
+			children = (
+				FB2EED73207CBADE007F0F81 /* _NSInputStreamProxy.h */,
+				FB2EED74207CBADE007F0F81 /* _NSInputStreamProxy.m */,
+				FB7DFFDD207E03EA00BB85A1 /* NSURLSessionDelegateProxy.h */,
+				FB7DFFDE207E03EA00BB85A1 /* NSURLSessionDelegateProxy.m */,
+			);
+			path = Proxy;
+			sourceTree = "<group>";
+		};
+		FB7DFFC2207DBEA200BB85A1 /* Swizz */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Swizz;
+			sourceTree = "<group>";
+		};
+		FB7DFFC5207DBF9F00BB85A1 /* Swizz */ = {
+			isa = PBXGroup;
+			children = (
+				FB7DFFCA207DE25300BB85A1 /* runtime.m */,
+				FB7DFFD9207E019400BB85A1 /* NSURLSessionEx.h */,
+				FB7DFFDA207E019400BB85A1 /* NSURLSessionEx.m */,
+				FB6B99EA208499B700645ABF /* NSURLSessionTaskEx.h */,
+				FB6B99EB208499B700645ABF /* NSURLSessionTaskEx.m */,
+			);
+			path = Swizz;
+			sourceTree = "<group>";
+		};
+		FB7DFFD0207DE4D400BB85A1 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				FB7DFFBD207DBC5100BB85A1 /* Proxy */,
+				FB7DFFC5207DBF9F00BB85A1 /* Swizz */,
+				FB7DFFD1207DE5FF00BB85A1 /* NetworkManage.h */,
+				FB7DFFD2207DE5FF00BB85A1 /* NetworkManage.mm */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -205,8 +275,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB7D0ED1205E439B000ADC5C /* PerformanceAnalyzer.h in Headers */,
-				FB2EED75207CBADE007F0F81 /* _OBJCInputStreamProxy.h in Headers */,
+				FB7DFFD3207DE5FF00BB85A1 /* NetworkManage.h in Headers */,
+				FB6B99EC208499B700645ABF /* NSURLSessionTaskEx.h in Headers */,
+				FB7DFFDB207E019400BB85A1 /* NSURLSessionEx.h in Headers */,
+				FB2EED75207CBADE007F0F81 /* _NSInputStreamProxy.h in Headers */,
 				FB7392A2205F7E640083195F /* Objc.h in Headers */,
+				FB7DFFDF207E03EA00BB85A1 /* NSURLSessionDelegateProxy.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,15 +395,19 @@
 			files = (
 				FB739295205F7B850083195F /* CPUMonitor.swift in Sources */,
 				FB73929B205F7B850083195F /* ObjcMethodExchanges.swift in Sources */,
+				FB7DFFBA207DB58B00BB85A1 /* NetworkManager.swift in Sources */,
 				FB739294205F7B850083195F /* PageLoadingMonitor.swift in Sources */,
 				FB73929F205F7B850083195F /* rebingdings.mm in Sources */,
 				FB73929A205F7B850083195F /* CGPointExtension.swift in Sources */,
 				FB739293205F7B850083195F /* FPSMonitor.swift in Sources */,
 				FB739292205F7B850083195F /* ModuleMonitor.swift in Sources */,
 				FB739297205F7B850083195F /* Monitor.swift in Sources */,
+				FB7DFFCB207DE25300BB85A1 /* runtime.m in Sources */,
 				FB739299205F7B850083195F /* PerformanceAnalyzer.swift in Sources */,
-				FB2EED76207CBADE007F0F81 /* _OBJCInputStreamProxy.m in Sources */,
+				FB2EED76207CBADE007F0F81 /* _NSInputStreamProxy.m in Sources */,
+				FB7DFFD4207DE5FF00BB85A1 /* NetworkManage.mm in Sources */,
 				FB73928F205F7B850083195F /* PerformanceAnalyzerWindow.swift in Sources */,
+				FB6B99ED208499B700645ABF /* NSURLSessionTaskEx.m in Sources */,
 				FB739290205F7B850083195F /* AnalyzerItemView.swift in Sources */,
 				FB739298205F7B850083195F /* UIColorExtension.swift in Sources */,
 				FB739291205F7B850083195F /* OverviewViewController.swift in Sources */,
@@ -338,6 +416,8 @@
 				FB739296205F7B850083195F /* MemoryMonitor.swift in Sources */,
 				FB7392D6205F8C700083195F /* UIViewControllerAnalyzer.swift in Sources */,
 				FB73929E205F7B850083195F /* functions.m in Sources */,
+				FB7DFFE0207E03EA00BB85A1 /* NSURLSessionDelegateProxy.m in Sources */,
+				FB7DFFDC207E019400BB85A1 /* NSURLSessionEx.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

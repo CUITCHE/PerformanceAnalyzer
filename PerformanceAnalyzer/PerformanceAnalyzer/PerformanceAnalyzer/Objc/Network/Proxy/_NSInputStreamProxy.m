@@ -1,17 +1,17 @@
 //
-//  _OBJCInputStreamProxy.m
+//  _NSInputStreamProxy.m
 //  PerformanceAnalyzer
 //
 //  Created by He,Junqiu on 2018/4/10.
 //  Copyright © 2018年 hejunqiu. All rights reserved.
 //
 
-#import "_OBJCInputStreamProxy.h"
+#import "_NSInputStreamProxy.h"
 
-@implementation _OBJCInputStreamProxy
+@implementation _NSInputStreamProxy
 
 + (instancetype)inputStreamWithStream:(id)stream {
-    _OBJCInputStreamProxy *proxy = [_OBJCInputStreamProxy alloc];
+    _NSInputStreamProxy *proxy = [_NSInputStreamProxy alloc];
     proxy->stream = stream;
     return proxy;
 }
