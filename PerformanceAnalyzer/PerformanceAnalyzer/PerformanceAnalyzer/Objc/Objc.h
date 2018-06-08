@@ -14,5 +14,6 @@
 FOUNDATION_EXTERN void instanceMethodExchange(Class clazz, SEL sel, SEL esel);
 FOUNDATION_EXTERN double usageOfCurrentAPPCPU(void);
 FOUNDATION_EXTERN NSInteger GetCurrentMallocAllocSize(void);
+FOUNDATION_EXTERN void intercept(void);
 
 #endif /* Objc_h */
