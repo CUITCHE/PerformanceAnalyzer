@@ -9,10 +9,10 @@
 import UIKit
 
 public class PerformanceAnalyzer {
-    public static let `defualt` = PerformanceAnalyzer(monitorTypes: [.fps, .memory, .pageLoading, .cpu, .module])
+    public static let `defualt` = PerformanceAnalyzer(monitorTypes: [.fps, .memory, .pageLoading, .cpu, .module, .network])
     private let monitors: [MonitorType: Monitor] = [.fps: FPSMonitor.shared, .memory: MemoryMonitor.shared,
                                                     .pageLoading: PageLoadingMonitor.shared, .cpu: CPUMonitor.shared,
-                                                    .module: ModuleMonitor.shared]
+                                                    .module: ModuleMonitor.shared, .network: NetworkMonitor.shared]
     let monitorTypes: [MonitorType]
     var window: PerformanceAnalyzerWindow!
     var monitorData: [MonitorDataModel] = []
@@ -25,7 +25,8 @@ public class PerformanceAnalyzer {
 
     public func startAnalysis() {
         window = PerformanceAnalyzerWindow(frame: .init(x: 10, y: 64, width: UIScreen.main.bounds.width - 10 * 2, height: 200))
-        self.window.rootViewController = OverviewViewController(analyzerItems: self.monitorTypes)
+        let overviewMonitorTypes = self.monitorTypes[..<monitorTypes.endIndex.advanced(by: -1)]
+        self.window.rootViewController = OverviewViewController(analyzerItems: [MonitorType](overviewMonitorTypes))
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.window.makeKeyAndVisible()
         }

@@ -27,11 +27,13 @@ class AnalyzerItemView: UITableViewCell {
                 textLabel?.text = "\(itemType.rawValue): \(value)s"
             case .fps:
                 textLabel?.text = "\(itemType.rawValue): \(value)Hz"
+            case .network:
+                textLabel?.text = "Wrong Operate."
             }
         }
     }
 
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         textLabel?.textColor = .hex(0xff666666)
     }

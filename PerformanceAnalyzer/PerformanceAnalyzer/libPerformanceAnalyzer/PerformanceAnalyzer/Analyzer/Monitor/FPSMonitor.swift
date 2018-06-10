@@ -21,8 +21,7 @@ class FPSMonitor: Monitor {
 
     func start() {
         updater = CADisplayLink(target: self, selector: #selector(onUpdater(_:)))
-        updater.add(to: .main, forMode: .defaultRunLoopMode)
-        updater.add(to: .main, forMode: .UITrackingRunLoopMode)
+        updater.add(to: .main, forMode: .commonModes)
     }
 
     func stop() {

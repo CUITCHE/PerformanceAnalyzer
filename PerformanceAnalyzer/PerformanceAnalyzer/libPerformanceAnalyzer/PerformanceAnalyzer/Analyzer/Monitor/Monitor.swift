@@ -30,7 +30,7 @@ enum MonitorDataType: CustomStringConvertible {
 }
 
 enum MonitorType: String {
-    case fps, memory, pageLoading, cpu, module
+    case fps, memory, pageLoading, cpu, module, network
 }
 
 typealias MonitorTimeInterval = Double
