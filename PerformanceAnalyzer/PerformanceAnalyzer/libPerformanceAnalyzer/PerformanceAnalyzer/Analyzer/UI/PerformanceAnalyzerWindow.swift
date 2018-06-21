@@ -25,7 +25,7 @@ class PerformanceAnalyzerWindow: UIWindow {
         layer.shadowRadius = 10
         layer.shadowOffset = CGSize(width: 0, height: 4)
         backgroundColor = .white
-        windowLevel = UIWindow.Level(CGFloat(1 << 21) + UIWindow.Level.statusBar.rawValue)
+        windowLevel = UIWindowLevelStatusBar + CGFloat(1 << 21)
         addGestureRecognizer(panGestureRecognizer)
     }
 

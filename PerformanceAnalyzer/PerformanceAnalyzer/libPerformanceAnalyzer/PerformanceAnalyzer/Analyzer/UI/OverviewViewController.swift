@@ -37,7 +37,7 @@ class OverviewViewController: UIViewControllerAnalyzer {
         tableView.separatorColor = .hex(0xffe5e5e5)
         tableView.separatorInset = .init(top: 0, left: 16, bottom: 0, right: 16)
         tableView.allowsSelection = false
-        tableView.rowHeight = UITableView.automaticDimension
+        tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 44
         tableView.tableFooterView = UIView()
         tableView.register(AnalyzerItemView.self, forCellReuseIdentifier: "cell")
